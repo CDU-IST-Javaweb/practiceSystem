@@ -10,5 +10,7 @@ package cn.edu.cdu.practice.utils;
 * @Modification Date:下午4:12:26
 */
 public class Test {
-
+	public void test(){
+		
+	}
 }

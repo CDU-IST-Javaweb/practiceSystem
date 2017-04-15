@@ -28,6 +28,6 @@ public interface UserDao {
 	//根据审核条件筛选企业
 	List<Company> queryCompanys(String condition);
 	
-	//管理员审核企业信息，通过，返回success，失败，返回false
-	String checkCompany(Company company);
+	//管理员审核企业信息，通过，返回true，失败，返回false
+	boolean checkCompany(Company company);
 }

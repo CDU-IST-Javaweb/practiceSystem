@@ -6,12 +6,14 @@ import java.util.Date;
 import cn.edu.cdu.practice.model.NoticeCompany;
 
 /**
- * <p>Title: NoticeDao</p>
- * <p>Description: </p>
- * <p>Company: www.com.panda</p> 
- * @author	陈先森
- * @date	2017年4月15日下午3:31:53
+ * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
+ * @FileName NoticeDao.java
  * @version 1.0
+ * @Description: Dao层公告管理操作接口
+ * @Author 陈天雄
+ * @Date： 2017-4-14:上午20:49:04
+ * Modification User： 程序修改时由修改人员编写
+ * Modification Date： 程序修改时间
  */
 public interface NoticeDao {
 	/**

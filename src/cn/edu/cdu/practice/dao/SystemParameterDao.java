@@ -4,12 +4,14 @@ package cn.edu.cdu.practice.dao;
 import cn.edu.cdu.practice.model.SystemParameter;
 
 /**
- * <p>Title: SystemDao</p>
- * <p>Description: </p>
- * <p>Company: www.com.panda</p> 
- * @author	陈先森
- * @date	2017年4月15日上午11:35:49
+ * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
+ * @FileName SystemParameterDao.java
  * @version 1.0
+ * @Description: Dao层系统参数管理操作接口
+ * @Author 陈天雄
+ * @Date： 2017-4-14:上午20:49:04
+ * Modification User： 程序修改时由修改人员编写
+ * Modification Date： 程序修改时间
  */
 public interface SystemParameterDao {
 	/**

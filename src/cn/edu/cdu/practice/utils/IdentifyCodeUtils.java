@@ -24,11 +24,9 @@ public class IdentifyCodeUtils {
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
 		for(int i = 0 ; i < 4 ; i++) {
-			System.out.println(random.nextInt(codeChar.length));
 			char c = codeChar[random.nextInt(codeChar.length)];
 			sb.append(c);
 		}
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 }

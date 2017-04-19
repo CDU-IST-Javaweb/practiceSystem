@@ -38,7 +38,7 @@ public interface CompanyDao {
 	 * @param companyName 企业注册的用户名
 	 * @return 根据传入用户名，返回Company实体类
 	 */
-	Company queryCompanyInfo(String companyName);
+	Company queryCompanyInfo(String companyUserName);
 	
 	/**
 	 * <p>Title: updatePassword</p>
@@ -47,7 +47,7 @@ public interface CompanyDao {
 	 * @param newPassword 企业登录密码
 	 * @return 返回修改成功与否的标志，成功返回true，失败返回false
 	 */
-	boolean updateCompanyPassword(String companyName,String newPassword);
+	boolean updateCompanyPassword(String companyUserName,String newPassword);
 	
 	/**
 	 * <p>Title: queryCompanys</p>

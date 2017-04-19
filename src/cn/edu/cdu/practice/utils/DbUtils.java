@@ -68,7 +68,7 @@ public class DbUtils {
 	 * @param resultSet ResultSet对象
 	 */
 	
-	public void closeConnection(Connection connection, Statement statement,ResultSet resultSet){
+	public static void closeConnection(Connection connection, Statement statement,ResultSet resultSet){
 		if (resultSet != null) {
 			try {
 				resultSet.close();
@@ -93,4 +93,63 @@ public class DbUtils {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * <p>Title: closeConnection</p>
+	 * <p>Description: 数据库关闭操作</p>
+	 * @param connection Connection对象
+	 * @param statement PreparedStatement对象
+	 * @param resultSet ResultSet对象
+	 */
+	public static void closeConnection(Connection connection, PreparedStatement statement,ResultSet resultSet){
+		if (resultSet != null) {
+			try {
+				resultSet.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (statement != null) {
+					try {
+						statement.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (connection != null) {
+							try {
+								connection.close();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * <p>Title: closeConnection</p>
+	 * <p>Description: 数据库关闭操作</p>
+	 * @param connection Connection对象
+	 * @param statement PreparedStatement对象
+	 */
+	public static void closeConnection(Connection connection, PreparedStatement statement){
+				if (statement != null) {
+					try {
+						statement.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (connection != null) {
+							try {
+								connection.close();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}
+			}
 }

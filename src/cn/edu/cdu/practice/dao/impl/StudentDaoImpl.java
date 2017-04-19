@@ -155,10 +155,10 @@ public class StudentDaoImpl implements StudentDao {
 		String sql=null;
 		if(flag==1)
 			sql="select * from student  "
-					+ "where no in (select studentNo from project_select )";
+					+ "where No in (select studentNo from project_select )";
 		else if(flag==2)
 			sql="select * from student  "
-					+ "where no not in (select studentNo from project_select )";
+					+ "where No not in (select studentNo from project_select )";
 		else{
 			new DbUtils().closeConnection(conn, pstmt, rs);
 			return null;
@@ -190,22 +190,126 @@ public class StudentDaoImpl implements StudentDao {
 		return list;
 	}
 
+	/**
+	 * 管理员根据企业名称查询学生信息
+	 * @param companyName 企业名称
+	 * @return 查找到学生实体列表
+	 */
 	@Override
 	public List<Student> findByCompany(String companyName) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn=DbUtils.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Student> list=new ArrayList<Student>();		
+		String sql="select * from student  "
+				+ "where no in (select studentNo from project_select "
+				+ "where company_name=?)";
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, companyName);
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				Student student=new Student();
+				student.setNo(rs.getString("No"));
+				student.setName(rs.getString("name"));
+				student.setGrade(rs.getInt("grade"));
+				student.setLevel(rs.getString("level"));
+				student.setProfessional(rs.getString("professional"));
+				student.setGender(rs.getString("gender"));
+				student.setClass_(rs.getString("class"));
+				student.setPassword(rs.getString("password"));
+				student.setMailbox(rs.getString("mailbox"));
+				student.setSubjectBackground(rs.getString("subject_background"));
+				student.setLearningExperience(rs.getString("learning_experience"));
+				student.setResearchDirection(rs.getString("research_direction"));
+				list.add(student);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			new DbUtils().closeConnection(conn, pstmt, rs);
+		}		
+		return list;		
 	}
 
+	/**
+	 * 查询指定年级的学生记录
+	 * @param grade 年级
+	 * @return 查到学生实体列表
+	 */
 	@Override
 	public List<Student> findByGrade(int grade) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn=DbUtils.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Student> list=new ArrayList<Student>();		
+		String sql="select * from student where grade=?";
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, grade);
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				Student student=new Student();
+				student.setNo(rs.getString("No"));
+				student.setName(rs.getString("name"));
+				student.setGrade(rs.getInt("grade"));
+				student.setLevel(rs.getString("level"));
+				student.setProfessional(rs.getString("professional"));
+				student.setGender(rs.getString("gender"));
+				student.setClass_(rs.getString("class"));
+				student.setPassword(rs.getString("password"));
+				student.setMailbox(rs.getString("mailbox"));
+				student.setSubjectBackground(rs.getString("subject_background"));
+				student.setLearningExperience(rs.getString("learning_experience"));
+				student.setResearchDirection(rs.getString("research_direction"));
+				list.add(student);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			new DbUtils().closeConnection(conn, pstmt, rs);
+		}		
+		return list;		
 	}
 
+	/**
+	 * 查询指定专业的学生
+	 * @param major 专业名称
+	 * @return 查到学生实体列表
+	 */
 	@Override
 	public List<Student> findByMajor(String major) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn=DbUtils.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Student> list=new ArrayList<Student>();		
+		String sql="select * from student where professional=?";
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, major);
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				Student student=new Student();
+				student.setNo(rs.getString("No"));
+				student.setName(rs.getString("name"));
+				student.setGrade(rs.getInt("grade"));
+				student.setLevel(rs.getString("level"));
+				student.setProfessional(rs.getString("professional"));
+				student.setGender(rs.getString("gender"));
+				student.setClass_(rs.getString("class"));
+				student.setPassword(rs.getString("password"));
+				student.setMailbox(rs.getString("mailbox"));
+				student.setSubjectBackground(rs.getString("subject_background"));
+				student.setLearningExperience(rs.getString("learning_experience"));
+				student.setResearchDirection(rs.getString("research_direction"));
+				list.add(student);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			new DbUtils().closeConnection(conn, pstmt, rs);
+		}		
+		return list;	
 	}
 
 	@Override

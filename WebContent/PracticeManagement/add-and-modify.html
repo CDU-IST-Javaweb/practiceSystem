@@ -19,7 +19,11 @@
     <!-- Propeller css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller.min.css">
 
-
+    <!-- Select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2-bootstrap.css" />
+    <!-- Propeller select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/pmd-select2.css" />
     <!-- Propeller theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-theme.css" />
 
@@ -261,7 +265,6 @@
     </aside>
     <!-- End Left sidebar -->
     <!-- Sidebar Ends -->
-
     <!--content area start-->
     <div id="content" class="pmd-content inner-page">
         <!--tab start-->
@@ -275,109 +278,131 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>系统配置</span>
+                    <span>实训方案管理</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
                     <li><a href="index.html">主页</a></li>
-                    <li class="active">系统参数配置</li>
+                    <li class="active">方案管理</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
-
             <div class="col-md-12">
                 <div class="component-box">
+                    <!-- input states example -->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="pmd-card pmd-z-depth pmd-card-custom-form">
                                 <div class="pmd-card-body">
-                                    <div class="table-responsive">
-                                        <table class="table pmd-table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>管理员用户名</th>
-                                                    <th>管理员密码</th>
-                                                    <th>邀请码</th>
-                                                    <th>企业发布方案开始日期</th>
-                                                    <th>企业发布方案截至日期</th>
-                                                    <th>学生选择案开始日期</th>
-                                                    <th>学生选择案截至日期</th>
-                                                    <th>学生最多待选方案数量</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr contenteditable="true">
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <h2>添加修改实训方案</h2>
                                     <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">管理员用户名：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">企业用户名</label></div>
+                                            <input type="text" disabled="" value="******" class="mat-input form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">方案号</label></div>
+                                            <input type="text" disabled="" value="******" class="mat-input form-control ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">方案名称</label></div>
+                                            <input type="text" value="" class="mat-input form-control ">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">管理员密码：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">邀请码：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">企业发布方案开始日期：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">企业发布方案截至日期：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学生选择案开始日期：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学生选择案截至日期：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学生最多待选方案数量：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 提交 </button>
-                                        <button type="button" class="btn pmd-ripple-effect btn-success"> 添加 </button>
+                                        <label class="control-label col-md-2 arer-lable">方案简介</label>
+                                        <textarea required class="form-control"></textarea>
                                     </div>
 
+                                    <div class="form-group pmd-textfield">
+                                        <label class="control-label col-md-2">适合专业</label>
+                                        <form>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="" >
+											<span> 专业1</span> </label>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="">
+											<span> 专业2</span> </label>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="">
+											<span> 专业3</span> </label>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="" >
+											<span> 专业1</span> </label>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="">
+											<span> 专业2</span> </label>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="">
+											<span> 专业3</span> </label>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="" >
+											<span> 专业1</span> </label>
+                                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+											<input type="checkbox" value="">
+											<span> 专业2</span> </label>
+                                        </form>
+                                    </div>
+
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">学生人数</label></div>
+                                            <input type="text" value="" class="mat-input form-control ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">类别</label></div>
+                                            <select class="select-with-search form-control pmd-select2">
+                                            <option>类别一</option>
+                                            <option>类别二</option>
+                                            <option>类别三</option>
+                                            <option>类别四</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <!--Simple Select with Search-->
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">年级</label></div>
+                                            <select class="select-tags form-control pmd-select2-tags" multiple>
+                                            <option>大一</option>
+                                            <option>大二</option>
+                                            <option>大三</option>
+                                            <option>大四</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">校外指导老师</label></div>
+                                            <input type="text" value="" class="mat-input form-control ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">校外指导老师职称</label></div>
+                                            <select class="select-with-search form-control pmd-select2">
+											<option>职称1</option>
+											<option>职称2</option>
+											<option>职称3</option>
+										</select>
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                    <!-- input states example end -->
                 </div>
             </div>
 
@@ -431,10 +456,10 @@
             var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
             $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").addClass("active");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").addClass("active");
             });
         });
     </script>
@@ -458,7 +483,34 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
+    <!-- Select2 js-->
+    <script type="text/javascript" src="../components/select2/js/select2.full.js"></script>
 
+    <!-- Propeller Select2 -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".select-simple").select2({
+                theme: "bootstrap",
+                minimumResultsForSearch: Infinity,
+            });
+
+            $(".select-with-search").select2({
+                theme: "bootstrap"
+            });
+
+            $(".select-tags").select2({
+                tags: false,
+                theme: "bootstrap",
+            });
+
+            $(".select-add-tags").select2({
+                tags: true,
+                theme: "bootstrap",
+            });
+        });
+    </script>
+    <script type="text/javascript" src="../components/select2/js/pmd-select2.js"></script>
 
 </body>
 

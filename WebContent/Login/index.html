@@ -314,14 +314,14 @@
 						</span>
                             </div>
                             <div class="media-body media-middle">
-                                <h2 class="pmd-card-title-text typo-fill-secondary">成员分布<span class="grow-up"><img src="assets/images/grow-up-arrow.png" alt="grow-up"></span></h2>
+                                <h2 style="text-align: left;" class="pmd-card-title-text typo-fill-secondary">成员分布<span class="grow-up"><img src="../assets/images/grow-up-arrow.png" alt="grow-up"></span></h2>
                             </div>
                             <div class="media-right datetimepicker">
                                 <!--calendar start-->
                                 <div class="range-calendar" style=" height:40px;">
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group">
-                                            <input id="datepicker-default" type="text" class="form-control datepicker" placeholder="Choose date">
+                                            <input style="width: 158px;" id="datepicker-default" type="text" class="form-control datepicker" placeholder="Choose date">
                                             <div class="input-group-addon hidden-xs">
                                                 <svg x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
 											<g>
@@ -378,7 +378,7 @@
                                         <tr>
                                             <td class="media-left">已审核方案</td>
                                             <td class="media-body">
-                                                <div class="progress cash-progressbar">
+                                                <div class="progress 1cash-progressbar">
                                                     <div class="progress-bar"></div>
                                                 </div>
                                             </td>
@@ -418,7 +418,7 @@
                                                     <div class="progress-bar"></div>
                                                 </div>
                                             </td>
-                                            <td class="media-right">32,301</td>
+                                            <td class="media-right">301</td>
                                         </tr>
                                         <tr>
                                             <td class="media-left">未审核通知</td>
@@ -451,7 +451,7 @@
 						</span>
                             </div>
                             <div class="media-body media-middle">
-                                <h2 class="pmd-card-title-text typo-fill-secondary">开发人员</h2>
+                                <h2 style="text-align: left;" class="pmd-card-title-text typo-fill-secondary">开发人员</h2>
                             </div>
                         </div>
                         <ul class="list-group pmd-card-list pmd-list-avatar">
@@ -634,6 +634,7 @@
         }
 
         progress(50, $('.cash-progressbar'));
+        progress(40, $('.1cash-progressbar'));
         progress(30, $('.card-progressbar'));
         progress(60, $('.wallet-progressbar'));
         progress(40, $('.credit-progressbar'));

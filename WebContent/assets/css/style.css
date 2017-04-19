@@ -29,3 +29,28 @@
 .total-revenue {
     font-size: 13px;
 }
+
+h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.input-group-addon {
+    width: 160px;
+    text-align: left;
+}
+
+.arer-lable {
+    width: 160px;
+    text-align: left;
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.pmd-card-body {
+    overflow: hidden;
+}

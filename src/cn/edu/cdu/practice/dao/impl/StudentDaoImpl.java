@@ -58,7 +58,7 @@ public class StudentDaoImpl implements StudentDao {
 			e.printStackTrace();
 			return false;
 		} finally{
-			(new DbUtils()).closeConnection(conn, pstmt, null);
+			DbUtils.closeConnection(conn, pstmt, null);
 		}		
 		return true;
 	}
@@ -96,7 +96,7 @@ public class StudentDaoImpl implements StudentDao {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
-			new DbUtils().closeConnection(conn, pstmt, rs);
+			DbUtils.closeConnection(conn, pstmt, rs);
 		}		
 		return list;
 	}
@@ -136,7 +136,7 @@ public class StudentDaoImpl implements StudentDao {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
-			new DbUtils().closeConnection(conn, pstmt, rs);
+			DbUtils.closeConnection(conn, pstmt, rs);
 		}		
 		return student;
 	}
@@ -160,7 +160,7 @@ public class StudentDaoImpl implements StudentDao {
 			sql="select * from student  "
 					+ "where No not in (select studentNo from project_select )";
 		else{
-			new DbUtils().closeConnection(conn, pstmt, rs);
+			DbUtils.closeConnection(conn, pstmt, rs);
 			return null;
 		}
 		try{
@@ -185,7 +185,7 @@ public class StudentDaoImpl implements StudentDao {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
-			new DbUtils().closeConnection(conn, pstmt, rs);
+			DbUtils.closeConnection(conn, pstmt, rs);
 		}		
 		return list;
 	}
@@ -267,7 +267,7 @@ public class StudentDaoImpl implements StudentDao {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
-			new DbUtils().closeConnection(conn, pstmt, rs);
+			DbUtils.closeConnection(conn, pstmt, rs);
 		}		
 		return list;		
 	}
@@ -307,7 +307,7 @@ public class StudentDaoImpl implements StudentDao {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
-			new DbUtils().closeConnection(conn, pstmt, rs);
+			DbUtils.closeConnection(conn, pstmt, rs);
 		}		
 		return list;	
 	}

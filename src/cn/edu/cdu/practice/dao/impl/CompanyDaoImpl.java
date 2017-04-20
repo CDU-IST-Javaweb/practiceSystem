@@ -108,6 +108,9 @@ public class CompanyDaoImpl implements CompanyDao{
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public boolean updateCompanyPassword(String companyUserName, String newPassword) {
 		Connection connection = DbUtils.getConnection();
 		//sql拼接更新语句，防止sql注入

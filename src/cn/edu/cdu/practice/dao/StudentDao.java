@@ -45,7 +45,7 @@ public interface StudentDao {
 	/**
 	 * 管理员根据企业名称查询学生信息
 	 * @param companyName 企业名称
-	 * @return
+	 * @return 查找到学生实体列表
 	 */
 	public List<Student> findByCompany(String companyName);
 	

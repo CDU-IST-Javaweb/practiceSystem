@@ -22,13 +22,12 @@ public class UserServiceImpl implements UserService{
 	//用户登录时，在页面选择角色，然后输入需要的参数，如果验证码和session中的一致，则进行下一步验证
 	//如果role=1，进企业表；如果role=2，进学生表；如果role=9，进系统参数表
 	public boolean login(String account, String password, String Verification_Code, String Session_Verification_Code,String role) {
-		DbUtils db = new DbUtils();
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
 		ResultSet rs;
 		PreparedStatement ps;
-		//如果验证码不正确，返回false
-		if(!Verification_Code.equals(Session_Verification_Code)){
+		//如果验证码不正确或没有得到验证码，返回false
+		if(Verification_Code == null || !Verification_Code.equals(Session_Verification_Code)){
 			Log4jUtils.info("用户验证码输入错误");
 			return false;
 		}
@@ -55,16 +54,17 @@ public class UserServiceImpl implements UserService{
 			ps.setString(1, account);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
-			while(rs.next()){
+			if(rs.next()){
 				Log4jUtils.info("用户登录成功");
 				//根据角色不同，跳转到不同页面。
 			}
-			db.closeConnection(con, ps, rs);
+			DbUtils.closeConnection(con, ps, rs);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Log4jUtils.info("用户登录不成功");
 		return false;
 	}
 

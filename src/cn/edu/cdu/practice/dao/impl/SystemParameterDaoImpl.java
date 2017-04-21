@@ -37,10 +37,10 @@ public class SystemParameterDaoImpl implements SystemParameterDao {
 			ps.setString(1, systemConfig.getAdminUsername());
 			ps.setString(2, systemConfig.getAdminPassword());
 			ps.setString(3, systemConfig.getInvitationCode());
-			ps.setTimestamp(4, systemConfig.getReleaseProjectStartDate());
-			ps.setTimestamp(5, systemConfig.getReleaseProjectEndDate());
-			ps.setTimestamp(6, systemConfig.getStudentSelStartDate());
-			ps.setTimestamp(7, systemConfig.getStudentSelEndDate());
+			ps.setDate(4, systemConfig.getReleaseProjectStartDate());
+			ps.setDate(5, systemConfig.getReleaseProjectEndDate());
+			ps.setDate(6, systemConfig.getStudentSelStartDate());
+			ps.setDate(7, systemConfig.getStudentSelEndDate());
 			ps.setInt(8, systemConfig.getStudentSelMaxnum());
 			//执行语句
 			ps.execute();

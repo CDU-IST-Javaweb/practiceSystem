@@ -1,6 +1,7 @@
 package cn.edu.cdu.practice.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName Company.java
@@ -18,8 +19,8 @@ public class NoticeCompany implements java.io.Serializable {
 
 	private Integer id;
 	private String companyUsername;
-	private Timestamp releaseDate;
-	private Timestamp auditDate;
+	private Date releaseDate;
+	private Date auditDate;
 	private String content;
 
 	// Constructors
@@ -29,7 +30,7 @@ public class NoticeCompany implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public NoticeCompany(String companyUsername, Timestamp releaseDate,
+	public NoticeCompany(String companyUsername, Date releaseDate,
 			String content) {
 		this.companyUsername = companyUsername;
 		this.releaseDate = releaseDate;
@@ -37,8 +38,8 @@ public class NoticeCompany implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public NoticeCompany(String companyUsername, Timestamp releaseDate,
-			Timestamp auditDate, String content) {
+	public NoticeCompany(String companyUsername, Date releaseDate,
+			Date auditDate, String content) {
 		this.companyUsername = companyUsername;
 		this.releaseDate = releaseDate;
 		this.auditDate = auditDate;
@@ -63,19 +64,19 @@ public class NoticeCompany implements java.io.Serializable {
 		this.companyUsername = companyUsername;
 	}
 
-	public Timestamp getReleaseDate() {
+	public Date getReleaseDate() {
 		return this.releaseDate;
 	}
 
-	public void setReleaseDate(Timestamp releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 
-	public Timestamp getAuditDate() {
+	public Date getAuditDate() {
 		return this.auditDate;
 	}
 
-	public void setAuditDate(Timestamp auditDate) {
+	public void setAuditDate(Date auditDate) {
 		this.auditDate = auditDate;
 	}
 

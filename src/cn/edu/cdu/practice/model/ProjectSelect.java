@@ -1,6 +1,7 @@
 package cn.edu.cdu.practice.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName Company.java
@@ -18,7 +19,7 @@ public class ProjectSelect implements java.io.Serializable {
 
 	private ProjectSelectId id;
 	private String selReason;
-	private Timestamp companySelDate;
+	private Date companySelDate;
 	private String score;
 	private String companyName;
 
@@ -38,7 +39,7 @@ public class ProjectSelect implements java.io.Serializable {
 
 	/** full constructor */
 	public ProjectSelect(ProjectSelectId id, String selReason,
-			Timestamp companySelDate, String score, String companyName) {
+			Date companySelDate, String score, String companyName) {
 		this.id = id;
 		this.selReason = selReason;
 		this.companySelDate = companySelDate;
@@ -64,11 +65,11 @@ public class ProjectSelect implements java.io.Serializable {
 		this.selReason = selReason;
 	}
 
-	public Timestamp getCompanySelDate() {
+	public Date getCompanySelDate() {
 		return this.companySelDate;
 	}
 
-	public void setCompanySelDate(Timestamp companySelDate) {
+	public void setCompanySelDate(Date companySelDate) {
 		this.companySelDate = companySelDate;
 	}
 

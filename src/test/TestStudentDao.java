@@ -15,8 +15,8 @@ import cn.edu.cdu.practice.model.Student;
 * @date 创建时间：2017年4月19日 下午1:03:01 
 * @FileName:TestStudentDao.java
 * @version 1.0 
-* @Description:  
-* @Author:
+* @Description: 学生信息管理中Dao层测试 
+* @Author: 刘永红
 * @Modification User:
 * @Modification Date:下午1:03:01
 */

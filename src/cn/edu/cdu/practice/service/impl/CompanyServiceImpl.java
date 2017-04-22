@@ -24,7 +24,6 @@ public class CompanyServiceImpl implements CompanyService{
 	 * 处理公司注册的业务逻辑
 	 */
 	public boolean registerCompanyInfo(Company company) {
-		
 			try {
 				if (company != null ) {
 					return this.companyDao.registerCompanyInfo(company);

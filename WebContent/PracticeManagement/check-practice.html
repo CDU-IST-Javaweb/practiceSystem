@@ -19,7 +19,11 @@
     <!-- Propeller css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller.min.css">
 
-
+    <!-- Select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2-bootstrap.css" />
+    <!-- Propeller select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/pmd-select2.css" />
     <!-- Propeller theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-theme.css" />
 
@@ -27,8 +31,6 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
     <!--my style css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-    <!--wangeditor-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/wangEditor.min.css">
     <!-- Styles Ends -->
 </head>
 
@@ -263,7 +265,7 @@
     </aside>
     <!-- End Left sidebar -->
     <!-- Sidebar Ends -->
-
+    <!--content area start-->
     <div id="content" class="pmd-content inner-page">
         <!--tab start-->
         <div class="container-fluid full-width-container value-added-detail-page">
@@ -276,54 +278,101 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>通知公告管理</span>
+                    <span>实训方案管理</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
                     <li><a href="index.html">主页</a></li>
-                    <li class="active">发布通知公告修改</li>
+                    <li class="active">方案管理</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
-
             <div class="col-md-12">
                 <div class="component-box">
+                    <!-- input states example -->
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="pmd-card pmd-z-depth">
-                                <div class="pmd-card-body pmd-card-custom-form">
-                                    <h2>企业通知公告</h2>
+                            <div class="pmd-card pmd-z-depth pmd-card-custom-form">
+                                <div class="pmd-card-body">
+                                    <h2>查看XXX公司实训方案</h2>
                                     <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">ID：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">企业用户名</label></div>
+                                            <input type="text" disabled="" value="******" class="mat-input form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">方案号</label></div>
+                                            <input type="text" disabled="" value="******" class="mat-input form-control ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">方案名称</label></div>
+                                            <input type="text" disabled="" value="xxx" class="mat-input form-control ">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">企业用户名：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
-                                        </div>
+                                        <label class="control-label col-md-2 arer-lable">方案简介</label>
+                                        <textarea disabled="" required class="form-control">成都学院（成都大学）（Chengdu University），简称“成大”，学校位于素有天府之国美誉的国家历史文化名城成都，是成都市人民政府主办的唯一一所全日制普通本科院校，实行“省市共建、以市为主”办学体制的地方综合性大学。学校始建于1978... </textarea>
                                     </div>
+
                                     <div class="form-group pmd-textfield">
+                                        <label class="control-label col-md-2">适合专业</label>
+
+                                        <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">									
+											<span> 专业1111</span>
+                                             </label>
+                                        <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">									
+											<span> 专业2222</span> 
+                                            </label>
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group pmd-textfield ">
                                         <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">标题：</label></div>
-                                            <input type="text"  value="标题长度不超过10" class="mat-input form-control">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">学生人数</label></div>
+                                            <input disabled="" type="text" value="22" class="mat-input form-control ">
                                         </div>
                                     </div>
-                                    <div class="form-group pmd-textfield col-md-12">
-                                        <label class="control-label  arer-lable">内容:</label>
-                                        <textarea id="editor-trigger" style="display:none;height:800px;"><p>请输入内容...</p></textarea>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">类别</label></div>
+                                            <input type="text" disabled="" value="类别一" class="mat-input form-control ">
+                                        </div>
                                     </div>
-                                    <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 提交 </button>
-                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">年级</label></div>
+                                            <input type="text" disabled="" value="大一" class="mat-input form-control ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">校外指导老师</label></div>
+                                            <input type="text" disabled="" value="yzh" class="mat-input form-control ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield ">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">校外指导老师职称</label></div>
+                                            <input type="text" disabled="" value="教授" class="mat-input form-control ">
+                                        </div>
+                                    </div>
+                                    <div class="button-group">
+                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-primary"> 返回 </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
+                    <!-- input states example end -->
                 </div>
             </div>
 
@@ -377,10 +426,10 @@
             var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
             $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../SystemsManagement/" + sPage + "']").addClass("active");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='../PracticeManagement/" + sPage + "']").addClass("active");
             });
         });
     </script>
@@ -404,76 +453,34 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
-    <script src="../assets/js/wangEditor.js"></script>
-        <script type="text/javascript">
-        // 阻止输出log
-        wangEditor.config.printLog = false;
+    <!-- Select2 js-->
+    <script type="text/javascript" src="../components/select2/js/select2.full.js"></script>
 
-        var editor = new wangEditor('editor-trigger');
+    <!-- Propeller Select2 -->
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-        // 上传图片
-        editor.config.uploadImgUrl = '/upload';
-        editor.config.uploadParams = {
-            // token1: 'abcde',
-            // token2: '12345'
-        };
-        editor.config.uploadHeaders = {
-                // 'Accept' : 'text/x-json'
-            }
-            // editor.config.uploadImgFileName = 'myFileName';
+            $(".select-simple").select2({
+                theme: "bootstrap",
+                minimumResultsForSearch: Infinity,
+            });
 
-        // 隐藏网络图片
-        // editor.config.hideLinkImg = true;
+            $(".select-with-search").select2({
+                theme: "bootstrap"
+            });
 
-        // 表情显示项
-        editor.config.emotionsShow = 'value';
-        editor.config.emotions = {
-            'default': {
-                title: '默认',
-                data: './emotions.data'
-            },
-            'weibo': {
-                title: '微博表情',
-                data: [{
-                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif',
-                    value: '[草泥马]'
-                }, {
-                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/60/horse2_thumb.gif',
-                    value: '[神马]'
-                }, {
-                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/bc/fuyun_thumb.gif',
-                    value: '[浮云]'
-                }, {
-                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/c9/geili_thumb.gif',
-                    value: '[给力]'
-                }, {
-                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/f2/wg_thumb.gif',
-                    value: '[围观]'
-                }, {
-                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/70/vw_thumb.gif',
-                    value: '[威武]'
-                }]
-            }
-        };
+            $(".select-tags").select2({
+                tags: false,
+                theme: "bootstrap",
+            });
 
-        // 插入代码时的默认语言
-        // editor.config.codeDefaultLang = 'html'
-
-        // 只粘贴纯文本
-        // editor.config.pasteText = true;
-
-        // 跨域上传
-        // editor.config.uploadImgUrl = 'http://localhost:8012/upload';
-
-        // 第三方上传
-        // editor.config.customUpload = true;
-
-        // onchange 事件
-        editor.onchange = function() {
-            console.log(this.$txt.html());
-        };
-        editor.create();
+            $(".select-add-tags").select2({
+                tags: true,
+                theme: "bootstrap",
+            });
+        });
     </script>
+    <script type="text/javascript" src="../components/select2/js/pmd-select2.js"></script>
 
 </body>
 

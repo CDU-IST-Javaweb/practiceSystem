@@ -56,8 +56,9 @@ public class TestStudentDao {
 		//Student student=new Student();
 		StudentDaoImpl stuDI=new StudentDaoImpl();
 		//list=stuDI.findByCompany("中云测");
-		list=stuDI.findByMajor("自动化(本)");
+		//list=stuDI.findByMajor("自动化(本)");
 		//student=stuDI.findById("201401");
+		list=stuDI.findByYear(2017);
 		
 		if(list.size()>0)
 			for(int i=0;i<list.size();i++){
@@ -72,6 +73,36 @@ public class TestStudentDao {
 		}else
 			System.out.println("没找到指定学生!");
 	    */
+	}
+	/*
+	@Test
+	public void testStudentUpdate(){
+		Student stu=new Student();
+		stu.setNo("201401");
+		stu.setName("张小山");
+		stu.setGrade(2014);
+		stu.setLevel("概念实习");
+		stu.setProfessional("软件工程(本)");
+		stu.setGender("男");
+		stu.setClass_("3班");
+		stu.setPassword("123");
+		stu.setMailbox("123@qq.com");
+		stu.setSubjectBackground("软件工程本科学历");
+		stu.setLearningExperience(null);
+		stu.setResearchDirection(null);
+		StudentDaoImpl stuDI=new StudentDaoImpl();
+		stuDI.update(stu);
+	}*/
+	@Test
+	public void testDelete(){
+		String id="1";
+		StudentDaoImpl stuDI=new StudentDaoImpl();
+		boolean b=stuDI.delete(id);
+		
+		if(b)
+			System.out.println("删除成功！");
+		else
+			System.out.println("删除失败!");
 	}
 
 }

@@ -1,6 +1,6 @@
 package cn.edu.cdu.practice.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName Company.java
@@ -23,9 +23,9 @@ public class Project implements java.io.Serializable {
 	private String companyUsername;
 	private String companyTeacher;
 	private String companyTeacherTitle;
-	private Timestamp releaseDate;
-	private Timestamp auditDate;
-	private Timestamp endDate;
+	private Date releaseDate;
+	private Date auditDate;
+	private Date endDate;
 	private String summary;
 	private Integer grade;
 	private String category;
@@ -39,7 +39,7 @@ public class Project implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Project(String no, String name, String introduction,
-			Integer studentsNum, String companyUsername, Timestamp releaseDate,
+			Integer studentsNum, String companyUsername, Date releaseDate,
 			Integer grade, String category, String major) {
 		this.no = no;
 		this.name = name;
@@ -55,8 +55,8 @@ public class Project implements java.io.Serializable {
 	/** full constructor */
 	public Project(String no, String name, String introduction,
 			Integer studentsNum, String companyUsername, String companyTeacher,
-			String companyTeacherTitle, Timestamp releaseDate,
-			Timestamp auditDate, Timestamp endDate, String summary,
+			String companyTeacherTitle, Date releaseDate,
+			Date auditDate, Date endDate, String summary,
 			Integer grade, String category, String major) {
 		this.no = no;
 		this.name = name;
@@ -132,27 +132,27 @@ public class Project implements java.io.Serializable {
 		this.companyTeacherTitle = companyTeacherTitle;
 	}
 
-	public Timestamp getReleaseDate() {
+	public Date getReleaseDate() {
 		return this.releaseDate;
 	}
 
-	public void setReleaseDate(Timestamp releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 
-	public Timestamp getAuditDate() {
+	public Date getAuditDate() {
 		return this.auditDate;
 	}
 
-	public void setAuditDate(Timestamp auditDate) {
+	public void setAuditDate(Date auditDate) {
 		this.auditDate = auditDate;
 	}
 
-	public Timestamp getEndDate() {
+	public Date getEndDate() {
 		return this.endDate;
 	}
 
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

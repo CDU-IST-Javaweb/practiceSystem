@@ -1,6 +1,6 @@
 package cn.edu.cdu.practice.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName Company.java
@@ -17,7 +17,7 @@ public class NoticeAdmin implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private Timestamp releaseDate;
+	private Date releaseDate;
 	private String content;
 
 	// Constructors
@@ -27,7 +27,7 @@ public class NoticeAdmin implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public NoticeAdmin(Timestamp releaseDate, String content) {
+	public NoticeAdmin(Date releaseDate, String content) {
 		this.releaseDate = releaseDate;
 		this.content = content;
 	}
@@ -42,11 +42,11 @@ public class NoticeAdmin implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getReleaseDate() {
+	public Date getReleaseDate() {
 		return this.releaseDate;
 	}
 
-	public void setReleaseDate(Timestamp releaseDate) {
+	public void setReleaseDate(Date releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 

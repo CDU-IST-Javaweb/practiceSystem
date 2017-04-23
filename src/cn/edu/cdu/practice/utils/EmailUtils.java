@@ -24,11 +24,11 @@ import cn.edu.cdu.practice.model.MailboxVerification;
  * Modification Date： 程序修改时间
  */
 public class EmailUtils {
-	public static boolean sendMail(String email,int type) {
+	public static boolean sendMail(String emailFrom,String pwd,String emailTo,int type) {
 		 Properties p = new Properties();  
 		 //smtp服务器信息
-	     p.put("mail.smtp.host", "smtp.qq.com");  
-	     p.put("mail.smtp.port", "25");
+	     p.put("mail.smtp.host", "smtp.163.com");  
+	     p.put("mail.transport.protocol", "smtp");
 	     p.put("mail.smtp.auth", "true");  
 	     
 	     //设置发送邮件的账号和密码
@@ -36,24 +36,25 @@ public class EmailUtils {
 	         @Override
 	         protected PasswordAuthentication getPasswordAuthentication() {
 	         //两个参数分别是发送邮件的账户和密码
-	         return new PasswordAuthentication("","");
+	         return new PasswordAuthentication(emailFrom,pwd);
 	                 }
 	      });  
 	     //生成验证码
 	     String identifyCode = IdentifyCodeUtils.getCode();
-	     MailboxVerification mailboxVerification = new MailboxVerification(email, type, identifyCode);
+	     MailboxVerification mailboxVerification = new MailboxVerification(emailTo, type, identifyCode);
 	     //创建邮件对象
 	     Message mailMessage = new MimeMessage(session);  
 	     try {  
 	         System.out.println("I'm sending...");  
-	         Address from = new InternetAddress("");  
+	         Address from = new InternetAddress(emailFrom);  
 	         //设置发出方  
 	         mailMessage.setFrom(from);  
-	         Address to = new InternetAddress(email);
+	         Address to = new InternetAddress(emailTo);
 	         //设置接收人员  
-	         mailMessage.setRecipient(Message.RecipientType.TO, to);  
-	         mailMessage.setSubject("成都大学信工学院企业注册验证");//设置邮件标题  
-	         mailMessage.setText("您的验证码是"+identifyCode+"，请确认是本人操作"); //设置邮件内容  
+	         mailMessage.setRecipient(Message.RecipientType.TO, to); 
+	         System.out.println(emailTo);
+	         mailMessage.setSubject("成都大学信工学院实训系统企业验证");//设置邮件标题  
+	         mailMessage.setContent("您的验证码是"+identifyCode+"，请确认是本人操作","text/html;charset=utf-8"); //设置邮件内容  
 	         // 发送邮件  
 	         Transport.send(mailMessage);  
 	         return true;  

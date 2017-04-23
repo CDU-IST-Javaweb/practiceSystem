@@ -1,22 +1,20 @@
+package cn.edu.cdu.practice.service;
 
-package cn.edu.cdu.practice.dao;
-
-import java.sql.Date;
 import java.util.List;
 
 import cn.edu.cdu.practice.model.Company;
 
 /**
- * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
- * @FileName CompanyDao.java
- * @version 1.0
- * @Description: Dao层企业信息管理操作接口
- * @Author 陈天雄
- * @Date： 2017-4-14:上午20:49:04
- * Modification User： 程序修改时由修改人员编写
- * Modification Date： 程序修改时间
- */
-public interface CompanyDao {
+  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
+  * @FileName CompanyService.java
+  * @version 1.0
+  * @Description: 企业信息管理操作
+  * @Author 陈天雄
+  * @Date： 2017-4-21:下午2:41:54
+  * Modification User： 程序修改时由修改人员编写
+  * Modification Date： 程序修改时间
+  */
+public interface CompanyService {
 	/**
 	 * <p>Title: registerCompanyInfo</p>
 	 * <p>Description: 该接口方法主要处理公司注册</p>
@@ -33,13 +31,6 @@ public interface CompanyDao {
 	 */
 	boolean updateCompanyInfo(Company company);
 	
-	/**
-	 * <p>Title: queryCompanyInfo</p>
-	 * <p>Description: 该接口方法主要处理企业查询信息 </p>
-	 * @param companyName 企业注册的用户名
-	 * @return 根据传入用户名，返回Company实体类
-	 */
-	Company queryCompanyInfo(String companyUserName);
 	
 	/**
 	 * <p>Title: updatePassword</p>
@@ -51,29 +42,12 @@ public interface CompanyDao {
 	boolean updateCompanyPassword(String companyUserName,String newPassword);
 	
 	/**
-	 * <p>Title: queryCompanys</p>
-	 * <p>Description: 该接口方法主要处理根据条件,查询已经审核的企业</p>
+	 * <p>Title: queryViryFyCompanys</p>
+	 * <p>Description: 查询企业</p>
 	 * @param condition 查询条件
-	 * @return 返回List<Company>集合
+	 * @return 返回查询到的企业的集合
 	 */
-	List<Company> queryViryFyCompanys();
-	
-	/**
-	 * 
-	 * <p>Title: queryNotVirefyCompanys</p>
-	 * <p>Description: 该接口方法主要处理根据条件,查询未审核的企业</p>
-	 * @return 返回List<Company>集合
-	 */
-	List<Company> queryNotVirefyCompanys();
-	
-	/**
-	 * 
-	 * <p>Title: queryAllCompanys</p>
-	 * <p>Description:该接口方法主要处理根据条件,查询所有企业 </p>
-	 * @return 返回List<Company>集合
-	 */
-	List<Company> queryAllCompanys();
-	
+	public List<Company> queryCompanys(String condition);
 	/**
 	 * <p>Title: deleteCompany</p>
 	 * <p>Description: 删除企业信息</p>

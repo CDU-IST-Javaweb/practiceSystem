@@ -1,6 +1,4 @@
-
-package cn.edu.cdu.practice.dao;
-
+package cn.edu.cdu.practice.service;
 
 import java.sql.Date;
 
@@ -8,15 +6,15 @@ import cn.edu.cdu.practice.model.NoticeCompany;
 
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
- * @FileName NoticeDao.java
+ * @FileName CompanyService.java
  * @version 1.0
- * @Description: Dao层公告管理操作接口
+ * @Description: 企业信息管理操作
  * @Author 陈天雄
- * @Date： 2017-4-14:上午20:49:04
+ * @Date： 2017-4-22:下午4:56:00
  * Modification User： 程序修改时由修改人员编写
  * Modification Date： 程序修改时间
  */
-public interface NoticeDao {
+public interface NoticeService {
 	/**
 	 * <p>Title: updateCompanyNotice</p>
 	 * <p>Description: 修改企业发布的通知公告</p>

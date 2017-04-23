@@ -27,7 +27,7 @@ public class NoticeDaoImpl implements NoticeDao {
 		//获取数据库连接
 		Connection connection = DbUtils.getConnection();
 		String registSql = "update notice_company set ID = ? ,company_username = ?,"
-				+ "release_date = ?,audit_date = ?,content = ? where ID = ?";
+				+ "release_date = ?,audit_date = ?,content = ?,title = ? where ID = ?";
 		PreparedStatement ps = null ;
 		try {
 			 connection.setAutoCommit(false);//设置手动提交事务
@@ -37,7 +37,8 @@ public class NoticeDaoImpl implements NoticeDao {
 			 ps.setDate(3, companyNotice.getReleaseDate());
 			 ps.setDate(4, companyNotice.getAuditDate());
 			 ps.setString(5,companyNotice.getContent());
-			 ps.setInt(6, companyNotice.getId());
+			 ps.setString(6, companyNotice.getTitle());
+			 ps.setInt(7, companyNotice.getId());
 			 ps.execute();
 			 connection.commit();//提交事务
 			 return true ;
@@ -94,7 +95,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	public void provideAnnouncement(NoticeCompany companyNotice) {
 				//获取数据库连接
 				Connection connection = DbUtils.getConnection();
-				String registSql = "insert into notice_company values(?,?,?,?,?)";
+				String registSql = "insert into notice_company values(?,?,?,?,?,?)";
 				PreparedStatement ps = null ;
 				try {
 					 connection.setAutoCommit(false);//设置手动提交事务
@@ -103,7 +104,8 @@ public class NoticeDaoImpl implements NoticeDao {
 					 ps.setString(2, companyNotice.getCompanyUsername());
 					 ps.setDate(3, companyNotice.getReleaseDate());
 					 ps.setDate(4, companyNotice.getAuditDate());
-					 ps.setString(5,companyNotice.getContent());
+					 ps.setString(5, companyNotice.getTitle());
+					 ps.setString(6,companyNotice.getContent());
 					 ps.execute();
 					 connection.commit();//提交事务
 				} catch (Exception e) {

@@ -1,4 +1,7 @@
 package cn.edu.cdu.practice.model;
+
+import java.sql.Date;
+
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName Company.java
@@ -22,6 +25,7 @@ public class Company implements java.io.Serializable {
 	private String phone;
 	private String address;
 	private String profile;
+	private Date auditDate;
 
 	// Constructors
 
@@ -31,13 +35,14 @@ public class Company implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Company(String username, String companyName, String mailbox,
-			String password, String contacts, String phone) {
+			String password, String contacts, String phone,Date auditDate) {
 		this.username = username;
 		this.companyName = companyName;
 		this.mailbox = mailbox;
 		this.password = password;
 		this.contacts = contacts;
 		this.phone = phone;
+		this.auditDate = auditDate;
 	}
 
 	/** full constructor */
@@ -119,5 +124,15 @@ public class Company implements java.io.Serializable {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+
+	public Date getAuditDate() {
+		return auditDate;
+	}
+
+	public void setAuditDate(Date auditDate) {
+		this.auditDate = auditDate;
+	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 
 package cn.edu.cdu.practice.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import cn.edu.cdu.practice.model.Company;
@@ -38,7 +39,7 @@ public interface CompanyDao {
 	 * @param companyName 企业注册的用户名
 	 * @return 根据传入用户名，返回Company实体类
 	 */
-	Company queryCompanyInfo(String companyName);
+	Company queryCompanyInfo(String companyUserName);
 	
 	/**
 	 * <p>Title: updatePassword</p>
@@ -47,16 +48,39 @@ public interface CompanyDao {
 	 * @param newPassword 企业登录密码
 	 * @return 返回修改成功与否的标志，成功返回true，失败返回false
 	 */
-	boolean updateCompanyPassword(String companyName,String newPassword);
+	boolean updateCompanyPassword(String companyUserName,String newPassword);
 	
 	/**
 	 * <p>Title: queryCompanys</p>
-	 * <p>Description: 该接口方法主要处理根据条件,查询企业</p>
+	 * <p>Description: 该接口方法主要处理根据条件,查询已经审核的企业</p>
 	 * @param condition 查询条件
 	 * @return 返回List<Company>集合
 	 */
-	List<Company> queryCompanys(String condition);
+	List<Company> queryViryFyCompanys();
 	
+	/**
+	 * 
+	 * <p>Title: queryNotVirefyCompanys</p>
+	 * <p>Description: 该接口方法主要处理根据条件,查询未审核的企业</p>
+	 * @return 返回List<Company>集合
+	 */
+	List<Company> queryNotVirefyCompanys();
+	
+	/**
+	 * 
+	 * <p>Title: queryAllCompanys</p>
+	 * <p>Description:该接口方法主要处理根据条件,查询所有企业 </p>
+	 * @return 返回List<Company>集合
+	 */
+	List<Company> queryAllCompanys();
+	
+	/**
+	 * <p>Title: deleteCompany</p>
+	 * <p>Description: 删除企业信息</p>
+	 * @param companyUsername 企业注册时的用户名
+	 * @return 返回删除的结果，即true/false
+	 */
+	boolean deleteCompany(String companyUsername);
 	/**
 	 * <p>Title: checkCompany</p>
 	 * <p>Description:该接口方法主要处理管理员审核企业信息</p>

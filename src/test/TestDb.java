@@ -1,9 +1,12 @@
 package test;
 
 import java.sql.Connection;
+import java.util.List;
 
 import org.junit.Test;
 
+import cn.edu.cdu.practice.dao.impl.StudentDaoImpl;
+import cn.edu.cdu.practice.model.Student;
 import cn.edu.cdu.practice.utils.DbUtils;
 import cn.edu.cdu.practice.utils.EmailUtils;
 import cn.edu.cdu.practice.utils.IdentifyCodeUtils;
@@ -44,4 +47,6 @@ public class TestDb {
 	public void testMail() {
 		
 	}
+	
+
 }

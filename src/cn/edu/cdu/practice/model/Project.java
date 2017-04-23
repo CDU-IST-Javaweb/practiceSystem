@@ -1,6 +1,7 @@
 package cn.edu.cdu.practice.model;
 
 import java.sql.Date;
+
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName Company.java

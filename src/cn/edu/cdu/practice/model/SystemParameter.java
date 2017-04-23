@@ -1,6 +1,6 @@
 package cn.edu.cdu.practice.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -20,10 +20,10 @@ public class SystemParameter implements java.io.Serializable {
 		private String adminUsername;
 		private String adminPassword;
 		private String invitationCode;
-		private Timestamp releaseProjectStartDate;
-		private Timestamp releaseProjectEndDate;
-		private Timestamp studentSelStartDate;
-		private Timestamp studentSelEndDate;
+		private Date releaseProjectStartDate;
+		private Date releaseProjectEndDate;
+		private Date studentSelStartDate;
+		private Date studentSelEndDate;
 		private Integer studentSelMaxnum;
 
 		// Constructors
@@ -43,9 +43,9 @@ public class SystemParameter implements java.io.Serializable {
 
 		/** full constructor */
 		public SystemParameter(String adminUsername, String adminPassword,
-				String invitationCode, Timestamp releaseProjectStartDate,
-				Timestamp releaseProjectEndDate, Timestamp studentSelStartDate,
-				Timestamp studentSelEndDate, Integer studentSelMaxnum) {
+				String invitationCode, Date releaseProjectStartDate,
+				Date releaseProjectEndDate, Date studentSelStartDate,
+				Date studentSelEndDate, Integer studentSelMaxnum) {
 			this.adminUsername = adminUsername;
 			this.adminPassword = adminPassword;
 			this.invitationCode = invitationCode;
@@ -82,35 +82,35 @@ public class SystemParameter implements java.io.Serializable {
 			this.invitationCode = invitationCode;
 		}
 
-		public Timestamp getReleaseProjectStartDate() {
+		public Date getReleaseProjectStartDate() {
 			return this.releaseProjectStartDate;
 		}
 
-		public void setReleaseProjectStartDate(Timestamp releaseProjectStartDate) {
+		public void setReleaseProjectStartDate(Date releaseProjectStartDate) {
 			this.releaseProjectStartDate = releaseProjectStartDate;
 		}
 
-		public Timestamp getReleaseProjectEndDate() {
+		public Date getReleaseProjectEndDate() {
 			return this.releaseProjectEndDate;
 		}
 
-		public void setReleaseProjectEndDate(Timestamp releaseProjectEndDate) {
+		public void setReleaseProjectEndDate(Date releaseProjectEndDate) {
 			this.releaseProjectEndDate = releaseProjectEndDate;
 		}
 
-		public Timestamp getStudentSelStartDate() {
+		public Date getStudentSelStartDate() {
 			return this.studentSelStartDate;
 		}
 
-		public void setStudentSelStartDate(Timestamp studentSelStartDate) {
+		public void setStudentSelStartDate(Date studentSelStartDate) {
 			this.studentSelStartDate = studentSelStartDate;
 		}
 
-		public Timestamp getStudentSelEndDate() {
+		public Date getStudentSelEndDate() {
 			return this.studentSelEndDate;
 		}
 
-		public void setStudentSelEndDate(Timestamp studentSelEndDate) {
+		public void setStudentSelEndDate(Date studentSelEndDate) {
 			this.studentSelEndDate = studentSelEndDate;
 		}
 

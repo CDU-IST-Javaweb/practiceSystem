@@ -131,10 +131,11 @@ public class StudentDaoImpl implements StudentDao {
 				student.setLearningExperience(rs.getString("learning_experience"));
 				student.setResearchDirection(rs.getString("research_direction"));
 			}else{
-				return null;
+				student = null;
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
+			student = null;
 		}finally{
 			DbUtils.closeConnection(conn, pstmt, rs);
 		}		
@@ -312,10 +313,47 @@ public class StudentDaoImpl implements StudentDao {
 		return list;	
 	}
 
+	/**
+	 * 管理员按年度查询学生记录（方案号中隐含年度）
+	 * @param year 年度
+	 * @return 查到学生实体列表
+	 */
 	@Override
-	public List<Student> findByYear(int ps_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Student> findByYear(int year) {
+		Connection conn=DbUtils.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Student> list=new ArrayList<Student>();		
+		String sql="select * from student where No in"
+				+ "(SELECT studentNo from project_select where projectNo like ?)";
+		try{
+			String strYear=""+year+"%";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, strYear);
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				Student student=new Student();
+				student.setNo(rs.getString("No"));
+				student.setName(rs.getString("name"));
+				student.setGrade(rs.getInt("grade"));
+				student.setLevel(rs.getString("level"));
+				student.setProfessional(rs.getString("professional"));
+				student.setGender(rs.getString("gender"));
+				student.setClass_(rs.getString("class"));
+				student.setPassword(rs.getString("password"));
+				student.setMailbox(rs.getString("mailbox"));
+				student.setSubjectBackground(rs.getString("subject_background"));
+				student.setLearningExperience(rs.getString("learning_experience"));
+				student.setResearchDirection(rs.getString("research_direction"));
+				list.add(student);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			DbUtils.closeConnection(conn, pstmt, rs);
+		}		
+		return list;
+
 	}
 
 	@Override
@@ -330,16 +368,75 @@ public class StudentDaoImpl implements StudentDao {
 		return false;
 	}
 
+	/**
+	 * 更新学生记录
+	 * @param student 一个学生实体
+	 * @return true:成功；false：失败 
+	 */
 	@Override
 	public boolean update(Student student) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection conn = DbUtils.getConnection();
+		PreparedStatement pstmt = null;
+		String sql="update student set name=?,grade=?,level=?,professional=?,"
+				+ "gender=?,class=?,password=?,mailbox=?,subject_background=?,"
+				+ "learning_experience=?,research_direction=? where No=?";
+		try{
+			//关闭自动提交
+			conn.setAutoCommit(false);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, student.getName());
+			pstmt.setInt(2, student.getGrade());
+			pstmt.setString(3, student.getLevel());
+			pstmt.setString(4, student.getProfessional());
+			pstmt.setString(5, student.getGender());
+			pstmt.setString(6, student.getClass_());
+			pstmt.setString(7, student.getPassword());
+			pstmt.setString(8, student.getMailbox());
+			pstmt.setString(9, student.getSubjectBackground());
+			pstmt.setString(10, student.getLearningExperience());
+			pstmt.setString(11, student.getResearchDirection());
+			pstmt.setString(12, student.getNo());
+			//执行sql语句
+			pstmt.executeUpdate();
+			//事务提交
+			conn.commit();
+					
+		} catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		} finally{
+			DbUtils.closeConnection(conn, pstmt, null);
+		}		
+		return true;
 	}
 
+	/**
+	 * 删除指定学生
+     * @param id 学号
+     * @return true 删除成功；false 删除失败
+	 */
 	@Override
 	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		Connection conn = DbUtils.getConnection();
+		PreparedStatement pstmt = null;
+		String sql="delete from student where No=?";
+		try{
+			//关闭自动提交
+			conn.setAutoCommit(false);
+			pstmt=conn.prepareStatement(sql);			
+			pstmt.setString(1, id);
+			//执行sql语句
+			pstmt.executeUpdate();
+			//事务提交
+			conn.commit();
+					
+		} catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		} finally{
+			DbUtils.closeConnection(conn, pstmt, null);
+		}		
+		return true;
 	}
 
 	@Override

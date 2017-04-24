@@ -65,10 +65,10 @@ public interface StudentDao {
 	
 	/**
 	 * 管理员按年度查询学生记录（方案号中隐含年度）
-	 * @param ps_id 方案号
+	 * @param year 年度
 	 * @return 查到学生实体列表
 	 */
-	public List<Student> findByYear(int ps_id);
+	public List<Student> findByYear(int year);
 	
 	/**
 	 * 调用存储过程查询（无参）
@@ -76,7 +76,6 @@ public interface StudentDao {
 	 * @return 查到学生实体列表
 	 */
 	public List<Student> findByProcdure(String procdure);
-	//public List<Object> findByProcdure(String procdure);如果是一个通用的方法
 	
 	/**
 	 * 调用存储过程查询（带参）
@@ -85,7 +84,6 @@ public interface StudentDao {
 	 * @return 查到学生实体列表
 	 */
 	public boolean findByProcdure(String procdure,Object[] params);
-	//public List<Student> findBySql(String sql);
 	
 	/**
 	 * 更新学生记录

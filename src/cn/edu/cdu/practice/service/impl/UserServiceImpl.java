@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService{
 		ResultSet rs;
 		PreparedStatement ps;
 		//如果验证码不正确或没有得到验证码，返回false
-		if(Verification_Code == null || !Verification_Code.equals(Session_Verification_Code)){
-			Log4jUtils.info("用户验证码输入错误");
-			return false;
-		}
+//		if(Verification_Code == null || !Verification_Code.equals(Session_Verification_Code)){
+//			Log4jUtils.info("用户验证码输入错误");
+//			return false;
+//		}
 		//如果用户角色没有选中，则直接返回false
 		if(role == null){
 			Log4jUtils.info("没有选中用户角色");
@@ -39,13 +39,13 @@ public class UserServiceImpl implements UserService{
 			//根据不同的角色，生成不同的sql语句
 			switch(role){
 			case "1": 
-				sql = "select * from company where username=? and password = ?"; 
+				sql = "select * from company where company_name=? and password = ?"; 
 				break;
 			case "2": 
-				sql = "select * from company where name=? and password = ?"; 
+				sql = "select * from student where name=? and password = ?"; 
 				break;
 			case "9": 
-				sql = "select * from company where admin_username=? and admin_password = ?";
+				sql = "select * from system_parameter where admin_username=? and admin_password = ?";
 				break;
 			}
 		}

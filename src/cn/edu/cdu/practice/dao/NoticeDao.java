@@ -1,7 +1,8 @@
 
 package cn.edu.cdu.practice.dao;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import cn.edu.cdu.practice.model.NoticeCompany;
 

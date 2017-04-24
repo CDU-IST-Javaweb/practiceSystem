@@ -1,10 +1,13 @@
 package test;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import cn.edu.cdu.practice.dao.CompanyDao;
 import cn.edu.cdu.practice.dao.impl.CompanyDaoImpl;
 import cn.edu.cdu.practice.model.Company;
+import cn.edu.cdu.practice.utils.EmailUtils;
 import cn.edu.cdu.practice.utils.MdPwdUtil;
 
 /**
@@ -33,6 +36,11 @@ public class TestCompanyDao {
 				System.out.println("success");
 			} else
 				System.out.println("failed");*/
-			companyDao.updateCompanyPassword("sayHello", MdPwdUtil.MD5Password("123456"));
+//			companyDao.updateCompanyPassword("sayHello", MdPwdUtil.MD5Password("123456"));
+			/*List<Company> list = companyDao.queryViryFyCompanys();
+			System.out.println(list.get(0).getAuditDate());*/
+			/*if (companyDao.deleteCompany("wanwan")) {
+				System.out.println("success");
+			}*/
 		}
 }

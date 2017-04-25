@@ -188,8 +188,11 @@
 .footer ul{ margin:0;}
 
 .logincard{
-    margin-top: 100px;
-    height: 950px;
+   margin-top: 106px;
+margin-bottom: 7vh;
+min-height: 74vh;
+
+
 }
 .toplogo{
     float:left;

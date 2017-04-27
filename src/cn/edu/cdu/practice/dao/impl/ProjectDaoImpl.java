@@ -15,7 +15,9 @@ import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.model.ProjectSelect;
 import cn.edu.cdu.practice.model.ProjectSelectId;
 import cn.edu.cdu.practice.model.Student;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.DbUtils;
+import cn.edu.cdu.practice.utils.PageUtils;
 
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -31,21 +33,25 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public boolean addProject(Project p) {
-		String sql = "INSERT INTO project(no,name,introduction,studentsNum,companyUsername,"
-				+ "releaseDate,grade,category,major,company_teacher,company_teacher_title) "
-				+ "VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO project(no,name,introduction,students_num,company_username,"
+				+ "release_date,grade,category,major,company_teacher,company_teacher_title) "
+				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
-
+		// 通过projectServiceImpl得到no
+		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		String no = projectServiceImpl.getProjectNo();
 		try {
+			if (no == null)
+				return false;
 			connection.setAutoCommit(false);
 			ps = connection.prepareStatement(sql);
-			ps.setString(1, p.getNo());
+			ps.setString(1, no);
 			ps.setString(2, p.getName());
 			ps.setString(3, p.getIntroduction());
 			ps.setInt(4, p.getStudentsNum());
 			ps.setString(5, p.getCompanyUsername());
-			ps.setDate(6, p.getReleaseDate());
+			ps.setDate(6, new Date(Calendar.getInstance().getTime().getTime()));
 			ps.setInt(7, p.getGrade());
 			ps.setString(8, p.getCategory());
 			ps.setString(9, p.getMajor());
@@ -77,8 +83,8 @@ public class ProjectDaoImpl implements ProjectDao {
 		// 该sql语句用于查询传入方案是否已审核，审核后不能修改
 		String sql1 = "SELECT audit_date FROM project WHERE No=?";
 		// 修改方案属性sql语句
-		String sql2 = "UPDATE project SET name=?,introduction=?,studentsNum=?,companyUsername=?,"
-				+ "releaseDate=?,grade=?,category=?,major=?,company_teacher=?,company_teacher_title=? " + "WHERE no=?";
+		String sql2 = "UPDATE project SET name=?,introduction=?,students_num=?,company_username=?,"
+				+ "grade=?,category=?,major=?,company_teacher=?,company_teacher_title=? " + "WHERE no=?";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -100,12 +106,12 @@ public class ProjectDaoImpl implements ProjectDao {
 				ps.setString(2, p.getIntroduction());
 				ps.setInt(3, p.getStudentsNum());
 				ps.setString(4, p.getCompanyUsername());
-				ps.setDate(5, p.getReleaseDate());
-				ps.setInt(6, p.getGrade());
-				ps.setString(7, p.getCategory());
-				ps.setString(8, p.getMajor());
-				ps.setString(9, p.getCompanyTeacher());
-				ps.setString(10, p.getCompanyTeacherTitle());
+				ps.setInt(5, p.getGrade());
+				ps.setString(6, p.getCategory());
+				ps.setString(7, p.getMajor());
+				ps.setString(8, p.getCompanyTeacher());
+				ps.setString(9, p.getCompanyTeacherTitle());
+				ps.setString(10, p.getNo());
 				ps.executeUpdate();
 				connection.commit();
 				return true;
@@ -126,21 +132,37 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public ArrayList<Project> findAllProject(int role, String company_username) {
+	public ArrayList<Project> findAllProject(int role, String company_username,PageUtils pageUtils) {
 		String sql = null;
-		if (role == 1) {
-			sql = "SELECT * FROM project";
-		} else if (role == 9 && company_username != null) {
-			sql = "SELECT * FROM project WHERE company_username=?";
+		int totalSize=0;
+		if (role == 9) {
+			sql = "SELECT * FROM project LIMIT ?,?";
+			totalSize=countProject();
+			pageUtils.setTotalSize(totalSize);
+		} else if (role == 1 && company_username != null) {
+			sql = "SELECT * FROM project WHERE company_username=? LIMIT ?,?";
+			totalSize=countCompanyProject(company_username);
+			pageUtils.setTotalSize(totalSize);
 		} else
 			return null;
+		if(totalSize<=0)
+			return null;
+		int start=(pageUtils.getPageNow()-1)*pageUtils.getPageSize();
+		int size=pageUtils.getPageSize();
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		ArrayList<Project> projects = new ArrayList<>();
 		try {
 			ps = connection.prepareStatement(sql);
-			ps.setString(1, company_username);
+			if (role == 9) {
+				ps.setInt(1, start);
+				ps.setInt(2, size);
+			} else {
+				ps.setString(1, company_username);
+				ps.setInt(2, start);
+				ps.setInt(3, size);
+			}
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				Project project = new Project();
@@ -541,7 +563,7 @@ public class ProjectDaoImpl implements ProjectDao {
 				ps.setInt(1, p_no);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProjectSelect projectSelect=new ProjectSelect();
+				ProjectSelect projectSelect = new ProjectSelect();
 				projectSelect.setCompanyName(rs.getString("company_name"));
 				projectSelect.setCompanySelDate(rs.getDate(""));
 				projectSelect.setId(new ProjectSelectId(rs.getString("studentNo"), rs.getInt("projectNo")));
@@ -591,7 +613,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public ArrayList<ProjectSelect> findScore(int p_no) {
-		//根据方案号查询已被选择的学生的成绩的sql语句
+		// 根据方案号查询已被选择的学生的成绩的sql语句
 		String sql = "SELECT * FROM project_select WHERE projectNo=? AND company_sel_date IS NOT NULL";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
@@ -602,7 +624,7 @@ public class ProjectDaoImpl implements ProjectDao {
 			ps.setInt(1, p_no);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProjectSelect projectSelect=new ProjectSelect();
+				ProjectSelect projectSelect = new ProjectSelect();
 				projectSelect.setCompanyName(rs.getString("company_name"));
 				projectSelect.setCompanySelDate(rs.getDate(""));
 				projectSelect.setId(new ProjectSelectId(rs.getString("studentNo"), rs.getInt("projectNo")));
@@ -616,6 +638,55 @@ public class ProjectDaoImpl implements ProjectDao {
 			DbUtils.closeConnection(connection, ps, rs);
 		}
 		return selects;
+	}
+
+	@Override
+	public int countProject() {
+		// 查询方案总数的sql语句
+		String sql = "SELECT COUNT(*) m FROM project";
+
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// 查询方案总数
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			int m = 0;
+			if (rs.next())
+				m = rs.getInt("m");
+			return m;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return -1;
+	}
+
+	@Override
+	public int countCompanyProject(String company_username) {
+		// 查询方案总数的sql语句
+		String sql = "SELECT COUNT(*) m FROM project WHERE company_username=?";
+
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// 查询方案总数
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, company_username);
+			rs = ps.executeQuery();
+			int m = 0;
+			if (rs.next())
+				m = rs.getInt("m");
+			return m;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return -1;
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.model.ProjectSelect;
 import cn.edu.cdu.practice.model.Student;
+import cn.edu.cdu.practice.utils.PageUtils;
 
 /** 
 * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -35,12 +36,13 @@ public interface ProjectDao {
 	public boolean updateProject(Project p);
 	
 	/**
-	 * 根据角色查询所有方案
+	 * 根据角色查询所有方案,分页
 	 * @param role 角色    1-企业 9-管理员
 	 * @param company_username 如果是企业查询，需传入company_username
+	 * @param pageUtils 传入的该对象应设置pageNow和pageSize
 	 * @return 
 	 */
-	public ArrayList<Project> findAllProject(int role,String company_username);
+	public ArrayList<Project> findAllProject(int role,String company_username,PageUtils pageUtils);
 	
 	/**
 	 * 删除方案，已通过审核无法删除
@@ -142,5 +144,17 @@ public interface ProjectDao {
 	 * @return
 	 */
 	public ArrayList<ProjectSelect> findScore(int p_no);
+	
+	/**
+	 * 统计所有方案数量
+	 * @return
+	 */
+	public int countProject();
+	
+	/**
+	 * 统计单个企业的方案数量
+	 * @return
+	 */
+	public int countCompanyProject(String company_username);
 }
 

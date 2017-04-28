@@ -15,7 +15,11 @@
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
-
+    <!-- Select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2-bootstrap.css" />
+    <!-- Propeller select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/pmd-select2.css" />
     <!-- Propeller css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller.min.css">
 
@@ -26,6 +30,24 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
     <!--my style css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+
+
+    <!-- Propeller table -->
+    <link href="http://propeller.in/components/table/css/table.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller card -->
+    <link href="http://propeller.in/components/card/css/card.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables bootstrap -->
+    <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables bootstrap responsive  -->
+    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables select -->
+    <link href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css" type="text/css" rel="stylesheet" />
+    <!-- Propeller Datatable -->
+    <link href="../assets/css/pmd-datatable.css" type="text/css" rel="stylesheet" />
     <!-- Styles Ends -->
 </head>
 
@@ -33,6 +55,37 @@
     <!-- Header Starts -->
     <!--Start Nav bar -->
     <!--顶部-->
+    <!--modal-->
+     <div tabindex="-1" class="modal fade" id="form-dialog" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header pmd-modal-bordered">
+                                                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                                            <h2 class="pmd-card-title-text">方案总结</h2>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="form-horizontal">
+                                                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                                    <label for="first-name">方案号：</label>
+                                                                    <input type="text" readonly="" class="mat-input form-control" id="name" value="*******">
+                                                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                                        <label for="first-name">方案名称：</label>
+                                                                        <input type="text" readonly="" class="mat-input form-control" id="email" value="***">
+                                                                    </div>
+                                                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                                        <label class="control-label">方案总结</label>
+                                                                        <textarea required class="form-control"></textarea>
+                                                                        <span class="help-text">方案总结不能为空</span> </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="pmd-modal-action">
+                                                            <button data-dismiss="modal" class="btn pmd-ripple-effect btn-primary" type="button">确定</button>
+                                                            <a href="javascript:history.back(-1);" data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
     <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
 
         <div class="container-fluid">
@@ -55,7 +108,7 @@
                         </div>
 
                         <!-- Notifications list -->
-                        <ul class="list-group pmd-list-avatar pmd-card-list">
+                        <!--<ul class="list-group pmd-list-avatar pmd-card-list">
                             <li class="list-group-item" style="display:none">
                                 <p class="notification-blank">
                                     <span class="dic dic-notifications-none"></span>
@@ -115,7 +168,7 @@
                                     </div>
                                 </a>
                             </li>
-                        </ul>
+                        </ul>-->
                         <!-- End notifications list -->
 
                     </div>
@@ -133,6 +186,7 @@
 		  </a>
             </div>
         </div>
+
 
     </nav>
     <!--End Nav bar -->
@@ -285,8 +339,112 @@
                 <!--breadcrum end-->
             </div>
 
+            <div class="col-md-12">
+                <!-- responsive table example -->
+                <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                    <h2 style="text-align: center;">实训方案管理</h2>
+                    <div class="col-md-2 form-inline">
+                        <select class="select-simple form-control pmd-select2">
+                    <option>已审核</option>
+                    <option>未审核</option>
+                  </select>
+                    </div>
+                    <div class="col-md-3 form-inline">
+                        <label class="control-label">发布年度&nbsp;&nbsp;&nbsp;</label>
+                        <select class="select-simple form-control pmd-select2">
+                    <option>2017</option>
+                    <option>2016</option>
+                  </select>
+                    </div>
+                    <div class="PM-nav">
+                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">查询</a>
+                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">导出</a>
+                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="../PracticeManagement/add-and-modify.html">添加</a>
+                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">实训结束</a>
+                    </div>
+                    <section class="row component-section">
+                        <div class="col-md-12">
+
+                            <table id="example" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>方案号</th>
+                                        <th>方案名称</th>
+                                        <th>方案简介</th>
+                                        <th>学生人数</th>
+                                        <th>校外指导老师职称</th>
+                                        <th>类别</th>
+                                        <th>年级</th>
+                                        <th>发布日期</th>
+                                        <th>审核日期</th>
+                                        <th>校外指导老师</th>
+                                        <th>企业名称</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a href="../PracticeManagement/add-and-modify.html">10001</a></td>
+                                        <td>字数在10个字以内。</td>
+                                        <td>字数最好不能超过15字1111字数最好不能超过15字1111字数最好不能超过15字1111</td>
+                                        <td>33</td>
+                                        <td>副教授</td>
+                                        <td>java</td>
+                                        <td>2014级</td>
+                                        <td>2017-09-03</td>
+                                        <td>2017-10-04</td>
+                                        <td>杨子皓</td>
+                                        <td>同创工作室</td>
+                                        <td><button type="button" class="btn pmd-btn-raised pmd-ripple-effect btn-success pmd-z-depth"> 审核 </button ></td>
+    								</tr>
+    								<tr>
+                                        <td><a href="../PracticeManagement/add-and-modify.html">10002</a></td>
+    								    <td>字数在10个字以内。</td>
+                                        <td>字数最好不能超过15字1111</td>
+                                        <td>23</td>
+                                        <td>副教授</td>
+                                        <td>java</td>
+                                        <td>2014级</td>
+                                        <td>2017-09-03</td>
+                                        <td>2017-10-04</td>
+                                        <td>杨子皓</td>
+                                        <td>同创工作室</td>
+                                        <td><button type="button" class="btn pmd-btn-raised pmd-ripple-effect btn-danger pmd-z-depth"> 退审 </button ></td>
+    								</tr>
+                                    	<tr>
+    									<td><a href="../PracticeManagement/add-and-modify.html">10003</a></td>
+                                        <td>字数在10个字以内。</td>
+                                        <td>字数最好不能超过15字1111</td>
+                                        <td>23</td>
+                                        <td>副教授</td>
+                                        <td>java</td>
+                                        <td>2014级</td>
+                                        <td>2017-09-03</td>
+                                        <td>2017-10-04</td>
+                                        <td>杨子皓</td>
+                                        <td>同创工作室</td>
+    									<td>
+                                            <button data-target="#form-dialog" data-toggle="modal" class="btn pmd-btn-raised pmd-ripple-effect btn-info pmd-z-depth" type="button">方案总结</button>
+                                           
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                <!-- responsive table example end -->
+
+            </div>
+
+
+
 
         </div>
+    </div>
+
+
+    </div>
     </div>
 
     <!-- Footer Starts -->
@@ -363,7 +521,89 @@
 
     <script src="../assets/js/propeller.min.js"></script>
 
+    <!-- Select2 js-->
+    <script type="text/javascript" src="../components/select2/js/select2.full.js"></script>
+    <!-- Datatable js -->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
+    <!-- Datatable Bootstrap -->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- Datatable responsive js-->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+
+    <!-- Datatable select js-->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+    <!-- Propeller Select2 -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".select-simple").select2({
+                theme: "bootstrap",
+                minimumResultsForSearch: Infinity,
+            });
+
+            $(".select-with-search").select2({
+                theme: "bootstrap"
+            });
+
+            $(".select-tags").select2({
+                tags: false,
+                theme: "bootstrap",
+            });
+
+            $(".select-add-tags").select2({
+                tags: true,
+                theme: "bootstrap",
+            });
+        });
+    </script>
+    <script type="text/javascript" src="../components/select2/js/pmd-select2.js"></script>
+    <script>
+        //Propeller  Customised Javascript code 
+        $(document).ready(function() {
+            var exampleDatatable = $('#example').DataTable({
+                responsive: {
+                    details: {
+                        type: 'column',
+                        target: 'tr'
+                    }
+                },
+                columnDefs: [{
+                    className: 'control',
+                    orderable: false,
+                    targets: 1
+                }],
+                order: [1, 'asc'],
+                bFilter: true,
+                bLengthChange: true,
+                pagingType: "simple",
+                "paging": true,
+                "searching": true,
+                "language": {
+                    "info": " _START_ - _END_ of _TOTAL_ ",
+                    "sLengthMenu": "<span class='custom-select-title'>每页显示行数:</span> <span class='custom-select'> _MENU_ </span>",
+                    "sSearch": "",
+                    "sSearchPlaceholder": "搜索",
+                    "paginate": {
+                        "sNext": " ",
+                        "sPrevious": " "
+                    },
+                },
+                dom: "<'pmd-card-title'<'data-table-title-responsive'><'search-paper pmd-textfield'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'pmd-card-footer' <'pmd-datatable-pagination' l i p>>",
+            });
+
+            /// Select value
+            $('.custom-select-info').hide();
+
+            $("div.data-table-title").html('<h2 class="pmd-card-title-text">Table Card</h2>');
+            $("div.data-table-title").html('<h2 class="pmd-card-title-text">Table Responsive</h2>');
+            $(".custom-select-action").html('<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">delete</i></button><button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">more_vert</i></button>');
+
+        });
+    </script>
 </body>
 
 </html>

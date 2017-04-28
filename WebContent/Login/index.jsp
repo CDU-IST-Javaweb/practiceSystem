@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="">
 
@@ -34,11 +36,9 @@
 </head>
 
 <body>
-
     <!-- Header Starts -->
     <!--Start Nav bar -->
     <!--顶部-->
-
     <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth">
 
         <div class="container-fluid">
@@ -61,7 +61,7 @@
                         </div>
 
                         <!-- Notifications list -->
-                        <!--<ul class="list-group pmd-list-avatar pmd-card-list">
+                        <ul class="list-group pmd-list-avatar pmd-card-list">
                             <li class="list-group-item" style="display:none">
                                 <p class="notification-blank">
                                     <span class="dic dic-notifications-none"></span>
@@ -121,7 +121,7 @@
                                     </div>
                                 </a>
                             </li>
-                        </ul>-->
+                        </ul>
                         <!-- End notifications list -->
 
                     </div>
@@ -174,6 +174,7 @@
                 </a>
             </li>
             <!--实训方案管理-->
+            <%String role = (String) session.getAttribute("role"); %>
             <li class="dropdown pmd-dropdown">
                 <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
                     <i class="material-icons media-left pmd-sm">list</i>
@@ -181,12 +182,23 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../PracticeManagement/program-management.html">方案管理</a></li>
-                    <li><a href="../PracticeManagement/student-choice-program.html">学生选择方案</a></li>
+                <%switch(role) {
+                case "1":
+                %>
+                	<li><a href="../PracticeManagement/program-management.html">方案管理</a></li>
                     <li><a href="../PracticeManagement/enterprise-management-students.html">企业管理学生</a></li>
+                 <%break;
+                 case "2":%>
+                    <li><a href="../PracticeManagement/student-choice-program.html">学生选择方案</a></li>
+                 <%break;
+                 case "9":%>
+                 	<li><a href="../PracticeManagement/program-management.html">方案管理</a></li>
+                <%break;
+                } %>
                 </ul>
             </li>
             <!--企业信息管理-->
+            <%if(role.equals("1") || role.equals("9")){ %>
             <li class="dropdown pmd-dropdown">
                 <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
                     <i class="material-icons media-left pmd-sm">list</i>
@@ -194,11 +206,16 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
+                	<%if (role.equals("9")){ %>
                     <li><a href="../EnterpriseManagement/enterprise-information-management.html">企业信息管理</a></li>
+                    <%}else if (role.equals("1")){ %>
                     <li><a href="../EnterpriseManagement/enterprise-information-maintenance.html">企业信息维护</a></li>
+                    <%} %>
                 </ul>
             </li>
+            <%} %>
             <!--学生管理-->
+            <%if(role.equals("2") || role.equals("9")){ %>
             <li class="dropdown pmd-dropdown">
                 <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
                     <i class="material-icons media-left pmd-sm">list</i>
@@ -206,11 +223,16 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
+                	<%if (role.equals("9")){ %>
                     <li><a href="../StudentManagement/student-management.html">学生管理</a></li>
+                     <%}else if (role.equals("2")){ %>
                     <li><a href="../StudentManagement/student-personal-information-maintenance.html">学生个人信息维护</a></li>
+                     <%} %>
                 </ul>
             </li>
+            <%} %>
             <!--通知公告管理-->
+            <%if(role.equals("1") || role.equals("9")){ %>
             <li class="dropdown pmd-dropdown">
                 <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
                     <i class="material-icons media-left pmd-sm">list</i>
@@ -218,12 +240,18 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
+                	<%if (role.equals("1")){ %>
                     <li><a href="../SystemsManagement/make-announcements.html">发布通知公告</a></li>
+                    <%} %>
                     <li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
+                    <%if (role.equals("9")){ %>
                     <li><a href="../SystemsManagement/audit-notice.html">审核通知通告</a></li>
+                    <%} %>
                 </ul>
             </li>
+            <%} %>
             <!--系统配置-->
+            <%if (role.equals("9")){ %>
             <li class="dropdown pmd-dropdown">
                 <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
                     <i class="material-icons media-left pmd-sm">settings</i>
@@ -234,6 +262,7 @@
                     <li><a href="../SystemsManagement/system-parameter.html">系统参数配置</a></li>
                 </ul>
             </li>
+            <%} %>
             <!--登出-->
             <li>
                 <a class="pmd-ripple-effect" href="../Login/login.html">
@@ -269,9 +298,7 @@
 
     <!--content area start-->
     <div id="content" class="pmd-content content-area dashboard">
-        <div role="alert" class="alert alert-success alert-dismissible">
-            <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button> 恭喜！您已成功登录！
-        </div>
+
         <div class="container-fluid">
             <div class="row" id="card-masonry">
 

@@ -59,7 +59,7 @@
                         </div>
 
                         <!-- Notifications list -->
-                        <ul class="list-group pmd-list-avatar pmd-card-list">
+                        <!--<ul class="list-group pmd-list-avatar pmd-card-list">
                             <li class="list-group-item" style="display:none">
                                 <p class="notification-blank">
                                     <span class="dic dic-notifications-none"></span>
@@ -119,7 +119,7 @@
                                     </div>
                                 </a>
                             </li>
-                        </ul>
+                        </ul>-->
                         <!-- End notifications list -->
 
                     </div>
@@ -302,7 +302,7 @@
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-6">
                                             <div class="input-group-addon"><label class="control-label col-md-2">企业名称：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
+                                            <input type="text" disabled="" value="XX企业" class="mat-input form-control">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
@@ -314,7 +314,7 @@
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
                                             <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
-                                            <input type="text" disabled="" value="" class="mat-input form-control">
+                                            <input type="text" disabled="" value="450311265@qq.com" class="mat-input form-control">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
@@ -335,32 +335,41 @@
                                             <input type="text" value="" class="mat-input form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group">
-                                            <h2> <label class="control-label"></label> 修改密码 </h2>
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">旧密码：</label></div>
-                                            <input type="text" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">新密码：</label></div>
-                                            <input type="text" value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">确认新密码：</label></div>
-                                            <input type="text" value="" class="mat-input form-control">
+                                    <button data-target="#form-dialog" data-toggle="modal" class="btn pmd-btn-raised pmd-ripple-effect btn-warning pmd-z-depth" type="button">重置密码</button>
+                                    <div tabindex="-1" class="modal fade" id="form-dialog" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header pmd-modal-bordered">
+                                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                                    <h2 class="pmd-card-title-text">修改密码</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal">
+                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                            <label for="first-name">旧密码：</label>
+                                                            <input type="text" class="mat-input form-control" id="name" value="*******">
+                                                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                                <label for="first-name">新密码：</label>
+                                                                <input type="text" class="mat-input form-control" id="email" value="***">
+                                                            </div>
+                                                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                                <label for="first-name">确认密码：</label>
+                                                                <input type="text" class="mat-input form-control" id="email" value="***">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="pmd-modal-action">
+                                                    <button data-dismiss="modal" class="btn pmd-ripple-effect btn-primary" type="button">确定</button>
+                                                    <a href="javascript:history.back(-1);" data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="button-group col-md-6">
+                                    <div class="button-group col-md-12">
                                         <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
+                                        <a href="javascript:history.back(-1);" data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">返回</a>
                                     </div>
 
                                 </div>

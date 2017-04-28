@@ -27,6 +27,8 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
     <!--my style css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!--wangeditor-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/wangEditor.min.css">
     <!-- Styles Ends -->
 </head>
 
@@ -274,46 +276,50 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>实训方案管理</span>
+                    <span>通知公告管理</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
                     <li><a href="index.html">主页</a></li>
-                    <li class="active">学生选择一个方案</li>
+                    <li class="active">发布通知公告修改</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
 
             <div class="col-md-12">
                 <div class="component-box">
-                    <!-- input states example -->
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="pmd-card pmd-z-depth pmd-card-custom-form">
-                                <div class="pmd-card-body">
-                                    <h2>学生选择方案</h2>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label col-md-2 arer-lable">*选题理由：</label>
-                                        <textarea required class="form-control"></textarea>
+                            <div class="pmd-card pmd-z-depth">
+                                <div class="pmd-card-body pmd-card-custom-form">
+                                    <h2>企业通知公告</h2>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">ID：</label></div>
+                                            <input type="text" disabled="" value="***" class="mat-input form-control">
+                                        </div>
                                     </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label col-md-2 arer-lable">学科背景：</label>
-                                        <textarea required class="form-control"></textarea>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">企业用户名：</label></div>
+                                            <input type="text" disabled="" value="***" class="mat-input form-control">
+                                        </div>
                                     </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label col-md-2 arer-lable">学科经历：</label>
-                                        <textarea required class="form-control"></textarea>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">标题：</label></div>
+                                            <input type="text" value="" class="mat-input form-control">
+                                        </div>
                                     </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label col-md-2 arer-lable">研究方向：</label>
-                                        <textarea required class="form-control"></textarea>
+                                    <div class="form-group pmd-textfield col-md-12">
+                                        <label class="control-label  arer-lable">内容:</label>
+                                        <textarea id="editor-trigger" style="display:none;height:800px;"><p>请输入内容...</p></textarea>
                                     </div>
                                     <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
-                                        <a href="javascript:history.back(-1);" data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 提交 </button>
+                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -371,10 +377,10 @@
             var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
             $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").addClass("active");
             });
         });
     </script>
@@ -398,8 +404,76 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
+    <script src="../assets/js/wangEditor.js"></script>
+    <script type="text/javascript">
+        // 阻止输出log
+        wangEditor.config.printLog = false;
 
+        var editor = new wangEditor('editor-trigger');
 
+        // 上传图片
+        editor.config.uploadImgUrl = '/upload';
+        editor.config.uploadParams = {
+            // token1: 'abcde',
+            // token2: '12345'
+        };
+        editor.config.uploadHeaders = {
+                // 'Accept' : 'text/x-json'
+            }
+            // editor.config.uploadImgFileName = 'myFileName';
+
+        // 隐藏网络图片
+        // editor.config.hideLinkImg = true;
+
+        // 表情显示项
+        editor.config.emotionsShow = 'value';
+        editor.config.emotions = {
+            'default': {
+                title: '默认',
+                data: './emotions.data'
+            },
+            'weibo': {
+                title: '微博表情',
+                data: [{
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif',
+                    value: '[草泥马]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/60/horse2_thumb.gif',
+                    value: '[神马]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/bc/fuyun_thumb.gif',
+                    value: '[浮云]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/c9/geili_thumb.gif',
+                    value: '[给力]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/f2/wg_thumb.gif',
+                    value: '[围观]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/70/vw_thumb.gif',
+                    value: '[威武]'
+                }]
+            }
+        };
+
+        // 插入代码时的默认语言
+        // editor.config.codeDefaultLang = 'html'
+
+        // 只粘贴纯文本
+        // editor.config.pasteText = true;
+
+        // 跨域上传
+        // editor.config.uploadImgUrl = 'http://localhost:8012/upload';
+
+        // 第三方上传
+        // editor.config.customUpload = true;
+
+        // onchange 事件
+        editor.onchange = function() {
+            console.log(this.$txt.html());
+        };
+        editor.create();
+    </script>
 </body>
 
 </html>

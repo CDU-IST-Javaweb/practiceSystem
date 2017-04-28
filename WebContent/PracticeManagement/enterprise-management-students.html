@@ -15,10 +15,13 @@
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
-
+    <!-- Select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/select2-bootstrap.css" />
+    <!-- Propeller select2 css-->
+    <link rel="stylesheet" type="text/css" href="../components/select2/css/pmd-select2.css" />
     <!-- Propeller css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller.min.css">
-
 
     <!-- Propeller theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-theme.css" />
@@ -27,6 +30,25 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
     <!--my style css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!-- Propeller textbox -->
+    <link href="http://propeller.in/components/textfield/css/textfield.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller table -->
+    <link href="http://propeller.in/components/table/css/table.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller card -->
+    <link href="http://propeller.in/components/card/css/card.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables bootstrap -->
+    <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables bootstrap responsive  -->
+    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables select -->
+    <link href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css" type="text/css" rel="stylesheet" />
+    <!-- Propeller Datatable -->
+    <link href="../assets/css/pmd-datatable.css" type="text/css" rel="stylesheet" />
     <!-- Styles Ends -->
 </head>
 
@@ -56,7 +78,7 @@
                         </div>
 
                         <!-- Notifications list -->
-                        <ul class="list-group pmd-list-avatar pmd-card-list">
+                        <!--<ul class="list-group pmd-list-avatar pmd-card-list">
                             <li class="list-group-item" style="display:none">
                                 <p class="notification-blank">
                                     <span class="dic dic-notifications-none"></span>
@@ -116,7 +138,7 @@
                                     </div>
                                 </a>
                             </li>
-                        </ul>
+                        </ul>-->
                         <!-- End notifications list -->
 
                     </div>
@@ -286,6 +308,77 @@
                 <!--breadcrum end-->
             </div>
 
+            <div class="col-md-12">
+                <!-- responsive table example -->
+                <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+                    <h2 style="text-align: center;">企业管理学生</h2>
+                    <!--<form class="col-md-3">
+                  <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                    <input type="radio" name="program" value="" >
+                    <span>所有方案</span>
+                  </label>
+                  <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                    <input type="radio" name="program"value="">
+                    <span>我的方案</span>
+                  </label>
+                </form>-->
+                    <div class="col-md-2 form-inline">
+                        <select class="select-simple form-control pmd-select2">
+                        <option>所有方案</option>
+                        <option>我的方案</option>
+                    </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="select-simple form-control pmd-select2">
+                    <option>方案1</option>
+                    <option>方案2</option>
+                  </select>
+                    </div>
+                    <div class="PM-nav">
+                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">查询</a>
+                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="recording-results.html">录入成绩</a>
+                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">导出成绩</a>
+                    </div>
+
+                    <table id="example" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                        <thead>
+                            <tr class="trcustom">
+                                <th>学号</th>
+                                <th>姓名</th>
+                                <th>方案号</th>
+                                <th>方案名</th>
+                                <th>成绩</th>
+                                <th>理由</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>201410411123</td>
+                                <td>杨子皓</td>
+                                <td>201410411123</td>
+                                <td>名字112213</td>
+                                <td>80</td>
+                                <td><a href="enterprise-inquiry.html">查看理由</a></td>
+                                <td><a type="button" class="btn pmd-btn-raised pmd-ripple-effect btn-danger pmd-z-depth"> 退选 </a ></td>
+                            </tr>
+                            <tr>
+                                <td>201410411124</td>
+                                <td>杨子皓1</td>
+                                <td>201410411223</td>
+                                 <td>名字112213</td>
+                                <td>80</td>
+                                <td><a href="enterprise-inquiry.html">查看理由</a></td>
+                                <td><a type="button" class="btn pmd-btn-raised pmd-ripple-effect btn-success pmd-z-depth"> 选择 </a ></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- responsive table example end -->
+
+            </div>
+
+
 
         </div>
     </div>
@@ -298,71 +391,155 @@
                 <li>
                     <span class="pmd-card-subtitle-text">信息科学与工程学院 &copy; 2017. 版权所有.</span>
                     <h3 class="pmd-card-subtitle-text">技术支持 BY <a href="http://computer.cdu.edu.cn/" target="_blank">信工学院.</a></h3>
-                </li>
-                <li class="pull-right download-now">
-                    <a onClick="downloadPMDadmintemplate()" href="javascript：void(0);">
-                        <div>
-                            <i class="material-icons media-left pmd-sm">settings</i>
-                        </div>
-                        <div>
-                            <span class="pmd-card-subtitle-text">Version- 1.0.0</span>
-                            <h3 class="pmd-card-title-text">By cduyzh</h3>
-                        </div>
-                    </a>
-                </li>
-                <li class="pull-right for-support">
-                    <a href="mailto:support@propeller.in">
-                        <div>
-                            <i class="material-icons media-left pmd-sm">email</i>
-                        </div>
-                        <div>
-                            <span class="pmd-card-subtitle-text">For Support</span>
-                            <h3 class="pmd-card-title-text">450311265@qq.com</h3>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </footer>
-    <!--footer end-->
-    <!-- Footer Ends -->
+                                    </li>
+                                    <li class="pull-right download-now">
+                                        <a onClick="downloadPMDadmintemplate()" href="javascript：void(0);">
+                                            <div>
+                                                <i class="material-icons media-left pmd-sm">settings</i>
+                                            </div>
+                                            <div>
+                                                <span class="pmd-card-subtitle-text">Version- 1.0.0</span>
+                                                <h3 class="pmd-card-title-text">By cduyzh</h3>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="pull-right for-support">
+                                        <a href="mailto:support@propeller.in">
+                                            <div>
+                                                <i class="material-icons media-left pmd-sm">email</i>
+                                            </div>
+                                            <div>
+                                                <span class="pmd-card-subtitle-text">For Support</span>
+                                                <h3 class="pmd-card-title-text">450311265@qq.com</h3>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    </ul>
+                </div>
+                </footer>
+                <!--footer end-->
+                <!-- Footer Ends -->
 
-    <!-- Scripts Starts -->
-    <script src="../assets/js/jquery-1.12.2.min.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <!--控制左侧工具栏选择状态-->
-    <script>
-        $(document).ready(function() {
-            var sPath = window.location.pathname;
-            var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
-            $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../PracticeManagement/" + sPage + "']").addClass("active");
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        (function() {
-            "use strict";
-            var toggles = document.querySelectorAll(".c-hamburger");
-            for (var i = toggles.length - 1; i >= 0; i--) {
-                var toggle = toggles[i];
-                toggleHandler(toggle);
-            };
+                <!-- Scripts Starts -->
+                <script src="../assets/js/jquery-1.12.2.min.js"></script>
+                <script src="../assets/js/bootstrap.min.js"></script>
+                <!--控制左侧工具栏选择状态-->
+                <script>
+                    $(document).ready(function() {
+                        var sPath = window.location.pathname;
+                        var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+                        $(".pmd-sidebar-nav").each(function() {
+                            $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                            $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                            $(this).find("a[href='../PracticeManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                            $(this).find("a[href='../PracticeManagement/" + sPage + "']").addClass("active");
+                        });
+                    });
+                </script>
+                <script type="text/javascript">
+                    (function() {
+                        "use strict";
+                        var toggles = document.querySelectorAll(".c-hamburger");
+                        for (var i = toggles.length - 1; i >= 0; i--) {
+                            var toggle = toggles[i];
+                            toggleHandler(toggle);
+                        };
 
-            function toggleHandler(toggle) {
-                toggle.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    (this.classList.contains("is-active") === true) ? this.classList.remove("is-active"): this.classList.add("is-active");
-                });
-            }
+                        function toggleHandler(toggle) {
+                            toggle.addEventListener("click", function(e) {
+                                e.preventDefault();
+                                (this.classList.contains("is-active") === true) ? this.classList.remove("is-active"): this.classList.add("is-active");
+                            });
+                        }
 
-        })();
-    </script>
+                    })();
+                </script>
 
-    <script src="../assets/js/propeller.min.js"></script>
+                <script src="../assets/js/propeller.min.js"></script>
+
+                <!-- Select2 js-->
+                <script type="text/javascript" src="../components/select2/js/select2.full.js"></script>
+                <!-- Datatable js -->
+                <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+                <!-- Datatable Bootstrap -->
+                <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
+                <!-- Datatable responsive js-->
+                <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+
+                <!-- Datatable select js-->
+                <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+                <!-- Propeller Select2 -->
+                <script type="text/javascript">
+                    $(document).ready(function() {
+
+                        $(".select-simple").select2({
+                            theme: "bootstrap",
+                            minimumResultsForSearch: Infinity,
+                        });
+
+                        $(".select-with-search").select2({
+                            theme: "bootstrap"
+                        });
+
+                        $(".select-tags").select2({
+                            tags: false,
+                            theme: "bootstrap",
+                        });
+
+                        $(".select-add-tags").select2({
+                            tags: true,
+                            theme: "bootstrap",
+                        });
+                    });
+                </script>
+                <script type="text/javascript" src="../components/select2/js/pmd-select2.js"></script>
+                <script>
+                    //Propeller  Customised Javascript code 
+                    $(document).ready(function() {
+                        var exampleDatatable = $('#example').DataTable({
+                            responsive: {
+                                details: {
+                                    type: 'column',
+                                    target: 'tr'
+                                }
+                            },
+                            columnDefs: [{
+                                className: 'control',
+                                orderable: false,
+                                targets: 1
+                            }],
+                            order: [1, 'asc'],
+                            bFilter: true,
+                            bLengthChange: true,
+                            pagingType: "simple",
+                            "paging": true,
+                            "searching": true,
+                            "language": {
+                                "info": " _START_ - _END_ of _TOTAL_ ",
+                                "sLengthMenu": "<span class='custom-select-title'>每页显示行数:</span> <span class='custom-select'> _MENU_ </span>",
+                                "sSearch": "",
+                                "sSearchPlaceholder": "搜索",
+                                "paginate": {
+                                    "sNext": " ",
+                                    "sPrevious": " "
+                                },
+                            },
+                            dom: "<'pmd-card-title'<'data-table-title-responsive'><'search-paper pmd-textfield'f>>" +
+                                "<'row'<'col-sm-12'tr>>" +
+                                "<'pmd-card-footer' <'pmd-datatable-pagination' l i p>>",
+                        });
+
+                        /// Select value
+                        $('.custom-select-info').hide();
+
+                        $("div.data-table-title").html('<h2 class="pmd-card-title-text">Table Card</h2>');
+                        $("div.data-table-title").html('<h2 class="pmd-card-title-text">Table Responsive</h2>');
+                        $(".custom-select-action").html('<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">delete</i></button><button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">more_vert</i></button>');
+
+                    });
+                </script>
 </body>
 
 </html>

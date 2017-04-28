@@ -60,7 +60,7 @@
                         </div>
 
                         <!-- Notifications list -->
-                        <ul class="list-group pmd-list-avatar pmd-card-list">
+                        <!--<ul class="list-group pmd-list-avatar pmd-card-list">
                             <li class="list-group-item" style="display:none">
                                 <p class="notification-blank">
                                     <span class="dic dic-notifications-none"></span>
@@ -120,7 +120,7 @@
                                     </div>
                                 </a>
                             </li>
-                        </ul>
+                        </ul>-->
                         <!-- End notifications list -->
 
                     </div>
@@ -367,10 +367,21 @@
                                         </div>
                                     </div>
                                     <!--Simple Select with Search-->
-                                    <div class="form-group pmd-textfield">
+                                    <!--<div class="form-group pmd-textfield">
                                         <div class="input-group col-md-6">
                                             <div class="input-group-addon"><label class="control-label col-md-2">年级</label></div>
                                             <select class="select-tags form-control pmd-select2-tags" multiple>
+                                            <option>大一</option>
+                                            <option>大二</option>
+                                            <option>大三</option>
+                                            <option>大四</option>
+                                        </select>
+                                        </div>
+                                    </div>-->
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">年级</label></div>
+                                            <select class="select-with-search form-control pmd-select2">
                                             <option>大一</option>
                                             <option>大二</option>
                                             <option>大三</option>
@@ -396,6 +407,7 @@
                                     </div>
                                     <div class="button-group">
                                         <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
+                                        <a href="javascript:history.back(-1);" data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">返回</a>
                                     </div>
                                 </div>
                             </div>

@@ -147,7 +147,8 @@
     padding-bottom: 0px;
     text-align: center;
 }
-.footer{
+
+.footer {
     position: absolute;
     /*bottom: 0;*/
     width: 100%;
@@ -159,46 +160,114 @@
     /*margin-top: -70px;*/
     z-index: 1;
 }
+
 .footer .pmd-card-subtitle-text {
     font-size: 12px;
     line-height: 18px;
     opacity: 1;
     margin: 0px;
 }
+
+
 /*footer*/
-.pmd-sidebar ~ .footer { padding-left: 64px; }
-.pmd-sidebar.pmd-sidebar-open ~ .footer { padding-left: 290px;}
-.copyright-text { color: #4d575d; font-size: 14px; padding-top: 8px;}
-.copyright-text a:hover { color: rgb(74, 204, 142);}
-.footer a {color: #fff; display: inline-block;}
-.footer .pmd-card-subtitle-text {font-size: 12px; line-height: 18px; opacity: 1; margin: 0px;color: #fff;}
-.footer .media-left { padding-left: 0; padding-right: 10px;}
-.footer .media-left svg { margin-top: 4px;}
-.footer .pmd-card-title-text a { color: #fff;}
-.footer .pmd-card-subtitle-text span:hover{
+
+.pmd-sidebar~.footer {
+    padding-left: 64px;
+}
+
+.pmd-sidebar.pmd-sidebar-open~.footer {
+    padding-left: 290px;
+}
+
+.copyright-text {
+    color: #4d575d;
+    font-size: 14px;
+    padding-top: 8px;
+}
+
+.copyright-text a:hover {
     color: rgb(74, 204, 142);
 }
-.footer a:hover svg path, .footer a:focus svg path { fill: rgb(74, 204, 142);}
-.footer a:hover { color: rgb(74, 204, 142);}
-.footer .list-inline{ line-height:1.2;}
-.footer .download-now, .footer .for-support{max-width: 240px; padding:0 15px;}
-.footer .download-now a > div, .footer .for-support a > div,
-.footer .download-now a > div svg, .footer .for-support a > div svg{ display:inline-block; vertical-align:middle; line-height:1;}
-.footer .download-now a > div svg, .footer .for-support a > div svg{ margin-right:10px;}
-.footer ul{ margin:0;}
 
-.logincard{
-   margin-top: 106px;
-margin-bottom: 7vh;
-min-height: 74vh;
-
-
+.footer a {
+    color: #fff;
+    display: inline-block;
 }
-.toplogo{
-    float:left;
+
+.footer .pmd-card-subtitle-text {
+    font-size: 12px;
+    line-height: 18px;
+    opacity: 1;
+    margin: 0px;
+    color: #fff;
+}
+
+.footer .media-left {
+    padding-left: 0;
+    padding-right: 10px;
+}
+
+.footer .media-left svg {
+    margin-top: 4px;
+}
+
+.footer .pmd-card-title-text a {
+    color: #fff;
+}
+
+.footer .pmd-card-subtitle-text span:hover {
+    color: rgb(74, 204, 142);
+}
+
+.footer a:hover svg path,
+.footer a:focus svg path {
+    fill: rgb(74, 204, 142);
+}
+
+.footer a:hover {
+    color: rgb(74, 204, 142);
+}
+
+.footer .list-inline {
+    line-height: 1.2;
+}
+
+.footer .download-now,
+.footer .for-support {
+    max-width: 240px;
+    padding: 0 15px;
+}
+
+.footer .download-now a>div,
+.footer .for-support a>div,
+.footer .download-now a>div svg,
+.footer .for-support a>div svg {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.footer .download-now a>div svg,
+.footer .for-support a>div svg {
+    margin-right: 10px;
+}
+
+.footer ul {
+    margin: 0;
+}
+
+.logincard {
+    margin-top: 20vh;
+    margin-bottom: 7vh;
+    min-height: 74vh;
+}
+
+.toplogo {
+    float: left;
     display: inline-block;
     margin-left: 20vh;
 }
-.navbar-header a{
+
+.navbar-header a {
     font-family: Georgia;
 }

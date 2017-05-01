@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="">
 
@@ -344,89 +345,44 @@
 						<div class="col-md-12">
 							<div class="pmd-card pmd-z-depth pmd-card-custom-form">
 								<div class="pmd-card-body">
-									<h2>修改实训方案</h2>
-									<form action="UpdatePracticeServlet" method="post">
-										<div class="form-group pmd-textfield">
-											<div class="input-group col-md-6">
-												<div class="input-group-addon">
-													<label class="control-label col-md-2">企业用户名</label>
-												</div>
-												<input type="text" class="mat-input form-control"
-													disabled="" value="sayHello"> <input type="hidden"
-													value="sayHello" name="company_username">
+									<h2>实训方案详细信息</h2>
+									<div class="form-group pmd-textfield">
+										<div class="input-group col-md-6">
+											<div class="input-group-addon">
+												<label class="control-label col-md-2">企业用户名</label>
 											</div>
+											${infoProject.companyUsername }
 										</div>
-										<div class="form-group pmd-textfield">
-											<div class="input-group col-md-6">
-												<div class="input-group-addon">
-													<label class="control-label col-md-2">方案号</label>
-												</div>
-												<input type="text" class="mat-input form-control"
-													disabled="" value="${updateProjectNo }"> <input
-													type="hidden" value="${updateProjectNo }" name="no">
+									</div>
+									<div class="form-group pmd-textfield">
+										<div class="input-group col-md-6">
+											<div class="input-group-addon">
+												<label class="control-label col-md-2">方案号</label>
 											</div>
+											${infoProject.no }
 										</div>
-
-
 										<div class="form-group pmd-textfield ">
 											<div class="input-group col-md-6">
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">方案名称</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
-													name="name">
+												${infoProject.name }
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
 											<label class="control-label col-md-2 arer-lable">方案简介</label>
-											<textarea required class="form-control" name="introduction"></textarea>
+											<textarea class="form-control" disabled="">${infoProject.introduction }</textarea>
 										</div>
 										<div class="form-group pmd-textfield">
-											<label class="control-label col-md-2">适合专业</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="信息与计算科学(本)" name="major">
-												<span> 信息与计算科学(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="数字媒体技术(本)" name="major">
-												<span> 数字媒体技术(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="电子信息工程(本)" name="major">
-												<span> 电子信息工程(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="电气工程及其自动化(本)" name="major">
-												<span> 电气工程及其自动化(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="网络工程(本)" name="major">
-												<span> 网络工程(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="自动化(本)" name="major">
-												<span> 自动化(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="计算机科学与技术(本)" name="major">
-												<span> 计算机科学与技术(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="软件工程(本)" name="major">
-												<span> 软件工程(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="通信工程(本)" name="major">
-												<span> 通信工程(本)</span>
-											</label>
+											<label class="control-label col-md-2">适合专业</label>
+											${infoProject.major }
 										</div>
 										<div class="form-group pmd-textfield ">
 											<div class="input-group col-md-4">
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">学生人数</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
-													name="students_num">
+												${infoProject.studentsNum }
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
@@ -434,12 +390,7 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">类别</label>
 												</div>
-												<select class="select-with-search form-control pmd-select2"
-													name="category">
-													<option value="技能实训">技能实训</option>
-													<option value="概念实训">概念实训</option>
-													<option value="综合实训">综合实训</option>
-												</select>
+												${infoProject.category }
 											</div>
 										</div>
 										<!--Simple Select with Search-->
@@ -448,13 +399,7 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">年级</label>
 												</div>
-												<select class="select-with-search form-control pmd-select2"
-													name="grade">
-													<option value="1">大一</option>
-													<option value="2">大二</option>
-													<option value="3">大三</option>
-													<option value="4">大四</option>
-												</select>
+												${infoProject.grade }
 											</div>
 										</div>
 										<div class="form-group pmd-textfield ">
@@ -462,8 +407,7 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">校外指导老师</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
-													name="company_teacher">
+												${infoProject.companyTeacher }
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
@@ -471,156 +415,163 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">校外指导老师 职称</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
-													name="company_teacher_title">
+												${infoProject.companyTeacherTitle }
 											</div>
 										</div>
 										<div class="button-group">
-											<button type="submit"
-												class="btn pmd-ripple-effect btn-primary">确定</button>
+											<c:if test="${InfoRole==1 }">
+												<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
+													href="UpdatePracticeServlet?no=${infoProject.no }"> 修改</a>
+													<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
+													href="DeletePracticeServlet?no=${infoProject.no }"> 删除</a>
+											</c:if>
+											
 											<a href="javascript:history.back(-1);" data-dismiss="modal"
 												class="btn pmd-ripple-effect btn-default" type="button">返回</a>
 										</div>
-
-									</form>
+									</div>
 								</div>
 							</div>
-						</div>
 
+						</div>
+						<!-- input states example end -->
 					</div>
-					<!-- input states example end -->
 				</div>
+
+
 			</div>
-
-
 		</div>
-	</div>
 
-	<!-- Footer Starts -->
-	<!--footer start-->
-	<footer class="admin-footer">
-		<div class="container-fluid">
-			<ul class="list-unstyled list-inline">
-				<li><span class="pmd-card-subtitle-text">信息科学与工程学院
-						&copy; 2017. 版权所有.</span>
-					<h3 class="pmd-card-subtitle-text">
-						技术支持 BY <a href="http://computer.cdu.edu.cn/" target="_blank">信工学院.</a>
-					</h3></li>
-				<li class="pull-right download-now"><a
-					onClick="downloadPMDadmintemplate()" href="javascript：void(0);">
-						<div>
-							<i class="material-icons media-left pmd-sm">settings</i>
-						</div>
-						<div>
-							<span class="pmd-card-subtitle-text">Version- 1.0.0</span>
-							<h3 class="pmd-card-title-text">By cduyzh</h3>
-						</div>
-				</a></li>
-				<li class="pull-right for-support"><a
-					href="mailto:support@propeller.in">
-						<div>
-							<i class="material-icons media-left pmd-sm">email</i>
-						</div>
-						<div>
-							<span class="pmd-card-subtitle-text">For Support</span>
-							<h3 class="pmd-card-title-text">450311265@qq.com</h3>
-						</div>
-				</a></li>
-			</ul>
-		</div>
-	</footer>
-	<!--footer end-->
-	<!-- Footer Ends -->
+		<!-- Footer Starts -->
+		<!--footer start-->
+		<footer class="admin-footer">
+			<div class="container-fluid">
+				<ul class="list-unstyled list-inline">
+					<li><span class="pmd-card-subtitle-text">信息科学与工程学院
+							&copy; 2017. 版权所有.</span>
+						<h3 class="pmd-card-subtitle-text">
+							技术支持 BY <a href="http://computer.cdu.edu.cn/" target="_blank">信工学院.</a>
+						</h3></li>
+					<li class="pull-right download-now"><a
+						onClick="downloadPMDadmintemplate()" href="javascript：void(0);">
+							<div>
+								<i class="material-icons media-left pmd-sm">settings</i>
+							</div>
+							<div>
+								<span class="pmd-card-subtitle-text">Version- 1.0.0</span>
+								<h3 class="pmd-card-title-text">By cduyzh</h3>
+							</div>
+					</a></li>
+					<li class="pull-right for-support"><a
+						href="mailto:support@propeller.in">
+							<div>
+								<i class="material-icons media-left pmd-sm">email</i>
+							</div>
+							<div>
+								<span class="pmd-card-subtitle-text">For Support</span>
+								<h3 class="pmd-card-title-text">450311265@qq.com</h3>
+							</div>
+					</a></li>
+				</ul>
+			</div>
+		</footer>
+		<!--footer end-->
+		<!-- Footer Ends -->
 
-	<!-- Scripts Starts -->
-	<script src="../assets/js/jquery-1.12.2.min.js"></script>
-	<script src="../assets/js/bootstrap.min.js"></script>
-	<!--控制左侧工具栏选择状态-->
-	<script>
-		$(document).ready(
-				function() {
-					var sPath = window.location.pathname;
-					var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
-					$(".pmd-sidebar-nav").each(
+		<!-- Scripts Starts -->
+		<script src="../assets/js/jquery-1.12.2.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
+		<!--控制左侧工具栏选择状态-->
+		<script>
+			$(document)
+					.ready(
 							function() {
-								$(this).find(
-										"a[href='../PracticeManagement/"
-												+ sPage + "']").parents(
-										".dropdown").addClass("open");
-								$(this).find(
-										"a[href='../PracticeManagement/"
-												+ sPage + "']").parents(
-										".dropdown").find('.dropdown-menu')
-										.css("display", "block");
-								$(this).find(
-										"a[href='../PracticeManagement/"
-												+ sPage + "']").parents(
-										".dropdown").find('a.dropdown-toggle')
-										.addClass("active");
-								$(this).find(
-										"a[href='../PracticeManagement/"
-												+ sPage + "']").addClass(
-										"active");
+								var sPath = window.location.pathname;
+								var sPage = sPath.substring(sPath
+										.lastIndexOf('/') + 1);
+								$(".pmd-sidebar-nav").each(
+										function() {
+											$(this).find(
+													"a[href='../PracticeManagement/"
+															+ sPage + "']")
+													.parents(".dropdown")
+													.addClass("open");
+											$(this).find(
+													"a[href='../PracticeManagement/"
+															+ sPage + "']")
+													.parents(".dropdown").find(
+															'.dropdown-menu')
+													.css("display", "block");
+											$(this).find(
+													"a[href='../PracticeManagement/"
+															+ sPage + "']")
+													.parents(".dropdown")
+													.find('a.dropdown-toggle')
+													.addClass("active");
+											$(this).find(
+													"a[href='../PracticeManagement/"
+															+ sPage + "']")
+													.addClass("active");
+										});
 							});
+		</script>
+		<script type="text/javascript">
+			(function() {
+				"use strict";
+				var toggles = document.querySelectorAll(".c-hamburger");
+				for (var i = toggles.length - 1; i >= 0; i--) {
+					var toggle = toggles[i];
+					toggleHandler(toggle);
+				}
+				;
+
+				function toggleHandler(toggle) {
+					toggle
+							.addEventListener(
+									"click",
+									function(e) {
+										e.preventDefault();
+										(this.classList.contains("is-active") === true) ? this.classList
+												.remove("is-active")
+												: this.classList
+														.add("is-active");
+									});
+				}
+
+			})();
+		</script>
+
+		<script src="../assets/js/propeller.min.js"></script>
+		<!-- Select2 js-->
+		<script type="text/javascript"
+			src="../components/select2/js/select2.full.js"></script>
+
+		<!-- Propeller Select2 -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+
+				$(".select-simple").select2({
+					theme : "bootstrap",
+					minimumResultsForSearch : Infinity,
 				});
-	</script>
-	<script type="text/javascript">
-		(function() {
-			"use strict";
-			var toggles = document.querySelectorAll(".c-hamburger");
-			for (var i = toggles.length - 1; i >= 0; i--) {
-				var toggle = toggles[i];
-				toggleHandler(toggle);
-			}
-			;
 
-			function toggleHandler(toggle) {
-				toggle
-						.addEventListener(
-								"click",
-								function(e) {
-									e.preventDefault();
-									(this.classList.contains("is-active") === true) ? this.classList
-											.remove("is-active")
-											: this.classList.add("is-active");
-								});
-			}
+				$(".select-with-search").select2({
+					theme : "bootstrap"
+				});
 
-		})();
-	</script>
+				$(".select-tags").select2({
+					tags : false,
+					theme : "bootstrap",
+				});
 
-	<script src="../assets/js/propeller.min.js"></script>
-	<!-- Select2 js-->
-	<script type="text/javascript"
-		src="../components/select2/js/select2.full.js"></script>
-
-	<!-- Propeller Select2 -->
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-			$(".select-simple").select2({
-				theme : "bootstrap",
-				minimumResultsForSearch : Infinity,
+				$(".select-add-tags").select2({
+					tags : true,
+					theme : "bootstrap",
+				});
 			});
-
-			$(".select-with-search").select2({
-				theme : "bootstrap"
-			});
-
-			$(".select-tags").select2({
-				tags : false,
-				theme : "bootstrap",
-			});
-
-			$(".select-add-tags").select2({
-				tags : true,
-				theme : "bootstrap",
-			});
-		});
-	</script>
-	<script type="text/javascript"
-		src="../components/select2/js/pmd-select2.js"></script>
-
+		</script>
+		<script type="text/javascript"
+			src="../components/select2/js/pmd-select2.js"></script>
 </body>
 
 </html>

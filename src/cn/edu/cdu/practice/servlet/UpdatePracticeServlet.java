@@ -34,6 +34,9 @@ public class UpdatePracticeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String no = request.getParameter("no");
 		request.setAttribute("updateProjectNo", no);
+		/**
+		 * 未设置身份判断
+		 */
 		request.getRequestDispatcher("/PracticeManagement/updatePractice.jsp").forward(request, response);
 	}
 
@@ -42,6 +45,9 @@ public class UpdatePracticeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/**
+		 * 未设置身份判断
+		 */
 		request.setCharacterEncoding("utf-8");
 		String majors[]=request.getParameterValues("major");
 		String company_username=request.getParameter("company_username");
@@ -77,7 +83,7 @@ public class UpdatePracticeServlet extends HttpServlet {
 		
 		ProjectDaoImpl projectDaoImpl=new ProjectDaoImpl();
 		if(projectDaoImpl.updateProject(project))
-			System.out.println("ok..");
+			request.getRequestDispatcher("/PracticeManagement/programManagement.jsp").forward(request, response);
 	}
 
 }

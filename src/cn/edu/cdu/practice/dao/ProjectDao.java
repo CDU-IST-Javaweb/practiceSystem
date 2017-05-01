@@ -49,7 +49,7 @@ public interface ProjectDao {
 	 * @param p_no 方案号
 	 * @return
 	 */
-	public boolean deleteProject(int p_no);
+	public boolean deleteProject(String p_no);
 	
 	/**
 	 * 审核退审实训方案
@@ -57,7 +57,7 @@ public interface ProjectDao {
 	 * @param  check true表示审核通过，false表示退审
 	 * @return
 	 */
-	public boolean checkProject(int p_no,boolean check);
+	public boolean checkProject(String p_no,boolean check);
 	
 	/**
 	 * 方案总结
@@ -65,13 +65,13 @@ public interface ProjectDao {
 	 * @param content 总结内容
 	 * @return
 	 */
-	public boolean summaryProject(int p_no,String content);
+	public boolean summaryProject(String p_no,String content);
 	
 	/**
 	 * 实训结束，结束部分
 	 * @param p_nos
 	 */
-	public boolean endProjects(int p_nos[]);
+	public boolean endProjects(String p_nos[]);
 	
 	/**
 	 * 学生查询所有正进行方案
@@ -88,7 +88,7 @@ public interface ProjectDao {
 	 * @param reason  选题理由
 	 * @return
 	 */
-	public boolean chooseProject(String company_name,int p_no,int stu_no,String reason);
+	public boolean chooseProject(String company_name,String p_no,int stu_no,String reason);
 	
 	/**
 	 * 学生退选方案
@@ -96,14 +96,14 @@ public interface ProjectDao {
 	 * @param stu_no  学生学号
 	 * @return
 	 */
-	public boolean unChooseProject(int p_no,int stu_no);
+	public boolean unChooseProject(String p_no,int stu_no);
 	
 	/**
 	 * 企业查询学生选择本企业方案情况
 	 * @param p_no 方案号
 	 * @return 学生学号
 	 */
-	public ArrayList<Integer> findAllStudentChoice(int p_no);
+	public ArrayList<Integer> findAllStudentChoice(String p_no);
 	
 	/**
 	 * 企业选择学生   学生已有确定方案不能被选择
@@ -111,7 +111,7 @@ public interface ProjectDao {
 	 * @param p_no   方案号
 	 * @return 
 	 */
-	public boolean chooseStudent(int stu_no,int p_no);
+	public boolean chooseStudent(int stu_no,String p_no);
 	
 	/**
 	 * 企业退选学生
@@ -119,7 +119,7 @@ public interface ProjectDao {
 	 * @param p_no  方案号
 	 * @return 
 	 */
-	public boolean unChooseStudent(int stu_nos[],int p_no);
+	public boolean unChooseStudent(int stu_nos[],String p_no);
 	
 	/**
 	 * 企业查询选题理由
@@ -127,7 +127,7 @@ public interface ProjectDao {
 	 * @param p_no 按方案查询时，该参数必填，按其他查询时填null
 	 * @return 
 	 */
-	public ArrayList<ProjectSelect> findReason(int type,int p_no);
+	public ArrayList<ProjectSelect> findReason(int type,String p_no);
 	
 	/**
 	 * 企业录入成绩，按方案号录入
@@ -136,17 +136,17 @@ public interface ProjectDao {
 	 * @param p_no  方案号
 	 * @return 
 	 */
-	public boolean inputScore(int stu_nos[],int scores[],int p_no);
+	public boolean inputScore(int stu_nos[],int scores[],String p_no);
 	
 	/**
 	 * 按方案号查询学生成绩
 	 * @param p_no
 	 * @return
 	 */
-	public ArrayList<ProjectSelect> findScore(int p_no);
+	public ArrayList<ProjectSelect> findScore(String p_no);
 	
 	/**
-	 * 统计所有方案数量
+	 * 统计方案数量
 	 * @return
 	 */
 	public int countProject();
@@ -156,5 +156,24 @@ public interface ProjectDao {
 	 * @return
 	 */
 	public int countCompanyProject(String company_username);
+	
+	/**
+	 * 通过no查询方案信息
+	 * @param no
+	 * @return
+	 */
+	public Project findProjectByNo(String no);
+	
+	/**
+	 * 得到某年的方案号最大值
+	 * @return
+	 */
+	public int findMaxProjectNo(int year);
+	
+	/**
+	 * 查询所有正进行方案
+	 * @return
+	 */
+	public ArrayList<Project> findAllStartedProject();
 }
 

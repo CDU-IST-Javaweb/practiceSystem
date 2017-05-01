@@ -2,7 +2,6 @@ package cn.edu.cdu.practice.service.impl;
 
 import java.util.Calendar;
 
-
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
 import cn.edu.cdu.practice.service.ProjectService;
 
@@ -21,11 +20,9 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public String getProjectNo() {
 		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		int m = projectDaoImpl.countProject();
+		int m = projectDaoImpl.findMaxProjectNo(Calendar.getInstance().get(Calendar.YEAR));
 		if (m >= 0) {
-			int no = m + 1;
-			int year = Calendar.getInstance().get(Calendar.YEAR) * 1000000;
-			return year + no + "";
+			return m + 1 + "";
 		}
 		return null;
 	}

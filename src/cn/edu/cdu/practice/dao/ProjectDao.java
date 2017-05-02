@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.cdu.practice.model.ProProSelStuView;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.model.ProjectSelect;
 import cn.edu.cdu.practice.model.Student;
@@ -88,7 +89,7 @@ public interface ProjectDao {
 	 * @param reason  选题理由
 	 * @return
 	 */
-	public boolean chooseProject(String company_name,String p_no,int stu_no,String reason);
+	public boolean chooseProject(String company_name,String p_no,String stu_no,String reason);
 	
 	/**
 	 * 学生退选方案
@@ -96,14 +97,15 @@ public interface ProjectDao {
 	 * @param stu_no  学生学号
 	 * @return
 	 */
-	public boolean unChooseProject(String p_no,int stu_no);
+	public boolean unChooseProject(String p_no,String stu_no);
 	
 	/**
 	 * 企业查询学生选择本企业方案情况
-	 * @param p_no 方案号
-	 * @return 学生学号
+	 * @param c_name 企业用户名
+	 * @param pageUtils 分页工具类
+	 * @return 
 	 */
-	public ArrayList<Integer> findAllStudentChoice(String p_no);
+	public ArrayList<ProProSelStuView> findAllStudentChoice(String c_name,PageUtils pageUtils);
 	
 	/**
 	 * 企业选择学生   学生已有确定方案不能被选择
@@ -111,7 +113,7 @@ public interface ProjectDao {
 	 * @param p_no   方案号
 	 * @return 
 	 */
-	public boolean chooseStudent(int stu_no,String p_no);
+	public boolean chooseStudent(String stu_no,String p_no);
 	
 	/**
 	 * 企业退选学生
@@ -119,7 +121,7 @@ public interface ProjectDao {
 	 * @param p_no  方案号
 	 * @return 
 	 */
-	public boolean unChooseStudent(int stu_nos[],String p_no);
+	public boolean unChooseStudent(String stu_nos[],String p_no);
 	
 	/**
 	 * 企业查询选题理由
@@ -136,7 +138,7 @@ public interface ProjectDao {
 	 * @param p_no  方案号
 	 * @return 
 	 */
-	public boolean inputScore(int stu_nos[],int scores[],String p_no);
+	public boolean inputScore(String stu_nos[],int scores[],String p_no);
 	
 	/**
 	 * 按方案号查询学生成绩
@@ -175,5 +177,19 @@ public interface ProjectDao {
 	 * @return
 	 */
 	public ArrayList<Project> findAllStartedProject();
+	
+	/**
+	 * 查询学生已选方案
+	 * @param stu_no
+	 * @return
+	 */
+	public ArrayList<Project> findAllChosenProject(String stu_no);
+	
+	/**
+	 * 根据企业用户名，统计学生选择的数量
+	 * @param c_name
+	 * @return
+	 */
+	public int countAllStudentChoice(String c_name);
 }
 

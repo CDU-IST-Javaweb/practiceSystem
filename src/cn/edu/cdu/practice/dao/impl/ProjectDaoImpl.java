@@ -6,18 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
-import com.sun.swing.internal.plaf.metal.resources.metal_zh_TW;
 
 import cn.edu.cdu.practice.dao.ProjectDao;
+import cn.edu.cdu.practice.model.ProProSelStuView;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.model.ProjectSelect;
 import cn.edu.cdu.practice.model.ProjectSelectId;
-import cn.edu.cdu.practice.model.Student;
 import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.DbUtils;
-import cn.edu.cdu.practice.utils.Log4jUtils;
 import cn.edu.cdu.practice.utils.PageUtils;
 
 /**
@@ -212,7 +208,6 @@ public class ProjectDaoImpl implements ProjectDao {
 			else {
 				ps.close();
 				connection.setAutoCommit(false);
-				Log4jUtils.info("测试删除");
 				ps = connection.prepareStatement(sql2);
 				ps.setString(1, p_no);
 				ps.execute();
@@ -367,21 +362,22 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public boolean chooseProject(String company_name, String p_no, int stu_no, String reason) {
+	public boolean chooseProject(String company_name, String p_no, String stu_no, String reason) {
 		// 查询单个学生已选方案数的sql语句
 		String sql1 = "SELECT COUNT(*) m FROM project_select WHERE studentNo=?";
 		// 查询系统预设学生可选方案数上限的sql语句
 		String sql2 = "SELECT student_sel_maxnum m FROM system_parameter";
 		// 增加学生选择方案的sql语句
-		String sql3 = "UPDATE INTO project_select(studentNo,projectNo,sel_reason,company_name) VALUES(?,?,?,?)";
+		String sql3 = "INSERT INTO project_select(studentNo,projectNo,sel_reason,company_name) VALUES(?,?,?,?)";
 
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			// 查询学生已选方案数
+			connection.setAutoCommit(false);
 			ps = connection.prepareStatement(sql1);
-			ps.setInt(1, stu_no);
+			ps.setString(1, stu_no);
 			rs = ps.executeQuery();
 			int stu_sel_max = 0;
 			if (rs.next())
@@ -399,11 +395,11 @@ public class ProjectDaoImpl implements ProjectDao {
 			// 如果学生已选方案总数小于系统设置的上限，进行添加操作
 			if (stu_sel_max < sys_sel_max) {
 				ps = connection.prepareStatement(sql3);
-				ps.setInt(1, stu_no);
+				ps.setString(1, stu_no);
 				ps.setString(2, p_no);
 				ps.setString(3, reason);
 				ps.setString(4, company_name);
-				ps.executeUpdate();
+				ps.execute();
 				connection.commit();
 				return true;
 			} else
@@ -424,14 +420,14 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public boolean unChooseProject(String p_no, int stu_no) {
+	public boolean unChooseProject(String p_no, String stu_no) {
 		String sql = "DELETE FROM project_select WHERE studentNo=? and projectNo=?";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		try {
 			connection.setAutoCommit(false);
 			ps = connection.prepareStatement(sql);
-			ps.setInt(1, stu_no);
+			ps.setString(1, stu_no);
 			ps.setString(2, p_no);
 			ps.execute();
 			connection.commit();
@@ -451,32 +447,76 @@ public class ProjectDaoImpl implements ProjectDao {
 		return false;
 	}
 
-	// 这里仅仅只是返回了一个方案下的学生学号,未完善 查视图返回详细信息
 	@Override
-	public ArrayList<Integer> findAllStudentChoice(String p_no) {
-		String sql = "SELECT studentNo FROM project_select WHERE projectNo=?";
+	public ArrayList<ProProSelStuView> findAllStudentChoice(String c_name,PageUtils pageUtils) {
+		String sql = "SELECT * FROM view_project_select WHERE company_name=? LIMIT ?,?";
 		Connection connection = DbUtils.getConnection();
+		int totalSize = countAllStudentChoice(c_name);
+		if(totalSize<0)
+			return null;
+		pageUtils.setTotalSize(totalSize);
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<Integer> list = new ArrayList<>();
+		ArrayList<ProProSelStuView> proProSelStuViews = new ArrayList<>();
+		int start = (pageUtils.getPageNow() - 1) * pageUtils.getPageSize();
+		int size = pageUtils.getPageSize();
 		try {
 			ps = connection.prepareStatement(sql);
-			ps.setString(1, p_no);
+			ps.setString(1, c_name);
+			ps.setInt(2, start);
+			ps.setInt(3, size);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int stu_no = rs.getInt("studentNo");
-				list.add(stu_no);
+				ProProSelStuView proProSelStuView=new ProProSelStuView();
+				//project属性设置
+				proProSelStuView.getProject().setAuditDate(rs.getDate("project_audit_date"));
+				proProSelStuView.getProject().setCategory(rs.getString("project_category"));
+				proProSelStuView.getProject().setCompanyTeacher(rs.getString("company_teacher"));
+				proProSelStuView.getProject().setCompanyTeacherTitle(rs.getString("company_teacher_title"));
+				proProSelStuView.getProject().setCompanyUsername(rs.getString("company_name"));
+				proProSelStuView.getProject().setEndDate(rs.getDate("project_end_date"));
+				proProSelStuView.getProject().setGrade(rs.getInt("project_grade"));
+				proProSelStuView.getProject().setIntroduction(rs.getString("project_introduction"));
+				proProSelStuView.getProject().setMajor(rs.getString("project_major"));
+				proProSelStuView.getProject().setName(rs.getString("project_name"));
+				proProSelStuView.getProject().setNo(rs.getString("projectNo"));
+				proProSelStuView.getProject().setReleaseDate(rs.getDate("project_release_date"));
+				proProSelStuView.getProject().setStudentsNum(rs.getInt("project_students_num"));
+				proProSelStuView.getProject().setSummary(rs.getString("project_summary"));
+				//projectSelect属性设置
+				proProSelStuView.getProjectSelect().setCompanyName(rs.getString("company_name"));
+				proProSelStuView.getProjectSelect().setCompanySelDate(rs.getDate("company_sel_date"));
+				proProSelStuView.getProjectSelect().setId(new ProjectSelectId());
+				proProSelStuView.getProjectSelect().getId().setProjectNo(Integer.parseInt(rs.getString("projectNo")));
+				proProSelStuView.getProjectSelect().getId().setStudentNo(rs.getString("studentNo"));
+				proProSelStuView.getProjectSelect().setScore(rs.getString("score"));
+				proProSelStuView.getProjectSelect().setSelReason(rs.getString("sel_reason"));
+				//student属性设置
+				proProSelStuView.getStudent().setClass_(rs.getString("student_class"));
+				proProSelStuView.getStudent().setGender(rs.getString("student_gender"));
+				proProSelStuView.getStudent().setGrade(rs.getInt("student_grade"));
+				proProSelStuView.getStudent().setLearningExperience(rs.getString("student_learning_experience"));
+				proProSelStuView.getStudent().setLevel(rs.getString("student_level"));
+				proProSelStuView.getStudent().setMailbox(rs.getString("student_mailbox"));
+				proProSelStuView.getStudent().setName(rs.getString("student_name"));
+				proProSelStuView.getStudent().setNo(rs.getString("studentNo"));
+				proProSelStuView.getStudent().setProfessional(rs.getString("student_professional"));
+				proProSelStuView.getStudent().setResearchDirection(rs.getString("student_research_direction"));
+				proProSelStuView.getStudent().setSubjectBackground(rs.getString("student_subject_background"));
+				
+				proProSelStuViews.add(proProSelStuView);
 			}
+			return proProSelStuViews;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DbUtils.closeConnection(connection, ps, rs);
 		}
-		return list;
+		return null;
 	}
 
 	@Override
-	public boolean chooseStudent(int stu_no, String p_no) {
+	public boolean chooseStudent(String stu_no, String p_no) {
 		// 查看当前学生是否已有确定方案的sql语句
 		String sql1 = "SELECT company_sel_date FROM project_select WHERE studentNo=? AND company_sel_date IS NOT NULL";
 		// 选择学生的sql语句
@@ -487,7 +527,7 @@ public class ProjectDaoImpl implements ProjectDao {
 		try {
 			// 查询学生已确定方案
 			ps = connection.prepareStatement(sql1);
-			ps.setInt(1, stu_no);
+			ps.setString(1, stu_no);
 			rs = ps.executeQuery();
 			if (!rs.next()) {
 				// 没有已确定方案
@@ -496,7 +536,7 @@ public class ProjectDaoImpl implements ProjectDao {
 				ps = connection.prepareStatement(sql2);
 				Date date = new Date(Calendar.getInstance().getTime().getTime());
 				ps.setDate(1, date);
-				ps.setInt(2, stu_no);
+				ps.setString(2, stu_no);
 				ps.setString(3, p_no);
 				ps.executeUpdate();
 				connection.commit();
@@ -518,7 +558,7 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public boolean unChooseStudent(int[] stu_nos, String p_no) {
+	public boolean unChooseStudent(String[] stu_nos, String p_no) {
 		String sql = "UPDATE project_select SET company_sel_date=NULL  WHERE studentNo=? AND projectNo=?";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
@@ -527,7 +567,7 @@ public class ProjectDaoImpl implements ProjectDao {
 			ps = connection.prepareStatement(sql);
 			ps.setString(2, p_no);
 			for (int i = 0; i < stu_nos.length; i++) {
-				ps.setInt(1, stu_nos[i]);
+				ps.setString(1, stu_nos[i]);
 				ps.executeUpdate();
 			}
 			connection.commit();
@@ -585,7 +625,7 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public boolean inputScore(int[] stu_nos, int[] scores, String p_no) {
+	public boolean inputScore(String[] stu_nos, int[] scores, String p_no) {
 		String sql = "UPDATE project_select SET score=? WHERE studentNo=? AND projectNo=? AND company_sel_date IS NOT NULL";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
@@ -595,7 +635,7 @@ public class ProjectDaoImpl implements ProjectDao {
 			ps.setString(3, p_no);
 			for (int i = 0; i < stu_nos.length; i++) {
 				ps.setInt(1, scores[i]);
-				ps.setInt(2, stu_nos[i]);
+				ps.setString(2, stu_nos[i]);
 				ps.executeUpdate();
 			}
 			connection.commit();
@@ -789,5 +829,67 @@ public class ProjectDaoImpl implements ProjectDao {
 			DbUtils.closeConnection(connection, ps, rs);
 		}
 		return null;
+	}
+
+	@Override
+	public ArrayList<Project> findAllChosenProject(String stu_no) {
+		// 查询单个学生已选方案数的sql语句
+		String sql = "SELECT * FROM view_project_select WHERE studentNo=?";
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Project> projects = new ArrayList<>();
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, stu_no);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Project project = new Project();
+				project.setAuditDate(rs.getDate("project_audit_date"));
+				project.setCategory(rs.getString("project_category"));
+				project.setCompanyTeacher(rs.getString("company_teacher"));
+				project.setCompanyTeacherTitle(rs.getString("company_teacher_title"));
+				project.setCompanyUsername(rs.getString("company_name"));
+				project.setEndDate(rs.getDate("project_end_date"));
+				project.setGrade(rs.getInt("project_grade"));
+				project.setIntroduction(rs.getString("project_introduction"));
+				project.setMajor(rs.getString("project_major"));
+				project.setName(rs.getString("project_name"));
+				project.setNo(rs.getString("projectNo"));
+				project.setReleaseDate(rs.getDate("project_release_date"));
+				project.setStudentsNum(rs.getInt("project_students_num"));
+				project.setSummary(rs.getString("project_summary"));
+				projects.add(project);
+			}
+			return projects;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return null;
+	}
+
+	@Override
+	public int countAllStudentChoice(String c_name) {
+		String sql = "SELECT COUNT(*) m FROM view_project_select WHERE company_name=?";
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// 查询方案总数
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, c_name);
+			rs = ps.executeQuery();
+			int m = 0;
+			if (rs.next())
+				m = rs.getInt("m");
+			return m;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return -1;
 	}
 }

@@ -424,7 +424,7 @@
 
 						<c:if test="${selectProjectsRole==1 }">
 							<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
-								href="../PracticeManagement/add-and-modify.html">添加</a>
+								href="../PracticeManagement/addPractice.jsp">添加</a>
 						</c:if>
 						<c:if test="${selectProjectsRole==9 }">
 							<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"

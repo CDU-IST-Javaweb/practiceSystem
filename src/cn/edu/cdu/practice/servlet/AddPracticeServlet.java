@@ -42,7 +42,13 @@ public class AddPracticeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String majors[]=request.getParameterValues("major");
-		String company_username=request.getParameter("company_username");
+		String company_username=(String) request.getSession().getAttribute("company_username");
+		/**
+		 * 为方便测试,未查到企业用户名时,默认sayHello添加方案
+		 */
+		if(company_username==null){
+			company_username="sayHello";
+		}
 		String name=request.getParameter("name");
 		String introduction=request.getParameter("introduction");
 		int students_num=Integer.parseInt(request.getParameter("students_num"));

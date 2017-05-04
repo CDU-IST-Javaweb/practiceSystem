@@ -108,6 +108,14 @@ public interface ProjectDao {
 	public ArrayList<ProProSelStuView> findAllStudentChoice(String c_name,PageUtils pageUtils);
 	
 	/**
+	 * 企业查询学生选择本企业某方案情况
+	 * @param p_no 企业方案号
+	 * @param pageUtils 分页工具类
+	 * @return 
+	 */
+	public ArrayList<ProProSelStuView> findAllStudentChoiceByPNo(String p_no,PageUtils pageUtils);
+	
+	/**
 	 * 企业选择学生   学生已有确定方案不能被选择
 	 * @param stu_no  学生学号
 	 * @param p_no   方案号
@@ -191,5 +199,39 @@ public interface ProjectDao {
 	 * @return
 	 */
 	public int countAllStudentChoice(String c_name);
+	
+	/**
+	 * 根据企业方案号，统计学生选择的数量
+	 * @param p_no
+	 * @return
+	 */
+	public int countAllStudentChoiceByPNo(String p_no);
+	
+	
+	/**
+	 * 根据角色查询所有方案,分页
+	 * @param role 角色    1-企业 9-管理员
+	 * @param company_username 如果是企业查询，需传入company_username
+	 * @param pageUtils 传入的该对象应设置pageNow和pageSize
+	 * @param checkState 审核状态
+	 * @param year  方案生成年份
+	 * @return 
+	 */
+	public ArrayList<Project> findAllProject(int role,String company_username,PageUtils pageUtils,boolean checkState,String year);
+	
+	/**
+	 * 统计某年已审核/未审核方案数数量，管理员查询时，company_username传入空值
+	 * @param year 方案发布年
+	 * @param checkState 方案审核状态
+	 * @return
+	 */
+	public int countProject(String year,boolean checkState,String company_username);
+	
+	/**
+	 * 查询企业所有方案
+	 * @param company_username 
+	 * @return 
+	 */
+	public ArrayList<Project> findAllProject(String company_username);
 }
 

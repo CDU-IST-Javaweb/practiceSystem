@@ -448,11 +448,11 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public ArrayList<ProProSelStuView> findAllStudentChoice(String c_name,PageUtils pageUtils) {
+	public ArrayList<ProProSelStuView> findAllStudentChoice(String c_name, PageUtils pageUtils) {
 		String sql = "SELECT * FROM view_project_select WHERE company_name=? LIMIT ?,?";
 		Connection connection = DbUtils.getConnection();
 		int totalSize = countAllStudentChoice(c_name);
-		if(totalSize<0)
+		if (totalSize < 0)
 			return null;
 		pageUtils.setTotalSize(totalSize);
 		PreparedStatement ps = null;
@@ -467,8 +467,8 @@ public class ProjectDaoImpl implements ProjectDao {
 			ps.setInt(3, size);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProProSelStuView proProSelStuView=new ProProSelStuView();
-				//project属性设置
+				ProProSelStuView proProSelStuView = new ProProSelStuView();
+				// project属性设置
 				proProSelStuView.getProject().setAuditDate(rs.getDate("project_audit_date"));
 				proProSelStuView.getProject().setCategory(rs.getString("project_category"));
 				proProSelStuView.getProject().setCompanyTeacher(rs.getString("company_teacher"));
@@ -483,7 +483,7 @@ public class ProjectDaoImpl implements ProjectDao {
 				proProSelStuView.getProject().setReleaseDate(rs.getDate("project_release_date"));
 				proProSelStuView.getProject().setStudentsNum(rs.getInt("project_students_num"));
 				proProSelStuView.getProject().setSummary(rs.getString("project_summary"));
-				//projectSelect属性设置
+				// projectSelect属性设置
 				proProSelStuView.getProjectSelect().setCompanyName(rs.getString("company_name"));
 				proProSelStuView.getProjectSelect().setCompanySelDate(rs.getDate("company_sel_date"));
 				proProSelStuView.getProjectSelect().setId(new ProjectSelectId());
@@ -491,7 +491,7 @@ public class ProjectDaoImpl implements ProjectDao {
 				proProSelStuView.getProjectSelect().getId().setStudentNo(rs.getString("studentNo"));
 				proProSelStuView.getProjectSelect().setScore(rs.getString("score"));
 				proProSelStuView.getProjectSelect().setSelReason(rs.getString("sel_reason"));
-				//student属性设置
+				// student属性设置
 				proProSelStuView.getStudent().setClass_(rs.getString("student_class"));
 				proProSelStuView.getStudent().setGender(rs.getString("student_gender"));
 				proProSelStuView.getStudent().setGrade(rs.getInt("student_grade"));
@@ -503,7 +503,7 @@ public class ProjectDaoImpl implements ProjectDao {
 				proProSelStuView.getStudent().setProfessional(rs.getString("student_professional"));
 				proProSelStuView.getStudent().setResearchDirection(rs.getString("student_research_direction"));
 				proProSelStuView.getStudent().setSubjectBackground(rs.getString("student_subject_background"));
-				
+
 				proProSelStuViews.add(proProSelStuView);
 			}
 			return proProSelStuViews;
@@ -773,7 +773,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public int findMaxProjectNo(int year) {
-		String sql = "SELECT MAX(`No`) m FROM project WHERE `No` LIKE '"+year+"%'";
+		String sql = "SELECT MAX(`No`) m FROM project WHERE `No` LIKE '" + year + "%'";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -880,6 +880,234 @@ public class ProjectDaoImpl implements ProjectDao {
 			// 查询方案总数
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, c_name);
+			rs = ps.executeQuery();
+			int m = 0;
+			if (rs.next())
+				m = rs.getInt("m");
+			return m;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return -1;
+	}
+
+	@Override
+	public ArrayList<Project> findAllProject(int role, String company_username, PageUtils pageUtils, boolean checkState,
+			String year) {
+		String sql = null;
+		String sql_end = null;
+		if (checkState)
+			sql_end = " AND audit_date IS NOT NULL LIMIT ?,?";
+		else
+			sql_end = " AND audit_date IS NULL LIMIT ?,?";
+		int totalSize = 0;
+		if (role == 9) {
+			sql = "SELECT * FROM project WHERE `No` LIKE '" + year + "%'" + sql_end;
+			totalSize = countProject(year, checkState, null);
+			pageUtils.setTotalSize(totalSize);
+		} else if (role == 1 && company_username != null) {
+			sql = "SELECT * FROM project WHERE `No` LIKE '" + year + "%' AND company_username=? " + sql_end;
+			totalSize = countProject(year, checkState, company_username);
+			pageUtils.setTotalSize(totalSize);
+		} else
+			return null;
+		if (totalSize <= 0)
+			return null;
+		int start = (pageUtils.getPageNow() - 1) * pageUtils.getPageSize();
+		int size = pageUtils.getPageSize();
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Project> projects = new ArrayList<>();
+		try {
+			ps = connection.prepareStatement(sql);
+			if (role == 9) {
+				ps.setInt(1, start);
+				ps.setInt(2, size);
+			} else {
+				ps.setString(1, company_username);
+				ps.setInt(2, start);
+				ps.setInt(3, size);
+			}
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Project project = new Project();
+				project.setAuditDate(rs.getDate("audit_date"));
+				project.setCategory(rs.getString("category"));
+				project.setCompanyTeacher(rs.getString("company_teacher"));
+				project.setCompanyTeacherTitle(rs.getString("company_teacher_title"));
+				project.setCompanyUsername(rs.getString("company_username"));
+				project.setEndDate(rs.getDate("end_date"));
+				project.setGrade(rs.getInt("grade"));
+				project.setIntroduction(rs.getString("introduction"));
+				project.setMajor(rs.getString("major"));
+				project.setName(rs.getString("name"));
+				project.setNo(rs.getString("no"));
+				project.setReleaseDate(rs.getDate("release_date"));
+				project.setStudentsNum(rs.getInt("students_num"));
+				project.setSummary(rs.getString("summary"));
+				projects.add(project);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return projects;
+	}
+
+	@Override
+	public int countProject(String year, boolean checkState, String company_username) {
+		String sql = null;
+		String sql_end = null;
+		if (checkState)
+			sql_end = " AND audit_date IS NOT NULL";
+		else
+			sql_end = " AND audit_date IS NULL";
+		int totalSize = 0;
+		if (company_username != null) {
+			sql = "SELECT COUNT(*) m FROM project WHERE `No` LIKE '" + year + "%'" + sql_end;
+		} else
+			sql = "SELECT COUNT(*) m FROM project WHERE `No` LIKE '" + year + "%' AND company_username="
+					+ company_username + sql_end;
+
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// 查询方案总数
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			int m = 0;
+			if (rs.next()) {
+				m = rs.getInt("m");
+				return m;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return -1;
+	}
+
+	@Override
+	public ArrayList<Project> findAllProject(String company_username) {
+		String sql = "SELECT * FROM project WHERE company_username=?";
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Project> projects = new ArrayList<>();
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, company_username);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Project project = new Project();
+				project.setAuditDate(rs.getDate("audit_date"));
+				project.setCategory(rs.getString("category"));
+				project.setCompanyTeacher(rs.getString("company_teacher"));
+				project.setCompanyTeacherTitle(rs.getString("company_teacher_title"));
+				project.setCompanyUsername(rs.getString("company_username"));
+				project.setEndDate(rs.getDate("end_date"));
+				project.setGrade(rs.getInt("grade"));
+				project.setIntroduction(rs.getString("introduction"));
+				project.setMajor(rs.getString("major"));
+				project.setName(rs.getString("name"));
+				project.setNo(rs.getString("no"));
+				project.setReleaseDate(rs.getDate("release_date"));
+				project.setStudentsNum(rs.getInt("students_num"));
+				project.setSummary(rs.getString("summary"));
+				projects.add(project);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return projects;
+	}
+
+	@Override
+	public ArrayList<ProProSelStuView> findAllStudentChoiceByPNo(String p_no, PageUtils pageUtils) {
+		String sql = "SELECT * FROM view_project_select WHERE projectNo=? LIMIT ?,?";
+		Connection connection = DbUtils.getConnection();
+		int totalSize = countAllStudentChoice(p_no);
+		if (totalSize < 0)
+			return null;
+		pageUtils.setTotalSize(totalSize);
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ProProSelStuView> proProSelStuViews = new ArrayList<>();
+		int start = (pageUtils.getPageNow() - 1) * pageUtils.getPageSize();
+		int size = pageUtils.getPageSize();
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, p_no);
+			ps.setInt(2, start);
+			ps.setInt(3, size);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ProProSelStuView proProSelStuView = new ProProSelStuView();
+				// project属性设置
+				proProSelStuView.getProject().setAuditDate(rs.getDate("project_audit_date"));
+				proProSelStuView.getProject().setCategory(rs.getString("project_category"));
+				proProSelStuView.getProject().setCompanyTeacher(rs.getString("company_teacher"));
+				proProSelStuView.getProject().setCompanyTeacherTitle(rs.getString("company_teacher_title"));
+				proProSelStuView.getProject().setCompanyUsername(rs.getString("company_name"));
+				proProSelStuView.getProject().setEndDate(rs.getDate("project_end_date"));
+				proProSelStuView.getProject().setGrade(rs.getInt("project_grade"));
+				proProSelStuView.getProject().setIntroduction(rs.getString("project_introduction"));
+				proProSelStuView.getProject().setMajor(rs.getString("project_major"));
+				proProSelStuView.getProject().setName(rs.getString("project_name"));
+				proProSelStuView.getProject().setNo(rs.getString("projectNo"));
+				proProSelStuView.getProject().setReleaseDate(rs.getDate("project_release_date"));
+				proProSelStuView.getProject().setStudentsNum(rs.getInt("project_students_num"));
+				proProSelStuView.getProject().setSummary(rs.getString("project_summary"));
+				// projectSelect属性设置
+				proProSelStuView.getProjectSelect().setCompanyName(rs.getString("company_name"));
+				proProSelStuView.getProjectSelect().setCompanySelDate(rs.getDate("company_sel_date"));
+				proProSelStuView.getProjectSelect().setId(new ProjectSelectId());
+				proProSelStuView.getProjectSelect().getId().setProjectNo(Integer.parseInt(rs.getString("projectNo")));
+				proProSelStuView.getProjectSelect().getId().setStudentNo(rs.getString("studentNo"));
+				proProSelStuView.getProjectSelect().setScore(rs.getString("score"));
+				proProSelStuView.getProjectSelect().setSelReason(rs.getString("sel_reason"));
+				// student属性设置
+				proProSelStuView.getStudent().setClass_(rs.getString("student_class"));
+				proProSelStuView.getStudent().setGender(rs.getString("student_gender"));
+				proProSelStuView.getStudent().setGrade(rs.getInt("student_grade"));
+				proProSelStuView.getStudent().setLearningExperience(rs.getString("student_learning_experience"));
+				proProSelStuView.getStudent().setLevel(rs.getString("student_level"));
+				proProSelStuView.getStudent().setMailbox(rs.getString("student_mailbox"));
+				proProSelStuView.getStudent().setName(rs.getString("student_name"));
+				proProSelStuView.getStudent().setNo(rs.getString("studentNo"));
+				proProSelStuView.getStudent().setProfessional(rs.getString("student_professional"));
+				proProSelStuView.getStudent().setResearchDirection(rs.getString("student_research_direction"));
+				proProSelStuView.getStudent().setSubjectBackground(rs.getString("student_subject_background"));
+
+				proProSelStuViews.add(proProSelStuView);
+			}
+			return proProSelStuViews;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return null;
+	}
+
+	@Override
+	public int countAllStudentChoiceByPNo(String p_no) {
+		String sql = "SELECT COUNT(*) m FROM view_project_select WHERE projectNo=?";
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// 查询方案总数
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, p_no);
 			rs = ps.executeQuery();
 			int m = 0;
 			if (rs.next())

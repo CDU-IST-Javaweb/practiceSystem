@@ -21,13 +21,14 @@ public class UserServiceImpl implements UserService{
 	@Override
 	//用户登录时，在页面选择角色，然后输入需要的参数，如果验证码和session中的一致，则进行下一步验证
 	//如果role=1，进企业表；如果role=2，进学生表；如果role=9，进系统参数表
-	public boolean login(String account, String password, String Verification_Code, String Session_Verification_Code,String role) {
+	public boolean login(String account, String password, String Verification_Code,String role,String vchidden) {
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
 		ResultSet rs;
 		PreparedStatement ps;
+		String account_type = "";
 		//如果验证码不正确或没有得到验证码，返回false
-		if(Verification_Code == null || !Verification_Code.equals(Session_Verification_Code)){
+		if(Verification_Code == null || !Verification_Code.equals(vchidden.toLowerCase())){
 			Log4jUtils.info("用户验证码输入错误");
 			return false;
 		}
@@ -39,14 +40,16 @@ public class UserServiceImpl implements UserService{
 			//根据不同的角色，生成不同的sql语句
 			switch(role){
 			case "1": 
+				account_type = "企业";
 				sql = "select * from company where username=? and password = ?"; 
 				break;
 			case "2": 
-				sql = "select * from company where name=? and password = ?"; 
+				account_type = "学生";
+				sql = "select * from student where name=? and password = ?"; 
 				break;
 			case "9": 
-				sql = "select * from company where admin_username=? and admin_password = ?";
-				break;
+				account_type = "管理员";
+				sql = "select * from system_parameter where admin_username=? and admin_password = ?";
 			}
 		}
 		try {
@@ -55,16 +58,15 @@ public class UserServiceImpl implements UserService{
 			ps.setString(2, password);
 			rs = ps.executeQuery();
 			if(rs.next()){
-				Log4jUtils.info("用户登录成功");
-				//根据角色不同，跳转到不同页面。
+				Log4jUtils.info(account_type+ "用户" + account + "登录成功");
+				DbUtils.closeConnection(con, ps, rs);
+				return true;
 			}
-			DbUtils.closeConnection(con, ps, rs);
-			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log4jUtils.info("用户登录不成功");
+		Log4jUtils.info(account_type+ "用户" + account + "登录不成功");
 		return false;
 	}
 
@@ -76,6 +78,13 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean resetPass(String password, String Verification_Code) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean register(String rscode, String qyname, String qyusername, String password, String confirmPassword,
+			String email, String verificationCode, String captcha) {
 		// TODO Auto-generated method stub
 		return false;
 	}

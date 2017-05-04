@@ -89,6 +89,14 @@
                             </div>
                         </div>
                         <!--验证码-->
+                        <script type="text/javascript" src="../assets/js/jquery.js"></script>
+						<script type="text/javascript">
+							$(document).ready(function(){
+								  htmlobj=$.ajax({url:"/practiceSystem/Login/IndetifyCodeServlet",async:false});
+								  $("#vcinAction").html(htmlobj.responseText);
+								  $("#vchidden").val(htmlobj.responseText);
+							});
+						</script>
                         <div class="verification-body">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label verification-code-width">
                                 <label for="inputError1" class="control-label pmd-input-group-label">验证码</label>
@@ -98,7 +106,8 @@
                                 </div>
 
                             </div>
-                            <div class="verification-code">验证码</div>
+                            <div class="verification-code" id="vcinAction">验证码</div>
+                            <input type="hidden" id="vchidden" name="vchidden">
                         </div>
 
 

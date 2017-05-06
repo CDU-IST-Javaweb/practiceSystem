@@ -5,7 +5,7 @@ var sends = {
             var email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
             //获取输入邮箱并用正则表达式把空格替换为空字符
             var val = $('#forgot-email').val().replace(/\s+/g, "");
-            var vall = $('#fotgot-email').val().replace(/\s+/g, "");
+            var vall = $('#regist-email').val().replace(/\s+/g, "");
             if ($('.div-email').find('span').length == 0 && $('.div-email a').attr('class') == 'send1') {
                 if (!email.test(val) || val.length == 0) {
                     $('.div-email').append('<span class="error">Error</span>');

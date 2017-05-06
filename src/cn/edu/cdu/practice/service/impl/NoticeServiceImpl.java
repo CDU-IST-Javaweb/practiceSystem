@@ -1,5 +1,8 @@
 package cn.edu.cdu.practice.service.impl;
 import java.sql.Date;
+import java.util.List;
+
+import com.mysql.jdbc.log.LogUtils;
 
 import cn.edu.cdu.practice.dao.NoticeDao;
 import cn.edu.cdu.practice.dao.impl.NoticeDaoImpl;
@@ -75,6 +78,72 @@ public class NoticeServiceImpl implements NoticeService {
 				Log4jUtils.info(exception.getMessage());
 				return false;
 			}
+	}
+
+	public List<NoticeCompany> queryNoticeByCompanyName(String companyUserName,int pageNow,int pageSize) {
+		try {
+			System.out.println(companyUserName);
+			if (companyUserName != null && !"".equals(companyUserName)) {
+				List<NoticeCompany> list = this.noticeDao.queryNoticeByCompanyName(companyUserName,pageNow,pageSize);
+				return list;
+			}
+			return null;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null ;
+		}
+	}
+
+	
+	public int queryAllByName(String companyUserName) {
+		try {
+			System.out.println(companyUserName);
+			int count = 0 ;
+			if (companyUserName != null && !"".equals(companyUserName)) {
+				count = this.noticeDao.queryAllByName(companyUserName);
+			}
+			return count;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return 0 ;
+		}
+	}
+
+	@Override
+	public NoticeCompany queryNoticeById(int companyNoticeId) {
+		if (companyNoticeId == 0) {
+			throw new NullPointerException("传入参数为空");
+		}
+		try {
+			return this.noticeDao.queryNoticeById(companyNoticeId);
+		}catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null ;
+		}
+	}
+
+	
+	public List<NoticeCompany> queryNoticeByAuditTime(int pageNow, int pageSize) {
+		List<NoticeCompany> list = null ;
+		try{
+			list = this.noticeDao.queryNoticeByAuditTime(pageNow, pageSize);
+			return list;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null;
+		}
+		
+	}
+
+	
+	public int countNoAuditTimeNotice() {
+		try {
+			int count = this.noticeDao.countNoAuditTimeNotice();
+			return count;
+		}catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return 0;
+		}
 	}
 
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 import cn.edu.cdu.practice.dao.CompanyDao;
 import cn.edu.cdu.practice.model.Company;
+import cn.edu.cdu.practice.model.MailboxVerification;
 import cn.edu.cdu.practice.utils.DbUtils;
 
 /**
@@ -68,23 +69,20 @@ public class CompanyDaoImpl implements CompanyDao{
 	public boolean updateCompanyInfo(Company company) {
 		Connection connection = DbUtils.getConnection();
 		//sql拼接更新语句，防止sql注入
-		String updateSql = "update company set username = ?,company_name = ?,mailbox = ?,"
-				+ "password=?,contacts = ?,phone = ?,"
-				+ "address = ?,profile = ?,auditDate = ? where username = ?";
+		String updateSql = "update company set company_name = ?,"
+				+ "contacts = ?,phone = ?,"
+				+ "address = ?,profile = ?,audit_date = ? where username=?";
 		PreparedStatement ps = null ;
 		try {
 			connection.setAutoCommit(false);
 			ps = connection.prepareStatement(updateSql);
-			ps.setString(1, company.getUsername());
-			ps.setString(2, company.getCompanyName());
-			ps.setString(3, company.getMailbox());
-			ps.setString(4, company.getPassword());
-			ps.setString(5, company.getContacts());
-			ps.setString(6, company.getPhone());
-			ps.setString(7, company.getAddress());
-			ps.setString(8, company.getProfile());
-			ps.setDate(9, company.getAuditDate());
-			ps.setString(10, company.getUsername());
+			ps.setString(1, company.getCompanyName());
+			ps.setString(2, company.getContacts());
+			ps.setString(3, company.getPhone());
+			ps.setString(4, company.getAddress());
+			ps.setString(5, company.getProfile());
+			ps.setDate(6, company.getAuditDate());
+			ps.setString(7, company.getUsername());
 			ps.executeUpdate();
 			connection.commit();
 			return true ;
@@ -156,7 +154,7 @@ public class CompanyDaoImpl implements CompanyDao{
 	public boolean checkCompany(Company company) {
 		Connection connection = DbUtils.getConnection();
 		//sql拼接更新语句，防止sql注入
-		String updateSql = "update company set auditDate = ? where username = ?";
+		String updateSql = "update company set audit_date = ? where username = ?";
 		PreparedStatement ps = null ;
 		try {
 			connection.setAutoCommit(false);
@@ -323,6 +321,98 @@ public class CompanyDaoImpl implements CompanyDao{
 			return false;
 		} finally {
 			DbUtils.closeConnection(connection, ps);
+		}
+	}
+
+	public Company queryByUserName(String account) {
+		Connection connection = DbUtils.getConnection();
+		//sql拼接更新语句，防止sql注入
+		String querySql = "select * from company where username = ?";
+		ResultSet resultSet = null ;
+		PreparedStatement ps = null ;
+		Company company = null ;
+		try {
+			//获得PreparedStatement对象
+			ps = connection.prepareStatement(querySql);
+			ps.setString(1, account);
+			resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				company = new Company();
+				company.setUsername(resultSet.getString("username"));
+				company.setCompanyName(resultSet.getString("company_name"));
+				company.setMailbox(resultSet.getString("mailbox"));
+				company.setPassword(resultSet.getString("password"));
+				company.setContacts(resultSet.getString("contacts"));
+				company.setPhone(resultSet.getString("phone"));
+				company.setAddress(resultSet.getString("address"));
+				company.setProfile(resultSet.getString("profile"));
+				company.setAuditDate((resultSet.getDate("audit_date")));
+			}
+			return company ;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null ;
+		} finally {
+			DbUtils.closeConnection(connection, ps,resultSet);
+		}
+	}
+
+	/**
+	 * 退审，把审核日期置空
+	 */
+	public boolean backReview(Company company) {
+		Connection connection = DbUtils.getConnection();
+		//sql拼接更新语句，防止sql注入
+		String updateSql = "update company set audit_date = ? where username = ?";
+		PreparedStatement ps = null ;
+		try {
+			connection.setAutoCommit(false);
+			ps = connection.prepareStatement(updateSql);
+			ps.setDate(1, company.getAuditDate());
+			ps.setString(2, company.getUsername());
+			ps.executeUpdate();
+			connection.commit();
+			return true ;
+		} catch(Exception e) {
+			e.printStackTrace();
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			return false ;
+		} finally {
+			DbUtils.closeConnection(connection, ps);
+		}
+	}
+
+	
+	public MailboxVerification getByMail(String mail) {
+		Connection connection = DbUtils.getConnection();
+		//sql拼接更新语句，防止sql注入
+		String querySql = "select * from mailbox_verification where mailbox = ?";
+		PreparedStatement ps = null ;
+		ResultSet resultSet = null ;
+		MailboxVerification mailboxVerification = null ;
+		try {
+			//获得PreparedStatement对象
+			ps = connection.prepareStatement(querySql);
+			ps.setString(1, mail);
+			resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				mailboxVerification = new MailboxVerification();
+				mailboxVerification.setMailbox(resultSet.getString("mailbox"));
+				mailboxVerification.setType(resultSet.getInt("type"));
+				mailboxVerification.setVerificationCode(resultSet.getString("verification_code"));
+			}
+			return mailboxVerification ;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null ;
+		} finally {
+			DbUtils.closeConnection(connection, ps,resultSet);
 		}
 	}
 

@@ -1,12 +1,19 @@
 package test;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import org.junit.Test;
 
-import cn.edu.cdu.practice.dao.impl.StudentDaoImpl;
+import cn.edu.cdu.practice.model.Company;
+import cn.edu.cdu.practice.model.NoticeCompany;
 import cn.edu.cdu.practice.model.Student;
+import cn.edu.cdu.practice.service.CompanyService;
+import cn.edu.cdu.practice.service.NoticeService;
+import cn.edu.cdu.practice.service.impl.CompanyServiceImpl;
+import cn.edu.cdu.practice.service.impl.NoticeServiceImpl;
+import cn.edu.cdu.practice.utils.DateUtil;
 import cn.edu.cdu.practice.utils.DbUtils;
 import cn.edu.cdu.practice.utils.EmailUtils;
 import cn.edu.cdu.practice.utils.IdentifyCodeUtils;
@@ -30,15 +37,19 @@ public class TestDb {
 	 */
 	@Test
 	public void test() {
-		Connection connection = DbUtils.getConnection();
-		Log4jUtils.info("success");
+		/*Connection connection = DbUtils.getConnection();
+		Log4jUtils.info("success"+connection);*/
+		/*NoticeService noticeService = new NoticeServiceImpl();
+		int list = noticeService.countNoAuditTimeNotice();
+		System.out.println(list);*/
+		EmailUtils.sendMail("18482003417@163.com", "Nimei025", "betteryangyh@163.com", 1);
 	}
 	/**
 	 * 
 	 * <p>Title: testCode</p>
 	 * <p>Description: 测试验证码的生成</p>
 	 */
-	@Test
+	/*@Test
 	public void testCode() {
 		System.out.println(IdentifyCodeUtils.getCode());
 	}
@@ -47,6 +58,6 @@ public class TestDb {
 	public void testMail() {
 		
 	}
-	
+	*/
 
 }

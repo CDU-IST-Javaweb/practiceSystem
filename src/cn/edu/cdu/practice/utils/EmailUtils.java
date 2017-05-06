@@ -30,12 +30,13 @@ public class EmailUtils {
 	     p.put("mail.smtp.host", "smtp.163.com");  
 	     p.put("mail.transport.protocol", "smtp");
 	     p.put("mail.smtp.auth", "true");  
+	     p.put("mail.smtp.port", "25");  
 	     
 	     //设置发送邮件的账号和密码
-	     Session session = Session.getInstance(p, new Authenticator() {
+	     Session session = Session.getDefaultInstance(p, new Authenticator() {
 	         @Override
 	         protected PasswordAuthentication getPasswordAuthentication() {
-	         //两个参数分别是发送邮件的账户和密码
+	         //两个参数分别是发送邮件的账户和授权码
 	         return new PasswordAuthentication(emailFrom,pwd);
 	                 }
 	      });  

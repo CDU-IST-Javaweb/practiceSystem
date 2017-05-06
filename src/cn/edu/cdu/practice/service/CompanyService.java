@@ -62,4 +62,19 @@ public interface CompanyService {
 	 * @return 返回一个检查完的标志,审核通过返回true,审核不通过返回false
 	 */
 	boolean checkCompany(Company company);
+	
+	/**
+	 * <p>Title: queryByUserName</p>
+	 * <p>Description: 根据注册的用户名查询企业</p>
+	 * @param account 注册用户名
+	 * @return 公司
+	 */
+	Company queryByUserName(String account);
+	/**
+	 * <p>Title: backReview</p>
+	 * <p>Description: 退审</p>
+	 * @param companyUsername 用户名
+	 * @return 返回退审成功与否的标志
+	 */
+	boolean backReview(Company company);
 }

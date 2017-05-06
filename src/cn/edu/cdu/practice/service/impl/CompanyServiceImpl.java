@@ -60,8 +60,8 @@ public class CompanyServiceImpl implements CompanyService{
 	public boolean updateCompanyPassword(String companyUserName, String newPassword) {
 		try {
 			//如果用户名和password都不为空的话，那么就调用dao层方法，否则返回false
-			if (companyUserName != null && "".equals(companyUserName)&&
-					newPassword!= null &&"".equals(newPassword)) {
+			if (companyUserName != null && !"".equals(companyUserName)&&
+					newPassword!= null && !"".equals(newPassword)) {
 				return this.companyDao.updateCompanyPassword(companyUserName, newPassword);
 			}
 			return false;
@@ -83,10 +83,10 @@ public class CompanyServiceImpl implements CompanyService{
 		 */
 		try {
 			if (condition != null) {
-				if ("not".equals(condition)) {
+				if ("未审核".equals(condition)) {
 					return this.companyDao.queryNotVirefyCompanys();
 				}
-				if ("yes".equals(condition)) {
+				if ("审核".equals(condition)) {
 					return this.companyDao.queryViryFyCompanys();
 				}
 				if ("all".equals(condition)) {
@@ -108,11 +108,8 @@ public class CompanyServiceImpl implements CompanyService{
 	 * @return 返回删除的结果，即true/false
 	 */
 	public boolean deleteCompany(String companyUsername) {
-		/**
-		 * 如果公司用户名不为空的话，就调用dao层方法
-		 */
 		try {
-			if (companyUsername != null && "".equals(companyUsername)) {
+			if (companyUsername != null && !"".equals(companyUsername)) {
 				return this.companyDao.deleteCompany(companyUsername);
 			}
 			return false;
@@ -128,11 +125,44 @@ public class CompanyServiceImpl implements CompanyService{
 	 * @param company Company实体类引用对象
 	 * @return 返回一个检查完的标志,审核通过返回true,审核不通过返回false
 	 */
+	
 	public boolean checkCompany(Company company) {
+		
 		try {
 			if (company != null) {
-				if (company.getUsername() != null && "".equals(company.getCompanyName())) {
-					return this.checkCompany(company);
+				if (company.getUsername() != null && !"".equals(company.getUsername())) {
+					System.out.println("条件不为空");
+					return this.companyDao.checkCompany(company);
+				}
+			}
+			return false;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return false ;
+		}
+	}
+
+	/**
+	 * 根据用户名查询公司
+	 */
+	public Company queryByUserName(String account) {
+		try {
+			if (account != null && !"".equals(account)) {
+				return this.companyDao.queryByUserName(account);
+			}
+			return null;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null ;
+		}
+	}
+
+	@Override
+	public boolean backReview(Company company) {
+		try {
+			if (company != null) {
+				if (company.getUsername() != null && !"".equals(company.getUsername())) {
+					return this.companyDao.backReview(company);
 				}
 			}
 			return false;

@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="">
-
+<% 
+response.setHeader("Cache-Control","no-store"); 
+response.setHeader("Pragrma","no-cache"); 
+response.setDateHeader("Expires",0); 
+%> 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,14 +93,6 @@
                             </div>
                         </div>
                         <!--验证码-->
-                        <script type="text/javascript" src="../assets/js/jquery.js"></script>
-						<script type="text/javascript">
-							$(document).ready(function(){
-								  htmlobj=$.ajax({url:"/practiceSystem/Login/IndetifyCodeServlet",async:false});
-								  $("#vcinAction").html(htmlobj.responseText);
-								  $("#vchidden").val(htmlobj.responseText);
-							});
-						</script>
                         <div class="verification-body">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label verification-code-width">
                                 <label for="inputError1" class="control-label pmd-input-group-label">验证码</label>
@@ -210,7 +206,7 @@
                                 </div>
                             </div>
                             <div class="div-email">
-                                <a href="javascript:;" class="send1" onclick="sends.send();">发送验证码</a>
+                                <a href="javascript:;" class="send1" >发送验证码</a><!-- onclick="sends.send();" -->
                             </div>
                         </div>
 
@@ -245,10 +241,25 @@
                     <div class="loginlogo">
                         <a href="javascript:void(0);"><img src="../assets/images/logo-computer.jpg" alt="Logo"></a>
                     </div>
-                    <h3>找回密码<br><span>提交你的电子邮件地址，我们会向您发送一个链接来重置密码.</span></h3>
+                    <h3>找回密码<br><span>请提交您的电子邮件地址，我们会向您发送一个链接来重置密码.</span></h3>
                 </div>
-                <form id="defaultFormm" method="post">
+                <form id="defaultFormm" action = "ResetPassServlet" method="post" >
                     <div class="pmd-card-body">
+<!--                     用户角色
+                        <div class="form-group  login_select">
+                            <label class="control-label select_role">用户角色 : </label>
+
+                            Inline Radio button
+                            <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
+                            <input type="radio" name="role"  checked="1" id="inlineRadio1" value="1">
+                            <span for="inlineRadio1">企业</span></label>
+                            <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
+                            <input type="radio" name="role" id="inlineRadio2" value="2">
+                            <span for="inlineRadio2">学生</span></label>
+                            <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
+                            <input type="radio" name="role" id="inlineRadio3" value="9">
+                             <span for="inlineRadio3">管理员</span></label>
+                        </div> -->
                         <div class="verification-body">
                             <div class="form-group pmd-textfield pmd-textfield-floating-label verification-code-width">
                                 <label for="inputError1" class="control-label pmd-input-group-label">密保邮箱地址</label>
@@ -258,14 +269,17 @@
                                 </div>
                             </div>
                             <div class="div-email">
-                                <a href="javascript:;" class="send1" onclick="sends.send();">发送验证码</a>
+                                <a href="javascript:void(0);" class="send2" >发送验证码</a>
                             </div>
                         </div>
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                            <label for="inputError1" class="control-label pmd-input-group-label">验证码</label>
+                            <label for="inputError1" class="control-label pmd-input-group-label" >验证码</label>
+                            <!-- 于曦添加 -->
+                            <input type="hidden" id="rvchidden" name="rvchidden">
+                            
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">comment</i></div>
-                                <input type="text" class="form-control" id="exampleInputAmount">
+                                <input type="text" class="form-control" id="exampleInputAmount" name="rvcinAction">
                             </div>
                         </div>
 
@@ -376,7 +390,23 @@
             });
         });
     </script>
-
+	<script type="text/javascript">
+		$(document).ready(function(){
+			  htmlobj=$.ajax({url:"/practiceSystem/Login/IndetifyCodeServlet",async:false});
+			  $("#vcinAction").html(htmlobj.responseText);
+			  $("#vchidden").val(htmlobj.responseText);
+		});
+	</script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$(".send2").click(function(){
+// 				获取页面输入的email，将其作为参数传递到后台servlet中进行处理，得到的验证码在页面存放起来。
+				var mbemail = $("#fotgot-email").val();
+				 htmlobj=$.ajax({url:"/practiceSystem/Login/IdentifyCodeByEmailServlet?mbemail="+mbemail,async:false});
+				  $("#rvchidden").val(htmlobj.responseText);
+			});
+		});
+	</script>
     <!--<script src="../assets/js/style.js"></script>-->
     <script src="../assets/js/login.js"></script>
 </body>

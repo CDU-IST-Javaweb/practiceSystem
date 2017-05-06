@@ -1,11 +1,15 @@
 package cn.edu.cdu.practice.service.impl;
 
+import java.io.PrintWriter;
 import java.sql.*;
 
 import javax.servlet.http.HttpSession;
 
 import cn.edu.cdu.practice.service.UserService;
 import cn.edu.cdu.practice.utils.*;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName UserServiceImpl.java
@@ -70,16 +74,97 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
+	//用户输入密保邮箱后，将生成的验证码插入到mailbox_verification表中
 	@Override
-	public String getPassBack(String mailbox) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean getPassBack(String mailbox,int type, String identifyCode) {
+		Connection con = (Connection) DbUtils.getConnection();
+		String sql = "";
+		int num = 0;
+		PreparedStatement ps;
+		sql = "insert into mailbox_verification values(?,?,?)";
+		try {
+			ps = (PreparedStatement) con.prepareStatement(sql);
+			ps.setString(1, mailbox);
+			ps.setInt(2, type);
+			ps.setString(3, identifyCode);
+			num = ps.executeUpdate();
+			if(num == 1){
+				Log4jUtils.info(mailbox + "验证码设置成功");
+				DbUtils.closeConnection(con, ps);
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Log4jUtils.info(mailbox + "验证码设置不成功");
+		return false;
+	}
+	//将新密码进行MD5加密后存入指定数据表
+	@Override
+	public boolean resetPass(String password,String mbemail,String role,String account) {
+		Connection con = (Connection) DbUtils.getConnection();
+		String sql = "";
+		int num = 0;
+		PreparedStatement ps;
+		sql = "UPDATE student set password=? where mailbox=?";
+		String MDpass = MdPwdUtil.MD5Password(password);
+		try {
+			ps = (PreparedStatement) con.prepareStatement(sql);
+			ps.setString(1, MDpass);
+			ps.setString(2, mbemail);
+			num = ps.executeUpdate();
+			if(num == 1){
+				Log4jUtils.info(account + "重设密码成功");
+				DbUtils.closeConnection(con, ps);
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Log4jUtils.info(account + "重设密码不成功");
+		return false;
 	}
 
 	@Override
-	public boolean resetPass(String password, String Verification_Code) {
-		// TODO Auto-generated method stub
-		return false;
+	public List<String> searchbyEmail(String mailbox) {
+		Connection con = (Connection) DbUtils.getConnection();
+		String sql = "";
+		ResultSet rs;
+		PreparedStatement ps;
+		List<String> list = new ArrayList<String>();
+		String role = "";
+		String account = ""; 
+		try {
+			sql = "select * from student where mailbox=?"; 
+			ps = (PreparedStatement) con.prepareStatement(sql);
+			ps.setString(1, mailbox);
+			rs = ps.executeQuery();
+			//如果在student表里找到，就将flag设置为true，同时将type设置为2
+			if(rs.next()){
+				role = "2";
+				account = rs.getString("name");
+				DbUtils.closeConnection(con, ps, rs);
+			}else{
+				sql = "select * from company where mailbox=?"; 
+				ps = (PreparedStatement) con.prepareStatement(sql);
+				ps.setString(1, mailbox);
+				rs = ps.executeQuery();
+				//如果在company表里找到，就将flag设置为true，同时将type设置为1
+				if(rs.next()){
+					role = "1";
+					account = rs.getString("company_name");
+					DbUtils.closeConnection(con, ps, rs);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		list.add(account);
+		list.add(role);
+		return list;
 	}
 
 	@Override

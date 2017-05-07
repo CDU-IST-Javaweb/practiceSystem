@@ -202,7 +202,7 @@ response.setDateHeader("Expires",0);
                                 <label for="inputError1" class="control-label pmd-input-group-label">密保邮箱</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">email</i></div>
-                                    <input type="text" class="form-control" name="email" id="forgot-email">
+                                    <input type="text" class="form-control" name="email" id="regist-email">
                                 </div>
                             </div>
                             <div class="div-email">
@@ -265,7 +265,7 @@ response.setDateHeader("Expires",0);
                                 <label for="inputError1" class="control-label pmd-input-group-label">密保邮箱地址</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">email</i></div>
-                                    <input type="text" class="form-control" name="mbemail" id="fotgot-email">
+                                    <input type="text" class="form-control" name="mbemail" id="forgot-email">
                                 </div>
                             </div>
                             <div class="div-email">

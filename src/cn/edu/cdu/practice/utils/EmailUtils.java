@@ -24,7 +24,7 @@ import cn.edu.cdu.practice.model.MailboxVerification;
  * Modification Date： 程序修改时间
  */
 public class EmailUtils {
-	public static boolean sendMail(String emailFrom,String pwd,String emailTo,int type) {
+	public static boolean sendMail(String emailFrom,String pwd,String emailTo,int type,String content) {
 		 Properties p = new Properties();  
 		 //smtp服务器信息
 	     p.put("mail.smtp.host", "smtp.163.com");  
@@ -39,9 +39,9 @@ public class EmailUtils {
 	         return new PasswordAuthentication(emailFrom,pwd);
 	                 }
 	      });  
-	     //生成验证码
-	     String identifyCode = IdentifyCodeUtils.getCode();
-	     MailboxVerification mailboxVerification = new MailboxVerification(emailTo, type, identifyCode);
+	     //将传入的验证码
+//	     String identifyCode = IdentifyCodeUtils.getCode();
+//	     MailboxVerification mailboxVerification = new MailboxVerification(emailTo, type, identifyCode);
 	     //创建邮件对象
 	     Message mailMessage = new MimeMessage(session);  
 	     try {  
@@ -54,7 +54,7 @@ public class EmailUtils {
 	         mailMessage.setRecipient(Message.RecipientType.TO, to); 
 	         System.out.println(emailTo);
 	         mailMessage.setSubject("成都大学信工学院实训系统企业验证");//设置邮件标题  
-	         mailMessage.setContent("您的验证码是"+identifyCode+"，请确认是本人操作","text/html;charset=utf-8"); //设置邮件内容  
+	         mailMessage.setContent("您的验证码是"+content+"，请确认是本人操作","text/html;charset=utf-8"); //设置邮件内容  
 	         // 发送邮件  
 	         Transport.send(mailMessage);  
 	         return true;  
@@ -63,4 +63,7 @@ public class EmailUtils {
 	     }  
 	     	return false;  
 	 }  
+	public static void main(String[] args) {
+		sendMail("oliveryx@163.com","yuxiytx912","5374664@qq.com",1,"abcd");
+	}
 }

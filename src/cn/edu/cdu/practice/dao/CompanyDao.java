@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.MailboxVerification;
+import cn.edu.cdu.practice.model.SystemParameter;
 
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -111,4 +112,20 @@ public interface CompanyDao {
 	 * @return MailboxVerification实体类对象
 	 */
 	MailboxVerification getByMail(String mail);
+	
+	/**
+	 * <p>Title: systemParameter</p>
+	 * <p>Description: 根据邀请码查询SystemParameter</p>
+	 * @param invideCode 邀请码
+	 * @return SystemParameter对象
+	 */
+	SystemParameter systemParameter(String invideCode);
+	
+	/**
+	 * <p>Title: setMail_verification</p>
+	 * <p>Description: 添加MailboxVerification</p>
+	 * @param mailboxVerification MailboxVerification对象
+	 * @return 添加成功与否的标识
+	 */
+	boolean setMail_verification(MailboxVerification mailboxVerification);
 }

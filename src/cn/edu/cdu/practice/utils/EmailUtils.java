@@ -12,6 +12,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import cn.edu.cdu.practice.model.MailboxVerification;
+import cn.edu.cdu.practice.service.CompanyService;
+import cn.edu.cdu.practice.service.impl.CompanyServiceImpl;
 
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -43,6 +45,10 @@ public class EmailUtils {
 	     //生成验证码
 	     String identifyCode = IdentifyCodeUtils.getCode();
 	     MailboxVerification mailboxVerification = new MailboxVerification(emailTo, type, identifyCode);
+	     CompanyService companyService = new CompanyServiceImpl();
+	     if (companyService.setMail_verification(mailboxVerification)) {
+	    	 System.out.println("success");
+		}
 	     //创建邮件对象
 	     Message mailMessage = new MimeMessage(session);  
 	     try {  

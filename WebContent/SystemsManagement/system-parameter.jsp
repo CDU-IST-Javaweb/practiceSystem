@@ -293,40 +293,40 @@
                             <div class="pmd-card pmd-z-depth">
                                 <div class="pmd-card-body pmd-card-custom-form">
                                     <div class="table-responsive">
-                                    <form action="SystemConfigServlet" method="post">
+                                    <form action="${pageContext.request.contextPath }/SystemsManagement/SystemConfigssssServlet" method="post">
                                         <table class="table pmd-table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>管理员用户名</th>
-                                                    <td><input type="text" name="account"></td>
+                                                    <td><input type="text" name="account" value="${sys.adminUsername }"></td>
                                                 </tr>
                                                 <tr>
                                                 	<th>管理员密码</th>
-                                                	<td><input type="password" name="pwd"></td>
+                                                	<td><input type="password" name="pwd" value="${sys.adminPassword }"></td>
                                                 </tr>
                                                 <tr>
                                                 <th>邀请码</th>
-                                                <td><input type="text" name="code"></td>
+                                                <td><input type="text" name="code" value="${sys.invitationCode }"></td>
                                                 </tr>
                                                 <tr>
                                                 <th>企业发布方案开始日期</th>
-                                                <td><input type="text" name="releaseProjectStartDate" id="datetimepicker"></td>
+                                                <td><input type="text" name="releaseProjectStartDate" value="${sys.releaseProjectStartDate }"></td>
                                                 </tr>
                                                 <tr>
                                                 <th>企业发布方案截至日期</th>
-                                                 <td><input type="text" name="releaseProjectEndDate" id="datetimepicker"></td>
+                                                 <td><input type="text" name="releaseProjectEndDate" value="${sys.releaseProjectEndDate }"></td>
                                                 </tr>
                                                 <tr>
                                                 <th>学生选择案开始日期</th>
-                                                 <td><input type="text" name="studentSelStartDate" id="datetimepicker"></td>
+                                                 <td><input type="text" name="studentSelStartDate" value="${sys.studentSelStartDate }"></td>
                                                 </tr>
                                                 <tr>
                                                 <th>学生选择案截至日期</th>
-                                                 <td><input type="text" name="studentSelEndDate" id="datetimepicker"></td>
+                                                 <td><input type="text" name="studentSelEndDate" value="${sys.studentSelEndDate }"></td>
                                                 </tr>
                                                 <tr> 
                                                 <th>学生最多待选方案数量</th>
-                                                 <td><input type="text" name="studentSelMaxnum"></td>
+                                                 <td><input type="text" name="studentSelMaxnum" value="${sys.adminUsername }"></td>
                                                 </tr>
                                                 <tr>
                                                 	<th>操作选项</th>

@@ -9,10 +9,13 @@ import org.junit.Test;
 import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.NoticeCompany;
 import cn.edu.cdu.practice.model.Student;
+import cn.edu.cdu.practice.model.SystemParameter;
 import cn.edu.cdu.practice.service.CompanyService;
 import cn.edu.cdu.practice.service.NoticeService;
+import cn.edu.cdu.practice.service.SystemParameterService;
 import cn.edu.cdu.practice.service.impl.CompanyServiceImpl;
 import cn.edu.cdu.practice.service.impl.NoticeServiceImpl;
+import cn.edu.cdu.practice.service.impl.SystemParameterServiceImpl;
 import cn.edu.cdu.practice.utils.DateUtil;
 import cn.edu.cdu.practice.utils.DbUtils;
 import cn.edu.cdu.practice.utils.EmailUtils;
@@ -42,7 +45,19 @@ public class TestDb {
 		/*NoticeService noticeService = new NoticeServiceImpl();
 		int list = noticeService.countNoAuditTimeNotice();
 		System.out.println(list);*/
-		EmailUtils.sendMail("18482003417@163.com", "Nimei025", "betteryangyh@163.com", 1);
+//		EmailUtils.sendMail("18482003417@163.com", "Nimei025", "betteryangyh@163.com", 1);
+		SystemParameterService sys = new SystemParameterServiceImpl();
+		/*SystemParameter systemConfig = new SystemParameter();
+		systemConfig.setAdminUsername("3");
+		systemConfig.setAdminPassword("3");
+		systemConfig.setInvitationCode("147");
+		systemConfig.setStudentSelMaxnum(6);
+		if (sys.setOrUpdateSystemConfig(systemConfig, "2")) {
+			System.out.println("true");
+		}*/
+		/*SystemParameter systemParameter = sys.queryByAccount("3");
+		System.out.println(systemParameter.getInvitationCode());*/
+		System.out.println(DateUtil.splitStringToDate("2015-03-12"));
 	}
 	/**
 	 * 

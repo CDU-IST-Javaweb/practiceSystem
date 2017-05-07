@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.edu.cdu.practice.service.CompanyService;
+import cn.edu.cdu.practice.service.impl.CompanyServiceImpl;
+import cn.edu.cdu.practice.utils.Log4jUtils;
+
 /**
  * Servlet implementation class RegistCompanyServlet
  */
@@ -25,9 +29,23 @@ public class RegistCompanyServlet extends HttpServlet {
 		String qyname = request.getParameter("qyname");
 		String qyusername = request.getParameter("qyusername");
 		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirmPassword");
 		String email = request.getParameter("email");
 		String yzm = request.getParameter("yzm");
+		System.out.println("进入Servlet");
+		try {
+			CompanyService companyService = new CompanyServiceImpl();
+			if (companyService.registerCompanyInfo(qyusername, qyname, email, password, rscode, yzm)) {
+				request.getRequestDispatcher("/Login/login.jsp").forward(request, response);
+				return;
+			}else {
+				request.getRequestDispatcher("/404.html").forward(request, response);
+				return ;
+			}
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			request.getRequestDispatcher("/404.html").forward(request, response);
+			return ;
+		}
 	}
 
 }

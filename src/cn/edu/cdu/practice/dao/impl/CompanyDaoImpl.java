@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 import cn.edu.cdu.practice.dao.CompanyDao;
 import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.MailboxVerification;
+import cn.edu.cdu.practice.model.SystemParameter;
 import cn.edu.cdu.practice.utils.DbUtils;
 
 /**
@@ -30,7 +32,7 @@ public class CompanyDaoImpl implements CompanyDao{
 	public boolean registerCompanyInfo(Company company) {
 		//获取数据库连接
 		Connection connection = DbUtils.getConnection();
-		String registSql = "insert into company values(?,?,?,?,?,?,?,?,?)";
+		String registSql = "insert into company(username,company_name,mailbox,password,contacts,phone) values(?,?,?,?,?,?)";
 		PreparedStatement ps = null ;
 		try {
 			 connection.setAutoCommit(false);//设置手动提交事务
@@ -41,9 +43,6 @@ public class CompanyDaoImpl implements CompanyDao{
 			 ps.setString(4, company.getPassword());
 			 ps.setString(5, company.getContacts());
 			 ps.setString(6, company.getPhone());
-			 ps.setString(7, company.getAddress());
-			 ps.setString(8, company.getProfile());
-			 ps.setDate(9, company.getAuditDate());
 			 ps.execute();
 			 connection.commit();//提交事务
 			 return true ;
@@ -413,6 +412,77 @@ public class CompanyDaoImpl implements CompanyDao{
 			return null ;
 		} finally {
 			DbUtils.closeConnection(connection, ps,resultSet);
+		}
+	}
+
+	public SystemParameter systemParameter(String invideCode) {
+		Connection connection = DbUtils.getConnection();
+		String configSql = "select * from  system_parameter where invitation_code = ?";
+		PreparedStatement ps = null ;
+		SystemParameter systemConfig = null ;
+		ResultSet resultSet = null ;
+		try {
+			//设置事务为手动提交
+			connection.setAutoCommit(false);
+			//获取PreparedStatement
+			ps = connection.prepareStatement(configSql);
+			ps.setString(1, invideCode);
+			ps.executeQuery();
+			connection.commit();
+			resultSet = ps.executeQuery();
+			while(resultSet.next()) {
+				systemConfig = new SystemParameter();
+				systemConfig.setAdminUsername(resultSet.getString("admin_username"));
+				systemConfig.setAdminPassword(resultSet.getString("admin_password"));
+				systemConfig.setInvitationCode(resultSet.getString("invitation_code"));
+				systemConfig.setReleaseProjectStartDate(resultSet.getDate("release_project_start_date"));
+				systemConfig.setReleaseProjectEndDate(resultSet.getDate("release_project_end_date"));
+				systemConfig.setStudentSelEndDate(resultSet.getDate("student_sel_end_date"));
+				systemConfig.setStudentSelStartDate(resultSet.getDate("student_sel_start_date"));
+				systemConfig.setStudentSelMaxnum(resultSet.getInt("student_sel_maxnum"));
+			}
+			return systemConfig ;
+		} catch(Exception e) {
+			e.printStackTrace();
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			return null;
+		} finally {
+			DbUtils.closeConnection(connection, ps,resultSet);
+		}
+	}
+
+	public boolean setMail_verification(MailboxVerification mailboxVerification) {
+		Connection connection = DbUtils.getConnection();
+		String registSql = "insert into mailbox_verification values(?,?,?)";
+		PreparedStatement ps = null ;
+		try {
+			 connection.setAutoCommit(false);//设置手动提交事务
+			 ps = connection.prepareStatement(registSql);
+			 ps.setString(1, mailboxVerification.getMailbox());
+			 ps.setInt(2, mailboxVerification.getType());
+			 ps.setString(3, mailboxVerification.getVerificationCode());
+			 ps.execute();
+			 connection.commit();//提交事务
+			 return true ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			return false ;
+		} finally {
+			//每次操作之后必须关闭连接
+			DbUtils.closeConnection(connection, ps);
 		}
 	}
 

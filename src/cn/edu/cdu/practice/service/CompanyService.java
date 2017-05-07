@@ -3,6 +3,7 @@ package cn.edu.cdu.practice.service;
 import java.util.List;
 
 import cn.edu.cdu.practice.model.Company;
+import cn.edu.cdu.practice.model.MailboxVerification;
 
 /**
   * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -21,7 +22,8 @@ public interface CompanyService {
 	 * @param company Company实体类的对象引用
 	 * @return 返回注册成功与否的标志，成功返回true，失败返回false
 	 */
-	boolean registerCompanyInfo(Company company);
+	boolean registerCompanyInfo(String username,String companyName,String mailbox,String password,
+			String invideCode,String yzm);
 	
 	/**
 	 * <p>Title: updateCompanyInfo</p>
@@ -77,4 +79,6 @@ public interface CompanyService {
 	 * @return 返回退审成功与否的标志
 	 */
 	boolean backReview(Company company);
+	
+	boolean setMail_verification(MailboxVerification mailboxVerification);
 }

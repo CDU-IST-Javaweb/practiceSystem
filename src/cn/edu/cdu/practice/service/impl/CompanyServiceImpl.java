@@ -5,8 +5,12 @@ import java.util.List;
 import cn.edu.cdu.practice.dao.CompanyDao;
 import cn.edu.cdu.practice.dao.impl.CompanyDaoImpl;
 import cn.edu.cdu.practice.model.Company;
+import cn.edu.cdu.practice.model.MailboxVerification;
+import cn.edu.cdu.practice.model.SystemParameter;
 import cn.edu.cdu.practice.service.CompanyService;
 import cn.edu.cdu.practice.utils.Log4jUtils;
+import cn.edu.cdu.practice.utils.MdPwdUtil;
+import cn.edu.cdu.practice.utils.ValidateUtils;
 
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -23,16 +27,37 @@ public class CompanyServiceImpl implements CompanyService{
 	/**
 	 * 处理公司注册的业务逻辑
 	 */
-	public boolean registerCompanyInfo(Company company) {
-			try {
-				if (company != null ) {
+	public boolean registerCompanyInfo(String username,String companyName,String mailbox,String password,
+			String invideCode,String yzm) {
+		try {
+			//获取MailboxVerification和SystemParameter，查看验证码以及邀请码是否正确
+			MailboxVerification mailbox1 = this.companyDao.getByMail(mailbox);
+			SystemParameter systemParameter = this.companyDao.systemParameter(invideCode);
+			//数据库中没有这两个对象，直接返回false
+			if (mailbox1 == null || systemParameter == null) {
+				return false;
+			}
+			else {
+				//得到的MailboxVerification的验证码和页面验证码不一致，返回false
+				if (!yzm.equals(mailbox1.getVerificationCode())) {
+					return false;
+				}else {
+					String mdPwd = MdPwdUtil.MD5Password(password);
+					Company company = new Company();
+					company.setUsername(username);
+					company.setCompanyName(companyName);
+					company.setMailbox(mailbox);
+					company.setPassword(password);
+					company.setContacts("");
+					company.setPhone("");
 					return this.companyDao.registerCompanyInfo(company);
 				}
-				return false ;
- 			} catch(Exception exception) {
- 				Log4jUtils.info(exception.getMessage());
- 				return false;
- 			}
+			}
+		}catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return false;
+		}
+			
 	}
 
 	/**
@@ -170,6 +195,19 @@ public class CompanyServiceImpl implements CompanyService{
 			Log4jUtils.info(e.getMessage());
 			return false ;
 		}
+	}
+
+	public boolean setMail_verification(MailboxVerification mailboxVerification) {
+		try {
+			if (mailboxVerification != null) {
+				return this.companyDao.setMail_verification(mailboxVerification);
+			}
+			return false;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return false;
+		}
+		
 	}
 
 }

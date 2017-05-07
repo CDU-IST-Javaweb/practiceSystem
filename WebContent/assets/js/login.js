@@ -5,7 +5,7 @@ var sends = {
             var email = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
             //获取输入邮箱并用正则表达式把空格替换为空字符
             var val = $('#forgot-email').val().replace(/\s+/g, "");
-            var vall = $('#fotgot-email').val().replace(/\s+/g, "");
+            var vall = $('#regist-email').val().replace(/\s+/g, "");
             if ($('.div-email').find('span').length == 0 && $('.div-email a').attr('class') == 'send1') {
                 if (!email.test(val) || val.length == 0) {
                     $('.div-email').append('<span class="error">Error</span>');
@@ -40,8 +40,25 @@ var sends = {
             }
             if (email.test(vall)) {
                 var time = 60;
+                var param="/SendMailServlet";
                 $('.div-email span').remove();
-
+                alert(param);
+                $.ajax({
+                	url:"/SendMailServlet",
+                    type:"POST",
+                    dataType:"json",
+                    data: "mail=" + vall ,
+                    success:function(data){
+                        if(data == false){
+                        	alert(data+"hello");
+                        	$('.div-email a').html("邮箱错误");
+                        }else{
+                        	alert(data+"hello");
+                        	$('.div-email a').html("发送成功");
+                        }
+                    }
+                }); 
+                alert("hello2");
                 function timeCountDown() {
                     if (time == 0) {
                         clearInterval(timer);
@@ -54,6 +71,7 @@ var sends = {
                     return false;
                     sends.checked = 0;
                 }
+               
                 $('.div-email a').addClass('send0').removeClass('send1');
                 timeCountDown();
                 var timer = setInterval(timeCountDown, 1000);
@@ -464,12 +482,15 @@ $(document).ready(function() {
 });
 
 // 验证成功前提交按钮不起作用
-$("#defaultForm").submit(function(ev) { ev.preventDefault(); });
-$("#defaultFormm").submit(function(ev) { ev.preventDefault(); });
-$("#submit").on("click", function() {
-    var bootstrapValidator = $("#defaultForm").data('bootstrapValidator');
-    bootstrapValidator.validate();
-    if (bootstrapValidator.isValid())
-        $("#defaultForm").submit();
-    else return;
-});
+//$("#defaultForm").submit(function(ev) { ev.preventDefault(); });
+//$("#defaultFormm").submit(function(ev) { ev.preventDefault(); });
+//$("#submit").on("click", function() {
+//    var bootstrapValidator = $("#defaultForm").data('bootstrapValidator');
+//    bootstrapValidator.validate();
+//    if (bootstrapValidator.isValid())
+//    { 
+//    	$("#defaultForm").submit();
+//        $("#defaultFormm").submit();
+//    }
+//    else return;
+//});

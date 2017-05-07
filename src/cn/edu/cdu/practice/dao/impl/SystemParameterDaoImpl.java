@@ -63,25 +63,26 @@ public class SystemParameterDaoImpl implements SystemParameterDao {
 		}
 	}
 
-	public boolean updateSystemConfig(SystemParameter systemConfig) {
+	public boolean updateSystemConfig(SystemParameter systemConfig,String username) {
 		Connection connection = DbUtils.getConnection();
-		String configSql = "update system_parameter set adminpassword = ?,invitationcode=?,releaseprojectStartDate=?,"
-				+ "releaseprojectendDate=?,studentselstartdate=?,studentselenddate=?,"
-				+ "studentselmaxnum=? where adminusername = ?";
+		String configSql = "update system_parameter set admin_username = ?, admin_password = ?,invitation_code=?,release_project_start_date=?,"
+				+ "release_project_end_date=?,student_sel_start_date=?,student_sel_end_date=?,"
+				+ "student_sel_maxnum=? where admin_username = ?";
 		PreparedStatement ps = null ;
 		try {
 			//设置事务为手动提交
 			connection.setAutoCommit(false);
 			//获取PreparedStatement
 			ps = connection.prepareStatement(configSql);
-			ps.setString(1, systemConfig.getAdminPassword());
-			ps.setString(2, systemConfig.getInvitationCode());
-			ps.setDate(3, systemConfig.getReleaseProjectStartDate());
-			ps.setDate(4, systemConfig.getReleaseProjectEndDate());
-			ps.setDate(5, systemConfig.getStudentSelStartDate());
-			ps.setDate(6, systemConfig.getStudentSelEndDate());
-			ps.setInt(7, systemConfig.getStudentSelMaxnum());
-			ps.setString(8, systemConfig.getAdminUsername());
+			ps.setString(1, systemConfig.getAdminUsername());
+			ps.setString(2, systemConfig.getAdminPassword());
+			ps.setString(3, systemConfig.getInvitationCode());
+			ps.setDate(4, systemConfig.getReleaseProjectStartDate());
+			ps.setDate(5, systemConfig.getReleaseProjectEndDate());
+			ps.setDate(6, systemConfig.getStudentSelStartDate());
+			ps.setDate(7, systemConfig.getStudentSelEndDate());
+			ps.setInt(8, systemConfig.getStudentSelMaxnum());
+			ps.setString(9, username);//未更改前的用户名
 			ps.executeUpdate();
 			connection.commit();
 			return true ;
@@ -103,7 +104,7 @@ public class SystemParameterDaoImpl implements SystemParameterDao {
 	@Override
 	public SystemParameter queryByAccount(String accountName) {
 		Connection connection = DbUtils.getConnection();
-		String configSql = "select * from  system_parameter where adminusername = ?";
+		String configSql = "select * from  system_parameter where admin_username = ?";
 		PreparedStatement ps = null ;
 		SystemParameter systemConfig = null ;
 		ResultSet resultSet = null ;
@@ -118,14 +119,14 @@ public class SystemParameterDaoImpl implements SystemParameterDao {
 			resultSet = ps.executeQuery();
 			while(resultSet.next()) {
 				systemConfig = new SystemParameter();
-				systemConfig.setAdminUsername(resultSet.getString("adminusername"));
-				systemConfig.setAdminPassword(resultSet.getString("adminpassword"));
-				systemConfig.setInvitationCode(resultSet.getString("invitationcode"));
-				systemConfig.setReleaseProjectStartDate(resultSet.getDate("releaseprojectStartDate"));
-				systemConfig.setReleaseProjectEndDate(resultSet.getDate("releaseprojectendDate"));
-				systemConfig.setStudentSelEndDate(resultSet.getDate("studentselenddate"));
-				systemConfig.setStudentSelStartDate(resultSet.getDate("studentselstartdate"));
-				systemConfig.setStudentSelMaxnum(resultSet.getInt("studentselmaxnum"));
+				systemConfig.setAdminUsername(resultSet.getString("admin_username"));
+				systemConfig.setAdminPassword(resultSet.getString("admin_password"));
+				systemConfig.setInvitationCode(resultSet.getString("invitation_code"));
+				systemConfig.setReleaseProjectStartDate(resultSet.getDate("release_project_start_date"));
+				systemConfig.setReleaseProjectEndDate(resultSet.getDate("release_project_end_date"));
+				systemConfig.setStudentSelEndDate(resultSet.getDate("student_sel_end_date"));
+				systemConfig.setStudentSelStartDate(resultSet.getDate("student_sel_start_date"));
+				systemConfig.setStudentSelMaxnum(resultSet.getInt("student_sel_maxnum"));
 			}
 			return systemConfig ;
 		} catch(Exception e) {

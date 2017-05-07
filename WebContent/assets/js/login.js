@@ -488,9 +488,6 @@ $(document).ready(function() {
 //    var bootstrapValidator = $("#defaultForm").data('bootstrapValidator');
 //    bootstrapValidator.validate();
 //    if (bootstrapValidator.isValid())
-//    { 
-//    	$("#defaultForm").submit();
-//        $("#defaultFormm").submit();
-//    }
+//        $("#defaultForm").submit();
 //    else return;
 //});

@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import cn.edu.cdu.practice.dao.impl.StudentDaoImpl;
 import cn.edu.cdu.practice.model.Student;
+import cn.edu.cdu.practice.service.impl.StudentServiceImpl;
 
 /** 
 * @author  作者 E-mail: 
@@ -54,11 +55,13 @@ public class TestStudentDao {
 	public void testQuery(){
 		List<Student> list=null;
 		//Student student=new Student();
-		StudentDaoImpl stuDI=new StudentDaoImpl();
+		//StudentDaoImpl stuDI=new StudentDaoImpl();
+		StudentServiceImpl stuSI=new StudentServiceImpl();
 		//list=stuDI.findByCompany("中云测");
 		//list=stuDI.findByMajor("自动化(本)");
 		//student=stuDI.findById("201401");
-		list=stuDI.findByYear(2017);
+		//list=stuDI.findByYear(2017);
+		list=stuSI.findByYear(2017);
 		
 		if(list.size()>0)
 			for(int i=0;i<list.size();i++){
@@ -93,6 +96,7 @@ public class TestStudentDao {
 		StudentDaoImpl stuDI=new StudentDaoImpl();
 		stuDI.update(stu);
 	}*/
+	/*
 	@Test
 	public void testDelete(){
 		String id="1";
@@ -103,6 +107,6 @@ public class TestStudentDao {
 			System.out.println("删除成功！");
 		else
 			System.out.println("删除失败!");
-	}
+	}*/
 
 }

@@ -151,7 +151,7 @@ response.setDateHeader("Expires",0);
                     </div>
                     <h2> <span> <strong>实训企业注册</strong></span></h2>
                 </div>
-                <form id="defaultForm" method="post">
+                <form id="defaultForm" method="post" action="${pageContext.request.contextPath }/EnterpriseManagement/RegistCompanyServlet">
                     <div class="pmd-card-body">
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
                             <label for="inputError1" class="control-label pmd-input-group-label">注册邀请码</label>
@@ -214,7 +214,7 @@ response.setDateHeader("Expires",0);
                             <label for="inputError1" class="control-label pmd-input-group-label">验证码</label>
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">comment</i></div>
-                                <input type="text" class="form-control" id="exampleInputAmount">
+                                <input type="text" class="form-control" id="exampleInputAmount" name="yzm">
                             </div>
                         </div>
                         <!--数字加法验证-->
@@ -228,7 +228,7 @@ response.setDateHeader("Expires",0);
                     </div>
 
                     <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
-                        <button id="submit" type="submit" class="btn pmd-ripple-effect btn-primary btn-block">注册</button>
+                        <input  type="submit" class="btn pmd-ripple-effect btn-primary btn-block" value="注册">
                         <p class="redirection-link">已经有账户了？ <a href="javascript:void(0);" class="register-login">登录</a>. </p>
                     </div>
 

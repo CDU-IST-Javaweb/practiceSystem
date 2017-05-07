@@ -1,10 +1,11 @@
 
 package cn.edu.cdu.practice.dao;
 
-import java.sql.Date;
 import java.util.List;
 
 import cn.edu.cdu.practice.model.Company;
+import cn.edu.cdu.practice.model.MailboxVerification;
+import cn.edu.cdu.practice.model.SystemParameter;
 
 /**
  * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
@@ -88,4 +89,43 @@ public interface CompanyDao {
 	 * @return 返回一个检查完的标志,审核通过返回true,审核不通过返回false
 	 */
 	boolean checkCompany(Company company);
+	
+	/**
+	 * <p>Title: queryByUserName</p>
+	 * <p>Description: 根据注册的用户名查询企业</p>
+	 * @param account 注册用户名
+	 * @return 公司
+	 */
+	Company queryByUserName(String account);
+	/**
+	 * <p>Title: backReview</p>
+	 * <p>Description: 退审</p>
+	 * @param companyUsername 用户名
+	 * @return 返回退审成功与否的标志
+	 */
+	boolean backReview(Company company);
+	
+	/**
+	 * <p>Title: getByMail</p>
+	 * <p>Description: 通过邮箱获取MailboxVerification对象</p>
+	 * @param mail 邮箱
+	 * @return MailboxVerification实体类对象
+	 */
+	MailboxVerification getByMail(String mail);
+	
+	/**
+	 * <p>Title: systemParameter</p>
+	 * <p>Description: 根据邀请码查询SystemParameter</p>
+	 * @param invideCode 邀请码
+	 * @return SystemParameter对象
+	 */
+	SystemParameter systemParameter(String invideCode);
+	
+	/**
+	 * <p>Title: setMail_verification</p>
+	 * <p>Description: 添加MailboxVerification</p>
+	 * @param mailboxVerification MailboxVerification对象
+	 * @return 添加成功与否的标识
+	 */
+	boolean setMail_verification(MailboxVerification mailboxVerification);
 }

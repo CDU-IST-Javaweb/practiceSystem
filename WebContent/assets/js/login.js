@@ -464,12 +464,12 @@ $(document).ready(function() {
 });
 
 // 验证成功前提交按钮不起作用
-$("#defaultForm").submit(function(ev) { ev.preventDefault(); });
-$("#defaultFormm").submit(function(ev) { ev.preventDefault(); });
-$("#submit").on("click", function() {
-    var bootstrapValidator = $("#defaultForm").data('bootstrapValidator');
-    bootstrapValidator.validate();
-    if (bootstrapValidator.isValid())
-        $("#defaultForm").submit();
-    else return;
-});
+// $("#defaultForm").submit(function(ev) { ev.preventDefault(); });
+// // $("#defaultFormm").submit(function(ev) { ev.preventDefault(); });
+// $("#submit").on("click", function() {
+//     var bootstrapValidator = $("#defaultForm").data('bootstrapValidator');
+//     bootstrapValidator.validate();
+//     if (bootstrapValidator.isValid())
+//         $("#defaultForm").submit();
+//     else return;
+// });

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -226,8 +227,10 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../StudentManagement/student-management.jsp">学生管理</a></li>
-                    <li><a href="../StudentManagement/student-personal-information-maintenance.jsp">学生个人信息维护</a></li>
+                    <!--  <li><a href="../StudentManagement/student-management.jsp">学生管理</a></li>-->
+                    <!--  <li><a href="../StudentManagement/student-personal-information-maintenance.jsp">学生个人信息维护</a></li>-->
+                    <li><a href="QueryStudentServlet">学生管理</a></li>
+                    <li><a href="UpdateStudentServlet">学生个人信息维护</a></li>
                 </ul>
             </li>
             <!--通知公告管理-->
@@ -315,16 +318,20 @@
                 <div class="pmd-card pmd-z-depth pmd-card-custom-view">
                     <h2 style="text-align: center;">学生管理</h2>
                     <div class="col-md-6 form-inline">
+                    	<!--  <form action="QueryStudentServlet" method="post">-->
                         <label class="control-label col-md-2" style="font-size: 20px;font-weight: 600;">条件:</label>
-                        <select class="select-simple form-control pmd-select2">
-                    <option>已选\未选</option>
-                    <option>企业</option>
-                    <option>年级</option>
-                    <option>专业</option>
-                    <option>年度</option>
-                  </select>
-                        <input type="text" class="form-control">
-                        <a class="btn pmd-ripple-effect btn-primary" href="#">查询</a>
+                        <select class="select-simple form-control pmd-select2" id="op" onchange="changeValue()">
+                            <option value="all">全部</option>
+		                    <option value="sel">已选[1]\未选[2]</option>
+		                    <option value="com">企业</option>
+		                    <option value="grade">年级</option>
+		                    <option value="major">专业</option>
+		                    <option value="year">年度</option>
+                    	</select>
+                        <input type="text" class="form-control" id="conValue"  onchange="changeValue()">
+                        <!--  <input type="submit" value="查询">-->
+                        <a class="btn pmd-ripple-effect btn-primary" href="#" id="query" >查询</a>
+                        <!--  </form>-->
                     </div>
 
                     <div class="PM-nav">
@@ -386,150 +393,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>掌握java、c语言，熟悉前端框架....</th>
-                                            <th>参加一些学院项目工作以及学科竞赛获得全国二等奖</th>
-                                            <th>450311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410414123</th>
-                                            <th>陈天雄</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>软件工程</th>
-                                            <th>1班</th>
-                                            <th>java</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>350311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨永浩</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>软件工程</th>
-                                            <th>2班</th>
-                                            <th>java</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>150311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2013</th>
-                                            <th>本科</th>
-                                            <th>数字媒体技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>50311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>450311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>450311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>450311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411123</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>450311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411122</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>450311265@qq.com</th>
-                                        </tr>
-                                        <tr>
-                                            <th>201410411121</th>
-                                            <th>杨子皓</th>
-                                            <th>男</th>
-                                            <th>2014</th>
-                                            <th>本科</th>
-                                            <th>计算机科学与技术</th>
-                                            <th>1班</th>
-                                            <th>前端</th>
-                                            <th>无</th>
-                                            <th>无</th>
-                                            <th>450311265@qq.com</th>
-                                        </tr>
-                                    </tbody>
+                                        <c:forEach items="${student }" var="stu">
+                                        		<tr>
+                                        			<td>${stu.no }</td>
+                                        			<td>${stu.name }</td>
+                                        			<td>${stu.gender }</td>
+                                        			<td>${stu.grade }</td>
+                                        			<td>${stu.level }</td>
+                                        			<td>${stu.professional }</td>
+                                        			<td>${stu.class_ }</td>
+                                        			<td>${stu.researchDirection }</td>
+                                        			<td>${stu.learningExperience }</td>
+                                        			<td>${stu.subjectBackground }</td>
+                                        			<td>${stu.mailbox }</td>
+                                        		</tr>
+                                        </c:forEach>
+	                                </tbody>
                                 </table>
                             </div>
                             <!-- responsive table example end -->
@@ -703,6 +582,37 @@
             $(".custom-select-action").html('<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">delete</i></button><button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">more_vert</i></button>');
 
         });
+    </script>
+    <script type="text/javascript">
+    	var op=null;
+    	var conValue=null;
+    	var url=null;
+    	function changeValue(){
+    		op= $("#op").val();
+    		conValue=$("#conValue").val();
+    		url="QueryStudentServlet?op="+op+"&conValue="+conValue;
+    		//alert( url );
+    		//alert(value);
+    	    document.getElementById("query").setAttribute("href", url);
+    	    //document.getElementById("op").value=op;
+    	    //document.getElementById("value").value=value;
+    	}
+    </script>
+    <script type="text/javascript">
+    	var index=<%=(int)request.getAttribute("index")%>;
+    	var reValue=<%=(String)request.getAttribute("conValue")%>;
+    	alert(index);
+    	alert(reValue);
+    	if (index!=null){
+    		var  objOP=document.getElementById("op");
+    		objOP.options[index].selected=true;
+    	}else{
+    		objOP.options[0].selected=true;
+    	}
+    	if(reValue!=null){
+    		var objValue=document.getElementById("conValue");
+    		objValue.value=reValue;
+    	}
     </script>
 
 </body>

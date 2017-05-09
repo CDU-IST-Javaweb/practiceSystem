@@ -25,7 +25,7 @@ public class SendMailServlet extends HttpServlet {
 		//获取页面传来的邮箱
 		String mail = request.getParameter("mail");
 		System.out.println("mail是"+mail);
-		EmailUtils.sendMail("18482003417@163.com", "Nimei025", mail, 1);
+		EmailUtils.sendMail("18482003417@163.com", "Nimei025", mail, 1,"9863");
 	}
 
 }

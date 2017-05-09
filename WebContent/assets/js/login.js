@@ -40,8 +40,25 @@ var sends = {
             }
             if (email.test(vall)) {
                 var time = 60;
+                var param="/SendMailServlet";
                 $('.div-email span').remove();
-
+                alert(param);
+                $.ajax({
+                	url:"/SendMailServlet",
+                    type:"POST",
+                    dataType:"json",
+                    data: "mail=" + vall ,
+                    success:function(data){
+                        if(data == false){
+                        	alert(data+"hello");
+                        	$('.div-email a').html("邮箱错误");
+                        }else{
+                        	alert(data+"hello");
+                        	$('.div-email a').html("发送成功");
+                        }
+                    }
+                }); 
+                alert("hello2");
                 function timeCountDown() {
                     if (time == 0) {
                         clearInterval(timer);
@@ -54,6 +71,7 @@ var sends = {
                     return false;
                     sends.checked = 0;
                 }
+               
                 $('.div-email a').addClass('send0').removeClass('send1');
                 timeCountDown();
                 var timer = setInterval(timeCountDown, 1000);

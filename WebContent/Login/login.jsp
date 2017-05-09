@@ -401,7 +401,8 @@ response.setDateHeader("Expires",0);
 		$(document).ready(function(){
 			$(".send2").click(function(){
 // 				获取页面输入的email，将其作为参数传递到后台servlet中进行处理，得到的验证码在页面存放起来。
-				var mbemail = $("#fotgot-email").val();
+				var mbemail = $("#forgot-email").val();
+				alert(mbemail);
 				 htmlobj=$.ajax({url:"/practiceSystem/Login/IdentifyCodeByEmailServlet?mbemail="+mbemail,async:false});
 				  $("#rvchidden").val(htmlobj.responseText);
 			});

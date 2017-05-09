@@ -1,5 +1,7 @@
-<!doctype html>
-<html lang="">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -27,6 +29,25 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
     <!--my style css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!-- Propeller textbox -->
+    <link href="http://propeller.in/components/textfield/css/textfield.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller table -->
+    <link href="http://propeller.in/components/table/css/table.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller card -->
+    <link href="http://propeller.in/components/card/css/card.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables bootstrap -->
+    <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables bootstrap responsive  -->
+    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Propeller Datatables select -->
+    <link href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css" type="text/css" rel="stylesheet" />
+    <!-- Propeller Datatable -->
+    <link href="../assets/css/pmd-datatable.css" type="text/css" rel="stylesheet" />
     <!-- Styles Ends -->
 </head>
 
@@ -213,7 +234,7 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/make-announcements.html">发布通知公告</a></li>
+                    <li><a href="${pageContext.request.contextPath }/SystemsManagement/ShowNoticeListServlet">发布通知公告</a></li>
                     <li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
                     <li><a href="../SystemsManagement/audit-notice.html">审核通知通告</a></li>
                 </ul>
@@ -226,7 +247,7 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/system-parameter.html">系统参数配置</a></li>
+                    <li><a href="../SystemsManagement/system-parameter.jsp">系统参数配置</a></li>
                 </ul>
             </li>
             <!--登出-->
@@ -275,13 +296,13 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>学生管理</span>
+                    <span>通知公告管理</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
                     <li><a href="index.html">主页</a></li>
-                    <li class="active">学生个人信息维护</li>
+                    <li class="active">发布通知公告</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
@@ -290,84 +311,77 @@
                 <div class="component-box">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="pmd-card pmd-z-depth pmd-card-custom-form">
-                                <div class="pmd-card-body">
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
-                                            <input type="text" disabled="" value="201410411123" class="mat-input form-control">
-                                        </div>
+                            <div class="pmd-card pmd-z-depth">
+                                <div class="pmd-card-body pmd-card-custom-form">
+                                    <h2>企业通知公告列表</h2>
+                                    <div class="PM-nav">
+                                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" style="float: right;margin-bottom: 10px;" href="annuncement-new.jsp">添加新公告</a>
                                     </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">姓名：</label></div>
-                                            <input type="text" disabled="" value="杨子皓" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">性别：</label></div>
-                                            <input type="text" disabled="" value="男" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">入学年份：</label></div>
-                                            <input type="text" disabled="" value="2014" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">层次：</label></div>
-                                            <input type="text" disabled="" value="本科" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">专业名称：</label></div>
-                                            <input type="text" disabled="" value="计算机科学与技术" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
-                                            <input type="text" disabled="" value="450311265@qq.com" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科背景:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科经历:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">研究方向:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2"><i class="material-icons media-left pmd-md" style="display: inline-block;color: #cdf809;padding-top: 9px;">warning</i><h3 style="color: #f80b03;display: inline-block;">如果需要修改密码请在下方填写原密码和要修改后的密码，否则为空。</h3></label></div>                                           
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">原密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">修改后密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>                                    
-                                    <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
-                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>
-                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="example" class="table pmd-table table-hover table-striped display responsive nowrap" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>企业用户名</th>
+                                                    <th>标题</th>
+                                                    <th>发布日期</th>
+                                                    <th>状态</th>
+                                                    <th>详情</th>
+                                                    <th>编辑</th>
+                                                    <th>删除</th>
+                                                </tr>
+                                            </thead>
 
+                                            <tbody>
+                                            	<c:forEach items="${notices }" var="notice">
+                                            		<tr>
+                                            			<td>${notice.id }</td>
+                                            			<td>${notice.companyUsername }</td>
+                                            			<td>${notice.title }</td>
+                                            			<td>${notice.releaseDate }</td>
+                                            			<td>
+                                            			<c:choose>
+                                            				<c:when test="${notice.auditDate == null }">
+                                            					<c:out value="未通过"/>
+                                            				</c:when>
+                                            				<c:otherwise>
+                                            					<c:out value="通过"/>
+                                            				</c:otherwise>
+                                            			</c:choose>
+														</td>
+														<td><a href="${pageContext.request.contextPath }/SystemsManagement/LookNoticeById?Id=${notice.id}">详情</a></td>
+														<td><a href="${pageContext.request.contextPath }/SystemsManagement/ShowNoticeById?Id=${notice.id}">编辑</a></td>
+														<td><a href="${pageContext.request.contextPath }/SystemsManagement/DeleteNoticeServlet?Id=${notice.id}">删除</a></td>
+                                            		</tr>
+                                            	</c:forEach>
+                                            	
+                                            </tbody>
+                                            <tr>
+				  		<td colspan="8" align="right">
+				  		共${pager.totalSize}条纪录，当前第${pager.pageNow}/${pager.totalPage}页，每页${pager.pageSize}条纪录
+				  		<c:choose>
+				  			<c:when test="${pager.hasPre}">
+				  				<a href="ShowNoticeListsServlet?pageNow=1">首页</a> |
+                				<a href="ShowNoticeListsServlet?pageNow=${pager.pageNow - 1}">上一页</a> |
+				  			</c:when>
+				  			<c:otherwise>
+				  				<c:out value="首页 | 上一页 | "></c:out>
+				  			</c:otherwise>
+				  		</c:choose>
+				  		<c:choose>
+				  			<c:when test="${pager.hasNext }">
+                				<a href="ShowNoticeListsServlet?pageNow=${pager.pageNow + 1}">下一页</a> |
+                			<a href="ShowNoticeListsServlet?pageNow=${pager.totalPage}">尾页</a>
+               				</c:when>
+               				<c:otherwise>
+               					<c:out value="下一页 | 尾页"/>
+               				</c:otherwise>
+				  		</c:choose>
+				  		</td>
+				  			</tr>	  
+                                        </table>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -375,9 +389,9 @@
                 </div>
             </div>
 
+
         </div>
     </div>
-
     <!-- Footer Starts -->
     <!--footer start-->
     <footer class="admin-footer">
@@ -415,6 +429,7 @@
     <!--footer end-->
     <!-- Footer Ends -->
 
+
     <!-- Scripts Starts -->
     <script src="../assets/js/jquery-1.12.2.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -424,10 +439,10 @@
             var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
             $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").addClass("active");
             });
         });
     </script>
@@ -451,6 +466,90 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
+
+    <!-- Select2 js-->
+    <script type="text/javascript" src="../components/select2/js/select2.full.js"></script>
+    <!-- Datatable js -->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+    <!-- Datatable Bootstrap -->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- Datatable responsive js-->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
+
+    <!-- Datatable select js-->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>
+    <!-- Propeller Select2 -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".select-simple").select2({
+                theme: "bootstrap",
+                minimumResultsForSearch: Infinity,
+            });
+
+            $(".select-with-search").select2({
+                theme: "bootstrap"
+            });
+
+            $(".select-tags").select2({
+                tags: false,
+                theme: "bootstrap",
+            });
+
+            $(".select-add-tags").select2({
+                tags: true,
+                theme: "bootstrap",
+            });
+        });
+    </script>
+    <script type="text/javascript" src="../components/select2/js/pmd-select2.js"></script>
+   <!--  <script>
+        //Propeller  Customised Javascript code 
+        $(document).ready(function() {
+            var exampleDatatable = $('#example').DataTable({
+                responsive: {
+                    details: {
+                        type: 'column',
+                        target: 'tr'
+                    }
+                },
+                columnDefs: [{
+                    className: 'control',
+                    orderable: false,
+                    targets: 1
+                }],
+                order: [1, 'asc'],
+                bFilter: true,
+                bLengthChange: true,
+                pagingType: "simple",
+                "paging": true,
+                "searching": true,
+                "language": {
+                    "info": " _START_ - _END_ of _TOTAL_ ",
+                    "sLengthMenu": "<span class='custom-select-title'>每页显示行数:</span> <span class='custom-select'> _MENU_ </span>",
+                    "sSearch": "",
+                    "sSearchPlaceholder": "搜索",
+                    "paginate": {
+                        "sNext": " ",
+                        "sPrevious": " "
+                    },
+                },
+                dom: "<'pmd-card-title'<'data-table-title-responsive'><'search-paper pmd-textfield'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'pmd-card-footer' <'pmd-datatable-pagination' l i p>>",
+            });
+
+            /// Select value
+            $('.custom-select-info').hide();
+
+            $("div.data-table-title").html('<h2 class="pmd-card-title-text">Table Card</h2>');
+            $("div.data-table-title").html('<h2 class="pmd-card-title-text">Table Responsive</h2>');
+            $(".custom-select-action").html('<button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">delete</i></button><button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" type="button"><i class="material-icons pmd-sm">more_vert</i></button>');
+
+        });
+    </script> -->
 
 
 </body>

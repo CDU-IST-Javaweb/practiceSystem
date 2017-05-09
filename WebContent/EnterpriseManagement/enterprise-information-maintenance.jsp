@@ -1,6 +1,7 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +20,9 @@
     <!-- Propeller css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller.min.css">
 
+    <!-- Propeller date time picker css-->
+    <link rel="stylesheet" type="text/css" href="../components/datetimepicker/css/bootstrap-datetimepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../components/datetimepicker/css/pmd-datetimepicker.css" />
 
     <!-- Propeller theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-theme.css" />
@@ -190,7 +194,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="../EnterpriseManagement/enterprise-information-management.html">企业信息管理</a></li>
-                    <li><a href="../EnterpriseManagement/enterprise-information-maintenance.html">企业信息维护</a></li>
+                    <li><a href="${pageContext.request.contextPath }/EnterpriseManagement/ShowsCompanyServlet">企业信息维护</a></li>
                 </ul>
             </li>
             <!--学生管理-->
@@ -242,7 +246,7 @@
             </li>
             <!--提醒事项-->
             <li>
-                <a class="pmd-ripple-effect" href="../SystemsManagement/notifications.html">
+                <a class="pmd-ripple-effect" href="notifications.html">
                     <i class="media-left media-middle">
 				<svg version="1.1" id="Layer_1" x="0px" y="0px" width="15.3px" height="18px" viewBox="289.99 337.535 15.3 18" enable-background="new 289.99 337.535 15.3 18" xml:space="preserve">
 					<g>
@@ -262,7 +266,6 @@
     <!-- End Left sidebar -->
     <!-- Sidebar Ends -->
 
-    <!--content area start-->
     <div id="content" class="pmd-content inner-page">
         <!--tab start-->
         <div class="container-fluid full-width-container value-added-detail-page">
@@ -275,13 +278,13 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>学生管理</span>
+                    <span>企业信息管理</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
                     <li><a href="index.html">主页</a></li>
-                    <li class="active">学生个人信息维护</li>
+                    <li class="active">企业信息维护</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
@@ -292,82 +295,113 @@
                         <div class="col-md-12">
                             <div class="pmd-card pmd-z-depth pmd-card-custom-form">
                                 <div class="pmd-card-body">
+                                <c:choose>
+                                	<c:when test="${company.auditDate != null }">
+                                	<form action="" method="post">
                                     <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
-                                            <input type="text" disabled="" value="201410411123" class="mat-input form-control">
+                                        <div class="input-group">
+                                            <h2> <label class="control-label"></label> 基本信息 </h2>
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">企业简介：</label></div>
+                                            <input type="text" disabled="disabled" value="${company.profile }" name="profile" class="mat-input form-control">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">姓名：</label></div>
-                                            <input type="text" disabled="" value="杨子皓" class="mat-input form-control">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">联系人：</label></div>
+                                            <input type="text" disabled="disabled" value="${company.contacts}" name="contacts" class="mat-input form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">公司地址：</label></div>
+                                            <input type="text" disabled="disabled" value="${company.address}" name="address" class="mat-input form-control">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">性别：</label></div>
-                                            <input type="text" disabled="" value="男" class="mat-input form-control">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">电话：</label></div>
+                                            <input type="text" disabled="disabled" value="${company.phone}" name="phone" class="mat-input form-control">
+                                        </div>
+                                    </div>
+                                    </form>
+                                	</c:when>
+                                	<c:otherwise>
+                                	
+                                <form action="${pageContext.request.contextPath }/EnterpriseManagement/UpdateCompanyInfos" method="post">
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group">
+                                            <h2> <label class="control-label"></label> 基本信息 </h2>
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">企业简介：</label></div>
+                                            <input type="text"  value="${company.profile }" name="profile" class="mat-input form-control">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">入学年份：</label></div>
-                                            <input type="text" disabled="" value="2014" class="mat-input form-control">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">联系人：</label></div>
+                                            <input type="text"  value="${company.contacts}" name="contacts" class="mat-input form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-6">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">公司地址：</label></div>
+                                            <input type="text"  value="${company.address}" name="address" class="mat-input form-control">
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">层次：</label></div>
-                                            <input type="text" disabled="" value="本科" class="mat-input form-control">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">电话：</label></div>
+                                            <input type="text"  value="${company.phone}" name="phone" class="mat-input form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">专业名称：</label></div>
-                                            <input type="text" disabled="" value="计算机科学与技术" class="mat-input form-control">
+                                    <button data-target="#form-dialog" data-toggle="modal" class="btn pmd-btn-raised pmd-ripple-effect btn-warning pmd-z-depth" type="button">重置密码</button>
+                                    <div tabindex="-1" class="modal fade" id="form-dialog" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header pmd-modal-bordered">
+                                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                                    <h2 class="pmd-card-title-text">修改密码</h2>
+                                                </div>
+                                                 <form class="form-horizontal" action="">
+                                                <div class="modal-body">
+                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                            <label for="first-name">旧密码：</label>
+                                                            <input type="text" class="mat-input form-control" id="name" value="*******">
+                                                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                                <label for="first-name">新密码：</label>
+                                                                <input type="text" class="mat-input form-control" id="email" value="***">
+                                                            </div>
+                                                            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                                                <label for="first-name">确认密码：</label>
+                                                                <input type="text" class="mat-input form-control" id="email" value="***">
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                </form>
+                                                <div class="pmd-modal-action">
+                                                    <input data-dismiss="modal" class="btn pmd-ripple-effect btn-primary" type="submit" value="确定"/>
+                                                    <input data-dismiss="modal" class="btn pmd-ripple-effect btn-primary" type="reset" value="重置"/>
+                                                    <a href="javascript:history.back(-1);" data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
-                                            <input type="text" disabled="" value="450311265@qq.com" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科背景:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科经历:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">研究方向:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2"><i class="material-icons media-left pmd-md" style="display: inline-block;color: #cdf809;padding-top: 9px;">warning</i><h3 style="color: #f80b03;display: inline-block;">如果需要修改密码请在下方填写原密码和要修改后的密码，否则为空。</h3></label></div>                                           
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">原密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">修改后密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>                                    
-                                    <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
-                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>
                                     </div>
 
+                                    <div class="button-group col-md-12">
+                                        <input class="btn pmd-ripple-effect btn-primary" type="submit" value="确定"/>
+                                        <input data-dismiss="modal" class="btn pmd-ripple-effect btn-primary" type="reset" value="重置"></input>
+                                        <a href="javascript:history.back(-1);" data-dismiss="modal" class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+                                    </div>
+                                    </form>
+                                	</c:otherwise>
+                                </c:choose>
                                 </div>
                             </div>
                         </div>
@@ -377,7 +411,6 @@
 
         </div>
     </div>
-
     <!-- Footer Starts -->
     <!--footer start-->
     <footer class="admin-footer">
@@ -424,10 +457,10 @@
             var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
             $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").addClass("active");
+                $(this).find("a[href='../EnterpriseManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='../EnterpriseManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='../EnterpriseManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='../EnterpriseManagement/" + sPage + "']").addClass("active");
             });
         });
     </script>
@@ -451,6 +484,7 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
+
 
 
 </body>

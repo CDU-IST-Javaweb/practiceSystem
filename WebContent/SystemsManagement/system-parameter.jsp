@@ -1,6 +1,6 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <html lang="">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,6 +22,7 @@
 
     <!-- Propeller theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/jquery.datetimepicker.css">
 
     <!-- Propeller admin theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
@@ -189,8 +190,8 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../EnterpriseManagement/enterprise-information-management.html">企业信息管理</a></li>
-                    <li><a href="../EnterpriseManagement/enterprise-information-maintenance.html">企业信息维护</a></li>
+                    <li><a href="${pageContext.request.contextPath }/EnterpriseManagement/ShowCompanyssServlet">企业信息管理</a></li>
+                    <li><a href="${pageContext.request.contextPath }/EnterpriseManagement/ShowsCompanyServlet">企业信息维护</a></li>
                 </ul>
             </li>
             <!--学生管理-->
@@ -213,9 +214,9 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/make-announcements.html">发布通知公告</a></li>
+                    <li><a href="${pageContext.request.contextPath }/SystemsManagement/ShowNoticeListServlet">发布通知公告</a></li>
                     <li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
-                    <li><a href="../SystemsManagement/audit-notice.html">审核通知通告</a></li>
+                    <li><a href="${pageContext.request.contextPath }/SystemsManagement/AdminLookNoticesServlet">审核通知通告</a></li>
                 </ul>
             </li>
             <!--系统配置-->
@@ -226,7 +227,7 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/system-parameter.html">系统参数配置</a></li>
+                    <li><a href="../SystemsManagement/system-parameter.jsp">系统参数配置</a></li>
                 </ul>
             </li>
             <!--登出-->
@@ -275,106 +276,78 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>学生管理</span>
+                    <span>系统配置</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
                     <li><a href="index.html">主页</a></li>
-                    <li class="active">学生个人信息维护</li>
+                    <li class="active">系统参数配置</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
-
             <div class="col-md-12">
                 <div class="component-box">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="pmd-card pmd-z-depth pmd-card-custom-form">
-                                <div class="pmd-card-body">
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
-                                            <input type="text" disabled="" value="201410411123" class="mat-input form-control">
-                                        </div>
+                            <div class="pmd-card pmd-z-depth">
+                                <div class="pmd-card-body pmd-card-custom-form">
+                                    <div class="table-responsive">
+                                    <form action="${pageContext.request.contextPath }/SystemsManagement/SystemConfigssssServlet" method="post">
+                                        <table class="table pmd-table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>管理员用户名</th>
+                                                    <td><input type="text" name="account" value="${sys.adminUsername }"></td>
+                                                </tr>
+                                                <tr>
+                                                	<th>管理员密码</th>
+                                                	<td><input type="password" name="pwd" value="${sys.adminPassword }"></td>
+                                                </tr>
+                                                <tr>
+                                                <th>邀请码</th>
+                                                <td><input type="text" name="code" value="${sys.invitationCode }"></td>
+                                                </tr>
+                                                <tr>
+                                                <th>企业发布方案开始日期</th>
+                                                <td><input type="text" name="releaseProjectStartDate" value="${sys.releaseProjectStartDate }"></td>
+                                                </tr>
+                                                <tr>
+                                                <th>企业发布方案截至日期</th>
+                                                 <td><input type="text" name="releaseProjectEndDate" value="${sys.releaseProjectEndDate }"></td>
+                                                </tr>
+                                                <tr>
+                                                <th>学生选择案开始日期</th>
+                                                 <td><input type="text" name="studentSelStartDate" value="${sys.studentSelStartDate }"></td>
+                                                </tr>
+                                                <tr>
+                                                <th>学生选择案截至日期</th>
+                                                 <td><input type="text" name="studentSelEndDate" value="${sys.studentSelEndDate }"></td>
+                                                </tr>
+                                                <tr> 
+                                                <th>学生最多待选方案数量</th>
+                                                 <td><input type="text" name="studentSelMaxnum" value="${sys.adminUsername }"></td>
+                                                </tr>
+                                                <tr>
+                                                	<th>操作选项</th>
+                                                	<td>
+                                                		<input type="submit"  value="提交">
+                                                		<input type="reset"  value="重置">
+                                                	</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                        </form>
                                     </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">姓名：</label></div>
-                                            <input type="text" disabled="" value="杨子皓" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">性别：</label></div>
-                                            <input type="text" disabled="" value="男" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">入学年份：</label></div>
-                                            <input type="text" disabled="" value="2014" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">层次：</label></div>
-                                            <input type="text" disabled="" value="本科" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">专业名称：</label></div>
-                                            <input type="text" disabled="" value="计算机科学与技术" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
-                                            <input type="text" disabled="" value="450311265@qq.com" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科背景:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科经历:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">研究方向:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2"><i class="material-icons media-left pmd-md" style="display: inline-block;color: #cdf809;padding-top: 9px;">warning</i><h3 style="color: #f80b03;display: inline-block;">如果需要修改密码请在下方填写原密码和要修改后的密码，否则为空。</h3></label></div>                                           
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">原密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">修改后密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>                                    
-                                    <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
-                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>
-                                    </div>
-
+                              
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -424,10 +397,10 @@
             var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
             $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").addClass("active");
             });
         });
     </script>
@@ -451,8 +424,17 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
+  <script src="../assets/js/jquery.datetimepicker.full.js"></script>
+	<script>
+  $('#datetimepicker').datetimepicker({
+      dayOfWeekStart : 1,
+      lang:'en',
+      disabledDates:['1986/01/08','1986/01/09','1986/01/10'],
+      startDate:	'1986/01/05'
+  });
+  $('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
 
-
+  </script>
 </body>
 
 </html>

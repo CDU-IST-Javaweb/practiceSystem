@@ -203,8 +203,10 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../StudentManagement/student-management.jsp">学生管理</a></li>
-                    <li><a href="../StudentManagement/student-personal-information-maintenance.jsp">学生个人信息维护</a></li>
+                    <!--  <li><a href="../StudentManagement/student-management.jsp">学生管理</a></li>-->
+                    <!--  <li><a href="../StudentManagement/student-personal-information-maintenance.jsp">学生个人信息维护</a></li>-->
+                    <li><a href="QueryStudentServlet">学生管理</a></li>
+                    <li><a href="UpdateStudentServlet">学生个人信息维护</a></li>
                 </ul>
             </li>
             <!--通知公告管理-->
@@ -294,65 +296,70 @@
                         <div class="col-md-12">
                             <div class="pmd-card pmd-z-depth pmd-card-custom-form">
                                 <div class="pmd-card-body">
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
-                                            <input type="text" disabled="" value="201410411123" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">姓名：</label></div>
-                                            <input type="text" disabled="" value="杨子皓" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">性别：</label></div>
-                                            <input type="text" disabled="" value="男" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">入学年份：</label></div>
-                                            <input type="text" disabled="" value="2014" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">层次：</label></div>
-                                            <input type="text" disabled="" value="本科" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">专业名称：</label></div>
-                                            <input type="text" disabled="" value="计算机科学与技术" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
-                                            <input type="text" disabled="" value="450311265@qq.com" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科背景:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科经历:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">研究方向:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
-                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>
-                                    </div>
+                                    <!-- Eric 增加for表单 -->
+                                    <form  action="UpdateStudentServlet" method="post">
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-4">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
+	                                            <input type="text" disabled="" value="${student.no }" class="mat-input form-control">
+	                                            <input type = "hidden" name="no" value="201401">
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-4">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">姓名：</label></div>
+	                                            <input type="text" disabled="" value="${student.name }" class="mat-input form-control">
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-4">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">性别：</label></div>
+	                                            <input type="text" disabled="" value="${student.gender }" class="mat-input form-control">
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-4">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">入学年份：</label></div>
+	                                            <input type="text" disabled="" value="${student.grade }" class="mat-input form-control">
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-4">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">层次：</label></div>
+	                                            <input type="text" disabled="" value="${student.level }" class="mat-input form-control">
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-4">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">专业名称：</label></div>
+	                                            <input type="text" disabled="" value="${student.professional }" class="mat-input form-control">
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-4">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
+	                                            <input type="text" disabled="" value="${student.mailbox }" class="mat-input form-control">
+	                                        </div>
+	                                    </div>
 
+	                                    <div class="form-group pmd-textfield col-md-8">
+	                                        <label class="control-label  arer-lable">学科背景:</label>
+	                                        <textarea required class="form-control" name="background" >${student.subjectBackground }</textarea>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield col-md-8">
+	                                        <label class="control-label  arer-lable">学科经历:</label>
+	                                        <textarea required class="form-control" name="experience" >${student.learningExperience }</textarea>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield col-md-8">
+	                                        <label class="control-label  arer-lable">研究方向:</label>
+	                                        <textarea required class="form-control" name="direction" >${student.researchDirection }</textarea>
+	                                    </div>
+	                                    <div class="button-group col-md-8">
+	                                        <input type="submit" class="btn pmd-ripple-effect btn-primary" value="确定"></input>
+	                                        <input type="reset" class="btn pmd-ripple-effect btn-primary" value="取消"></input>
+	                                        <!--  <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>-->
+	                                    </div>
+									</form>
                                 </div>
                             </div>
                         </div>

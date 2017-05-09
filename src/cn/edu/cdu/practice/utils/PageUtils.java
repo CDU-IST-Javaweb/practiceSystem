@@ -47,11 +47,16 @@ public class PageUtils {
 	
 	//一共多少页
 	public int getTotalPage() {
-		 totalPage=getTotalSize()/getPageSize();
-		 if(totalSize%pageSize!=0){
-			 totalPage++;
-		 }
-		 return totalPage;
+		if (getTotalSize() < getPageSize()) {
+			return 1;
+		}
+		else {
+			totalPage=getTotalSize()/getPageSize();
+			 if(totalSize%pageSize!=0){
+				 totalPage++;
+			 }
+			 return totalPage;
+		}
 	}
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;

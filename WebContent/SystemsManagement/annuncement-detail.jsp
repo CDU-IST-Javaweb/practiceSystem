@@ -1,6 +1,7 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,6 +28,8 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
     <!--my style css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!--wangeditor-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/wangEditor.min.css">
     <!-- Styles Ends -->
 </head>
 
@@ -54,73 +57,7 @@
                                 <h3 class="pmd-card-title-text">提醒事项</h3>
                             </div>
                         </div>
-
-                        <!-- Notifications list -->
-                        <!--<ul class="list-group pmd-list-avatar pmd-card-list">
-                            <li class="list-group-item" style="display:none">
-                                <p class="notification-blank">
-                                    <span class="dic dic-notifications-none"></span>
-                                    <span>You don´t have any notifications</span>
-                                </p>
-                            </li>
-                            <li class="list-group-item unread">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-1.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>Prathit</span> posted a new challanegs</span>
-                                        <span class="list-group-item-text">5 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-2.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>Keel</span> Cloned 2 challenges.</span>
-                                        <span class="list-group-item-text">15 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="list-group-item unread">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-3.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>John</span> posted new collection.</span>
-                                        <span class="list-group-item-text">25 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="list-group-item unread">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-4.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>Valerii</span> Shared 5 collection.</span>
-                                        <span class="list-group-item-text">30 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>-->
-                        <!-- End notifications list -->
-
                     </div>
-
 
                 </div>
                 <!-- End notifications -->
@@ -213,7 +150,7 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/make-announcements.html">发布通知公告</a></li>
+                    <li><a href="${pageContext.request.contextPath }/SystemsManagement/ShowNoticeListServlet">发布通知公告</a></li>
                     <li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
                     <li><a href="../SystemsManagement/audit-notice.html">审核通知通告</a></li>
                 </ul>
@@ -226,7 +163,7 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/system-parameter.html">系统参数配置</a></li>
+                    <li><a href="../SystemsManagement/system-parameter.jsp">系统参数配置</a></li>
                 </ul>
             </li>
             <!--登出-->
@@ -262,7 +199,6 @@
     <!-- End Left sidebar -->
     <!-- Sidebar Ends -->
 
-    <!--content area start-->
     <div id="content" class="pmd-content inner-page">
         <!--tab start-->
         <div class="container-fluid full-width-container value-added-detail-page">
@@ -275,13 +211,13 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>学生管理</span>
+                    <span>通知公告管理</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
                     <li><a href="index.html">主页</a></li>
-                    <li class="active">学生个人信息维护</li>
+                    <li class="active">通知公告展示</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
@@ -290,90 +226,35 @@
                 <div class="component-box">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="pmd-card pmd-z-depth pmd-card-custom-form">
-                                <div class="pmd-card-body">
+                            <div class="pmd-card pmd-z-depth">
+                               <form action="AddNoticeCompanyServlet" name="myform" method="post" onsubmit="return fun()">
+                                <div class="pmd-card-body pmd-card-custom-form">
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
-                                            <input type="text" disabled="" value="201410411123" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">姓名：</label></div>
-                                            <input type="text" disabled="" value="杨子皓" class="mat-input form-control">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">标题：</label></div>
+                                            ${oneNotice.title }
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">性别：</label></div>
-                                            <input type="text" disabled="" value="男" class="mat-input form-control">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">发布日期：</label></div>
+                                            ${oneNotice.releaseDate}
                                         </div>
                                     </div>
                                     <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">入学年份：</label></div>
-                                            <input type="text" disabled="" value="2014" class="mat-input form-control">
+                                    <div class="input-group col-md-4">
+                                        <div class="input-group-addon"><label class="control-label col-md-2">内容:</label></div>
+                                        ${oneNotice.content }
                                         </div>
                                     </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">层次：</label></div>
-                                            <input type="text" disabled="" value="本科" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">专业名称：</label></div>
-                                            <input type="text" disabled="" value="计算机科学与技术" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-4">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
-                                            <input type="text" disabled="" value="450311265@qq.com" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科背景:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">学科经历:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield col-md-8">
-                                        <label class="control-label  arer-lable">研究方向:</label>
-                                        <textarea required class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2"><i class="material-icons media-left pmd-md" style="display: inline-block;color: #cdf809;padding-top: 9px;">warning</i><h3 style="color: #f80b03;display: inline-block;">如果需要修改密码请在下方填写原密码和要修改后的密码，否则为空。</h3></label></div>                                           
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">原密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group pmd-textfield">
-                                        <div class="input-group col-md-5">
-                                            <div class="input-group-addon"><label class="control-label col-md-2">修改后密码：</label></div>
-                                            <input type="text"  value="" class="mat-input form-control">
-                                        </div>
-                                    </div>                                    
-                                    <div class="button-group col-md-8">
-                                        <button type="button" class="btn pmd-ripple-effect btn-primary"> 确定 </button>
-                                        <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>
-                                    </div>
-
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
         </div>
     </div>
@@ -424,10 +305,10 @@
             var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
             $(".pmd-sidebar-nav").each(function() {
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").addClass("open");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='../StudentManagement/" + sPage + "']").addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='../SystemsManagement/" + sPage + "']").addClass("active");
             });
         });
     </script>
@@ -451,8 +332,85 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
+    <script src="../assets/js/wangEditor.js"></script>
+    <script type="text/javascript">
+        // 阻止输出log
+        wangEditor.config.printLog = false;
 
+        var editor = new wangEditor('editor-trigger');
 
+        // 上传图片
+        editor.config.uploadImgUrl = '/upload';
+        editor.config.uploadParams = {
+            // token1: 'abcde',
+            // token2: '12345'
+        };
+        editor.config.uploadHeaders = {
+                // 'Accept' : 'text/x-json'
+            }
+            // editor.config.uploadImgFileName = 'myFileName';
+
+        // 隐藏网络图片
+        // editor.config.hideLinkImg = true;
+
+        // 表情显示项
+        editor.config.emotionsShow = 'value';
+        editor.config.emotions = {
+            'default': {
+                title: '默认',
+                data: './emotions.data'
+            },
+            'weibo': {
+                title: '微博表情',
+                data: [{
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif',
+                    value: '[草泥马]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/60/horse2_thumb.gif',
+                    value: '[神马]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/bc/fuyun_thumb.gif',
+                    value: '[浮云]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/c9/geili_thumb.gif',
+                    value: '[给力]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/f2/wg_thumb.gif',
+                    value: '[围观]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/70/vw_thumb.gif',
+                    value: '[威武]'
+                }]
+            }
+        };
+
+        // 插入代码时的默认语言
+        // editor.config.codeDefaultLang = 'html'
+
+        // 只粘贴纯文本
+        // editor.config.pasteText = true;
+
+        // 跨域上传
+        // editor.config.uploadImgUrl = 'http://localhost:8012/upload';
+
+        // 第三方上传
+        // editor.config.customUpload = true;
+
+        // onchange 事件
+        editor.onchange = function() {
+            console.log(this.$txt.html());
+        };
+        editor.create();
+    </script>
+ 	<script type="text/javascript">
+    	function fun() {
+    		if(document.myform.ti.value=="") {
+    			alert("标题不能为空");
+    			return false ;
+    		}
+    		return true;
+    	}
+    </script>
 </body>
 
 </html>

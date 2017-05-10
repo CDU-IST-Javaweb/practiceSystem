@@ -25,5 +25,13 @@ public interface ProjectService {
 	 */
 	public int getStuGrade(int n);
 	
+	/**
+	 * 判断方案是否属于用户
+	 * @param username
+	 * @param p_no
+	 * @return
+	 */
+	public boolean findProjectBelongToUserByPNo(String username,String p_no);
+	
 }
 

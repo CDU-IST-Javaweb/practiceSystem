@@ -36,27 +36,24 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String p_no = request.getParameter("no");
 
-		// 退选方案
-		Student student = (Student) request.getSession().getAttribute("student");
-		/**
-		 * 测试数据
-		 */
-		if(student==null){
-			student=new Student();
-			student.setNo("201410414001");
-		}
+		String stu_no = (String) request.getSession().getAttribute("account");
+		String role = (String) request.getSession().getAttribute("role");
 
-		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		Project project = projectDaoImpl.findProjectByNo(p_no);
-		if (project == null) {
-			Log4jUtils.error("退选方案未找到");
-		} else {
-			boolean b = projectDaoImpl.unChooseProject(p_no, student.getNo());
-			if(b){
-				request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
+		if(role.equals("2")){
+			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+			Project project = projectDaoImpl.findProjectByNo(p_no);
+			if (project == null) {
+				Log4jUtils.error("退选方案未找到");
+			} else {
+				boolean b = projectDaoImpl.unChooseProject(p_no, stu_no);
+				if(b){
+					request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
+				}
+				else
+					Log4jUtils.error("退选失败");
 			}
-			else
-				Log4jUtils.error("退选失败");
+		}else{
+			request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 
 	}
@@ -72,25 +69,22 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String p_no = request.getParameter("no");
 		String reason = request.getParameter("reason");
-		Student student = (Student) request.getSession().getAttribute("student");
-		/**
-		 * 测试数据
-		 */
-		if (student == null) {
-			student = new Student();
-			student.setNo("201410414001");
-		}
-
-		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		Project project = projectDaoImpl.findProjectByNo(p_no);
-		if (project == null) {
-			Log4jUtils.error("所选择未找到");
-		} else {
-			boolean b = projectDaoImpl.chooseProject(project.getCompanyUsername(), p_no, student.getNo(), reason);
-			if (b)
-				request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
-			else
-				Log4jUtils.error("选择失败");
+		String stu_no = (String) request.getSession().getAttribute("account");
+		String role = (String) request.getSession().getAttribute("role");
+		if(role.equals("2")){
+			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+			Project project = projectDaoImpl.findProjectByNo(p_no);
+			if (project == null) {
+				Log4jUtils.error("所选择未找到");
+			} else {
+				boolean b = projectDaoImpl.chooseProject(project.getCompanyUsername(), p_no, stu_no, reason);
+				if (b)
+					request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
+				else
+					Log4jUtils.error("选择失败");
+			}
+		}else{
+			request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 	}
 

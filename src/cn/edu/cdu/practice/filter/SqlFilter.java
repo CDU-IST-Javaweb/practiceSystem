@@ -39,6 +39,8 @@ public class SqlFilter implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
 		//获得所有请求参数名  
 		Enumeration<String> params = req.getParameterNames();  
 		String sql = "";  

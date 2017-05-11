@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -178,61 +179,86 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="../PracticeManagement/program-management.html">方案管理</a></li>
-                    <li><a href="../PracticeManagement/student-choice-program.html">学生选择方案</a></li>
-                    <li><a href="../PracticeManagement/enterprise-management-students.html">企业管理学生</a></li>
+                	<c:if test="${sessionScope.role==1 or sessionScope.role==9 }">
+                    	<li><a href="../PracticeManagement/program-management.html">方案管理</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.role==2 }">
+                    	<li><a href="../PracticeManagement/student-choice-program.html">学生选择方案</a></li>
+                    </c:if>
+                    <c:if test="${sessionScope.role==1 }">
+                    	<li><a href="../PracticeManagement/enterprise-management-students.html">企业管理学生</a></li>
+                    </c:if>
                 </ul>
             </li>
             <!--企业信息管理-->
-            <li class="dropdown pmd-dropdown">
-                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
-                    <i class="material-icons media-left pmd-sm">list</i>
-                    <span class="media-body">企业信息管理</span>
-                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="../EnterpriseManagement/enterprise-information-management.html">企业信息管理</a></li>
-                    <li><a href="../EnterpriseManagement/enterprise-information-maintenance.html">企业信息维护</a></li>
-                </ul>
-            </li>
+            <c:if test="${sessionScope.role==9 or sessionScope.role==1 }">
+	            <li class="dropdown pmd-dropdown">
+	                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
+	                    <i class="material-icons media-left pmd-sm">list</i>
+	                    <span class="media-body">企业信息管理</span>
+	                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
+	                </a>
+	                <ul class="dropdown-menu">
+	                	<c:if test="${sessionScope.role==9 }">
+	                    	<li><a href="../EnterpriseManagement/enterprise-information-management.html">企业信息管理</a></li>
+	                    </c:if>
+	                    <c:if test="${sessionScope.role==1 }">
+	                    	<li><a href="../EnterpriseManagement/enterprise-information-maintenance.html">企业信息维护</a></li>
+	                    </c:if>
+	                </ul>
+	            </li>
+            </c:if>
             <!--学生管理-->
-            <li class="dropdown pmd-dropdown">
-                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
-                    <i class="material-icons media-left pmd-sm">list</i>
-                    <span class="media-body">学生管理</span>
-                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
-                </a>
-                <ul class="dropdown-menu">
-                    <!--  <li><a href="../StudentManagement/student-management.jsp">学生管理</a></li>-->
-                    <!--  <li><a href="../StudentManagement/student-personal-information-maintenance.jsp">学生个人信息维护</a></li>-->
-                    <li><a href="QueryStudentServlet">学生管理</a></li>
-                    <li><a href="UpdateStudentServlet">学生个人信息维护</a></li>
-                </ul>
-            </li>
+           	<c:if test="${sessionScope.role==9 or sessionScope.role==2 }">
+            	<li class="dropdown pmd-dropdown">
+	                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
+	                    <i class="material-icons media-left pmd-sm">list</i>
+	                    <span class="media-body">学生管理</span>
+	                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
+	                </a>
+                
+	                <ul class="dropdown-menu">
+	                    <!--  <li><a href="../StudentManagement/student-management.jsp">学生管理</a></li>-->
+	                    <!--  <li><a href="../StudentManagement/student-personal-information-maintenance.jsp">学生个人信息维护</a></li>-->
+	                    <c:if test="${sessionScope.role==9 }">
+	                    	<li><a href="QueryStudentServlet">学生管理</a></li>
+	                    </c:if>
+	                    <c:if test="${sessionScope.role==2 }">
+	                    	<li><a href="UpdateStudentServlet">学生个人信息维护</a></li>
+	                    </c:if>
+	                </ul>
+	            </li>
+            </c:if>
             <!--通知公告管理-->
-            <li class="dropdown pmd-dropdown">
-                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
-                    <i class="material-icons media-left pmd-sm">list</i>
-                    <span class="media-body">通知公告管理</span>
-                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/make-announcements.html">发布通知公告</a></li>
-                    <li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
-                    <li><a href="../SystemsManagement/audit-notice.html">审核通知通告</a></li>
-                </ul>
-            </li>
+            <c:if test="${sessionScope.role==9 or sessionScope.role==1 }">
+	            <li class="dropdown pmd-dropdown">
+	                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
+	                    <i class="material-icons media-left pmd-sm">list</i>
+	                    <span class="media-body">通知公告管理</span>
+	                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
+	                </a>
+	                <ul class="dropdown-menu">
+	                    <li><a href="../SystemsManagement/make-announcements.html">发布通知公告</a></li>
+	                    <c:if test="${sessionScope.role==9 }">
+		                    <li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
+		                    <li><a href="../SystemsManagement/audit-notice.html">审核通知通告</a></li>
+	                    </c:if>
+	                </ul>
+	            </li>
+            </c:if>
             <!--系统配置-->
-            <li class="dropdown pmd-dropdown">
-                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
-                    <i class="material-icons media-left pmd-sm">settings</i>
-                    <span class="media-body">系统配置</span>
-                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="../SystemsManagement/system-parameter.html">系统参数配置</a></li>
-                </ul>
-            </li>
+            <c:if test="${sessionScope.role==9 }">
+	            <li class="dropdown pmd-dropdown">
+	                <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" href="javascript:void(0);">
+	                    <i class="material-icons media-left pmd-sm">settings</i>
+	                    <span class="media-body">系统配置</span>
+	                    <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
+	                </a>
+	                <ul class="dropdown-menu">
+	                    <li><a href="../SystemsManagement/system-parameter.html">系统参数配置</a></li>
+	                </ul>
+	            </li>
+            </c:if>
             <!--登出-->
             <li>
                 <a class="pmd-ripple-effect" href="../Login/login.html">
@@ -298,7 +324,7 @@
                                 <div class="pmd-card-body">
                                     <!-- Eric 增加for表单 -->
                                     <form  action="UpdateStudentServlet" method="post">
-	                                    <div class="form-group pmd-textfield">
+	                                   <div class="form-group pmd-textfield">
 	                                        <div class="input-group col-md-4">
 	                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
 	                                            <input type="text" disabled="" value="${student.no }" class="mat-input form-control">
@@ -341,7 +367,6 @@
 	                                            <input type="text" disabled="" value="${student.mailbox }" class="mat-input form-control">
 	                                        </div>
 	                                    </div>
-
 	                                    <div class="form-group pmd-textfield col-md-8">
 	                                        <label class="control-label  arer-lable">学科背景:</label>
 	                                        <textarea required class="form-control" name="background" >${student.subjectBackground }</textarea>
@@ -356,9 +381,32 @@
 	                                    </div>
 	                                    <div class="button-group col-md-8">
 	                                        <input type="submit" class="btn pmd-ripple-effect btn-primary" value="确定"></input>
-	                                        <input type="reset" class="btn pmd-ripple-effect btn-primary" value="取消"></input>
+	                                        <input type="reset" class="btn pmd-ripple-effect btn-primary" value="重置"></input>
 	                                        <!--  <a href="javascript:history.back(-1);" type="button" class="btn pmd-ripple-effect btn-default"> 返回 </a>-->
 	                                    </div>
+									</form>
+									<form  action="UpdateStudentServlet" method="post">
+		                                <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-5">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2"><i class="material-icons media-left pmd-md" style="display: inline-block;color: #cdf809;padding-top: 9px;">warning</i><h3 style="color: #f80b03;display: inline-block;">如果需要修改密码请在下方填写原密码和要修改后的密码，否则为空。</h3></label></div>                                           
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-5">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">原密码：</label></div>
+	                                            <input name="oldpwd" type="text"  value="" class="mat-input form-control" />
+	                                        </div>
+	                                    </div>
+	                                    
+	                                    <div class="form-group pmd-textfield">
+	                                        <div class="input-group col-md-5">
+	                                            <div class="input-group-addon"><label class="control-label col-md-2">修改后密码：</label></div>
+	                                            <input name="newpwd" type="text"  value="" class="mat-input form-control" />
+	                                        </div>
+	                                    </div>
+	                                    <div class="button-group col-md-8">
+	                                        <input type="submit" class="btn pmd-ripple-effect btn-primary" value="确定"></input>
+	                                    </div> 
 									</form>
                                 </div>
                             </div>

@@ -42,34 +42,35 @@ public class ResetPassServlet extends HttpServlet {
 	 * 3.根据用户类型找到对应的表，修改里面的密码；
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		//获得保密邮箱
-//		String mbemail = request.getParameter("mbemail");
-//		//获得用户输入的验证码
-//		String rvcinAction = request.getParameter("rvcinAction").toLowerCase();
-//		//获得隐藏控件中得到的验证码，该验证码是发到保密邮箱的。
-//		String rvchidden = request.getParameter("rvchidden").toLowerCase();
-//		//获得用户的新密码
-//		String newpassword = request.getParameter("newpassword");
-//		//获得用户输入的确认密码
-//		String newconfirmPassword = request.getParameter("newconfirmPassword");
-//		System.out.println("mbemail+rvchidden"+mbemail + "   " + "rvchidden");
-//		if(rvcinAction != null && rvchidden != null && newpassword != null && newconfirmPassword != null) {
-//			if(!rvchidden.equals(rvcinAction)){
-//				//如果输入的验证码和发送到邮箱的不一致，跳转到404页面
-//				System.out.println("hehe");
-//				request.getRequestDispatcher("/404.html").forward(request, response);
-//			}
-//			if(newpassword.equals(newconfirmPassword)){
-//				System.out.println("hahaha");
-//				UserServiceImpl usi = new UserServiceImpl();
-//				List<String> userinfo = usi.searchbyEmail(mbemail);
-//				String account = userinfo.get(1);
-//				String role = userinfo.get(2);
-//				usi.resetPass(newpassword,mbemail,role,account);
-//				//如果修改密码成功，跳转到登录页面
-//				request.getRequestDispatcher("/Login/index.jsp").forward(request, response);
-//			}
-//		}
-		request.getRequestDispatcher("/Login/index.jsp").forward(request, response);
+		//获得保密邮箱
+		String mbemail = request.getParameter("mbemail");
+		//获得用户输入的验证码
+		String rvcinAction = request.getParameter("rvcinAction").toLowerCase();
+		//获得隐藏控件中得到的验证码，该验证码是发到保密邮箱的。
+		String rvchidden = request.getParameter("rvchidden").toLowerCase();
+		//获得用户的新密码
+		String newpassword = request.getParameter("newpassword");
+		//获得用户输入的确认密码
+		String newconfirmPassword = request.getParameter("newconfirmPassword");
+		System.out.println("mbemail+rvchidden"+mbemail + "   " + "rvchidden");
+		if(rvcinAction != null && rvchidden != null && newpassword != null && newconfirmPassword != null) {
+			if(!rvchidden.equals(rvcinAction)){
+				//如果输入的验证码和发送到邮箱的不一致，跳转到404页面
+				System.out.println("hehe");
+				request.getRequestDispatcher("/404.html").forward(request, response);
+			}
+			if(newpassword.equals(newconfirmPassword)){
+				System.out.println("hahaha");
+				UserServiceImpl usi = new UserServiceImpl();
+				List<String> userinfo = usi.searchbyEmail(mbemail);
+				String account = userinfo.get(0);
+				String role = userinfo.get(1);
+				usi.resetPass(newpassword,mbemail,role,account);
+				//如果修改密码成功，跳转到登录页面
+				request.getRequestDispatcher("/Login/index.jsp").forward(request, response);
+			}
+		}
+//		request.getRequestDispatcher("/Login/login.jsp").forward(request, response);
+//		response.sendRedirect("/404.html");
 	}
 }

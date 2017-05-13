@@ -322,13 +322,12 @@
                         <div class="col-md-12">
                             <div class="pmd-card pmd-z-depth pmd-card-custom-form">
                                 <div class="pmd-card-body">
-                                    <!-- Eric 增加for表单 -->
+                                    <!-- Eric 增加form表单 -->
                                     <form  action="UpdateStudentServlet" method="post">
 	                                   <div class="form-group pmd-textfield">
 	                                        <div class="input-group col-md-4">
 	                                            <div class="input-group-addon"><label class="control-label col-md-2">学号：</label></div>
 	                                            <input type="text" disabled="" value="${student.no }" class="mat-input form-control">
-	                                            <input type = "hidden" name="no" value="201401">
 	                                        </div>
 	                                    </div>
 	                                    <div class="form-group pmd-textfield">
@@ -361,12 +360,36 @@
 	                                            <input type="text" disabled="" value="${student.professional }" class="mat-input form-control">
 	                                        </div>
 	                                    </div>
+	                                    <!--  邮箱需验证
 	                                    <div class="form-group pmd-textfield">
 	                                        <div class="input-group col-md-4">
 	                                            <div class="input-group-addon"><label class="control-label col-md-2">邮箱：</label></div>
 	                                            <input type="text" disabled="" value="${student.mailbox }" class="mat-input form-control">
 	                                        </div>
 	                                    </div>
+	                                    -->
+	                                    <div class="verification-body">
+				                            <div class="form-group pmd-textfield pmd-textfield-floating-label verification-code-width">
+				                                <label for="inputError1" class="control-label pmd-input-group-label">密保邮箱地址</label>
+				                                <div class="input-group">
+				                                    <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">email</i></div>
+				                                    <input type="text" class="form-control" value="${student.mailbox }" name="mbemail" id="forgot-email">
+				                                </div>
+				                            </div>
+				                            <div class="div-email">
+				                                <a href="javascript:void(0);" class="send2" >发送验证码</a>
+				                            </div>
+				                        </div>
+				                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+				                            <label for="inputError1" class="control-label pmd-input-group-label" >验证码</label>
+				                            <!-- 于曦添加 -->
+				                            <input type="hidden" id="rvchidden" name="rvchidden">
+				                            
+				                            <div class="input-group">
+				                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">comment</i></div>
+				                                <input type="text" class="form-control" id="exampleInputAmount" name="rvcinAction">
+				                            </div>
+				                        </div>
 	                                    <div class="form-group pmd-textfield col-md-8">
 	                                        <label class="control-label  arer-lable">学科背景:</label>
 	                                        <textarea required class="form-control" name="background" >${student.subjectBackground }</textarea>
@@ -489,9 +512,19 @@
 
         })();
     </script>
-
     <script src="../assets/js/propeller.min.js"></script>
-
+    
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".send2").click(function(){
+// 				获取页面输入的email，将其作为参数传递到后台servlet中进行处理，得到的验证码在页面存放起来。
+				var mbemail = $("#forgot-email").val();
+				alert(mbemail);
+				 htmlobj=$.ajax({url:"/practiceSystem/Login/IdentifyCodeByEmailServlet?mbemail="+mbemail,async:false});
+				  $("#rvchidden").val(htmlobj.responseText);
+			});
+		});
+	</script>
 
 </body>
 

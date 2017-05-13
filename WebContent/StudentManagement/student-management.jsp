@@ -619,15 +619,13 @@
     		//alert( url );
     		//alert(value);
     	    document.getElementById("query").setAttribute("href", url);
-    	    //document.getElementById("op").value=op;
-    	    //document.getElementById("value").value=value;
     	}
     </script>
     <script type="text/javascript">
-    	var index=<%=(int)request.getAttribute("index")%>;
-    	var reValue=<%=(String)request.getAttribute("conValue")%>;
-    	alert(index);
-    	alert(reValue);
+    	var index="<%=request.getAttribute("index")%>";
+    	var reValue="<%=request.getAttribute("conValue")%>";
+    	//alert(index);
+    	//alert(reValue);
     	if (index!=null){
     		var  objOP=document.getElementById("op");
     		objOP.options[index].selected=true;

@@ -1,5 +1,8 @@
 package test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.List;
@@ -19,6 +22,7 @@ import cn.edu.cdu.practice.service.impl.SystemParameterServiceImpl;
 import cn.edu.cdu.practice.utils.DateUtil;
 import cn.edu.cdu.practice.utils.DbUtils;
 import cn.edu.cdu.practice.utils.EmailUtils;
+import cn.edu.cdu.practice.utils.ExcelInUtil;
 import cn.edu.cdu.practice.utils.IdentifyCodeUtils;
 import cn.edu.cdu.practice.utils.Log4jUtils;
 
@@ -37,42 +41,17 @@ public class TestDb {
 	 * 
 	 * <p>Title: test</p>
 	 * <p>Description: 测试数据库连接成功以及日志应用成功</p>
+	 * @throws FileNotFoundException 
 	 */
 	@Test
-	public void test() {
-		/*Connection connection = DbUtils.getConnection();
-		Log4jUtils.info("success"+connection);*/
-		/*NoticeService noticeService = new NoticeServiceImpl();
-		int list = noticeService.countNoAuditTimeNotice();
-		System.out.println(list);*/
-//		EmailUtils.sendMail("18482003417@163.com", "Nimei025", "betteryangyh@163.com", 1);
-		SystemParameterService sys = new SystemParameterServiceImpl();
-		/*SystemParameter systemConfig = new SystemParameter();
-		systemConfig.setAdminUsername("3");
-		systemConfig.setAdminPassword("3");
-		systemConfig.setInvitationCode("147");
-		systemConfig.setStudentSelMaxnum(6);
-		if (sys.setOrUpdateSystemConfig(systemConfig, "2")) {
-			System.out.println("true");
-		}*/
-		/*SystemParameter systemParameter = sys.queryByAccount("3");
-		System.out.println(systemParameter.getInvitationCode());*/
-		System.out.println(DateUtil.splitStringToDate("2015-03-12"));
+	public void test() throws Exception {
+		InputStream in = new FileInputStream("src/123.xlsx");
+		List<Student> list = ExcelInUtil.importStudentExcel("src/123.xlsx");
+		System.out.println(list.size());
+		for(Student student : list) {
+			System.out.println(student.getName() + " "+student.getGender() + " "+student.getNo() + " "
+					+student.getMailbox()+" "+student.getLevel() +" "+student.getClass_()+" "+student.getProfessional()+
+					student.getGrade());
+		}
 	}
-	/**
-	 * 
-	 * <p>Title: testCode</p>
-	 * <p>Description: 测试验证码的生成</p>
-	 */
-	/*@Test
-	public void testCode() {
-		System.out.println(IdentifyCodeUtils.getCode());
-	}
-	
-	@Test
-	public void testMail() {
-		
-	}
-	*/
-
 }

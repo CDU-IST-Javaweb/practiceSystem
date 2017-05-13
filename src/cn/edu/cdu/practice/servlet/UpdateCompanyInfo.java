@@ -48,6 +48,7 @@ public class UpdateCompanyInfo extends HttpServlet {
 		try {
 			if (companyService.updateCompanyInfo(company)) {
 				request.getRequestDispatcher("/EnterpriseManagement/ShowsCompanyServlet").forward(request, response);
+				return;
 			}
 			request.getRequestDispatcher("/404.html").forward(request, response);
 		}catch(Exception e) {

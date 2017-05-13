@@ -51,8 +51,8 @@
 		</li>
 		<!-- End user info -->
 
-		<li><a class="pmd-ripple-effect" href="../Login/index.html">
-				<i class="material-icons media-left pmd-sm">home</i> <span
+		<li><a class="pmd-ripple-effect" href="../Login/index.jsp"> <i
+				class="material-icons media-left pmd-sm">home</i> <span
 				class="media-body">主页</span>
 		</a></li>
 		<!--实训方案管理-->
@@ -67,13 +67,16 @@
 		</a>
 			<ul class="dropdown-menu">
 				<c:if test="${!role.equals(\"2\") }">
-					<li><a href="../PracticeManagement/SelectPracticeServlet?selectProjectType=1">方案管理</a></li>
+					<li><a
+						href="../PracticeManagement/SelectPracticeServlet?selectProjectType=1">方案管理</a></li>
 				</c:if>
 				<c:if test="${role.equals(\"1\") }">
-					<li><a href="../PracticeManagement/ChoicePracticeInfoServlet?selectChoiceType=1">企业管理学生</a></li>
+					<li><a
+						href="../PracticeManagement/ChoicePracticeInfoServlet?selectChoiceType=1">企业管理学生</a></li>
 				</c:if>
 				<c:if test="${role.equals(\"2\") }">
-					<li><a href="../PracticeManagement/StudentSelectPracticeServlet">学生选择方案</a></li>
+					<li><a
+						href="../PracticeManagement/StudentSelectPracticeServlet">学生选择方案</a></li>
 				</c:if>
 			</ul></li>
 		<!--企业信息管理-->
@@ -88,13 +91,11 @@
 					</div>
 			</a>
 				<ul class="dropdown-menu">
-					<c:if test="${role.equals(\"9\") }">
-						<li><a
-							href="../EnterpriseManagement/ShowCompanyssServlet">企业信息管理</a></li>
-					</c:if>
+
+					<li><a href="../EnterpriseManagement/ShowCompanyssServlet">企业信息管理</a></li>
+
 					<c:if test="${role.equals(\"1\") }">
-						<li><a
-							href="../EnterpriseManagement/ShowsCompanyServlet">企业信息维护</a></li>
+						<li><a href="../EnterpriseManagement/ShowsCompanyServlet">企业信息维护</a></li>
 					</c:if>
 				</ul></li>
 		</c:if>
@@ -114,8 +115,7 @@
 						<li><a href="../StudentManagement/QueryStudentServlet">学生管理</a></li>
 					</c:if>
 					<c:if test="${role.equals(\"2\") }">
-						<li><a
-							href="../StudentManagement/UpdateStudentServlet">学生个人信息维护</a></li>
+						<li><a href="../StudentManagement/UpdateStudentServlet">学生个人信息维护</a></li>
 					</c:if>
 				</ul></li>
 		</c:if>
@@ -154,9 +154,9 @@
 				</ul></li>
 		</c:if>
 		<!--登出-->
-		<li><a class="pmd-ripple-effect" href="../Login/login.jsp">
-				<i class="media-left media-middle"> <svg version="1.1"
-						id="Layer_1" x="0px" y="0px" width="18px" height="18px"
+		<li><a class="pmd-ripple-effect" href="../Login/login.jsp"> <i
+				class="media-left media-middle"> <svg version="1.1" id="Layer_1"
+						x="0px" y="0px" width="18px" height="18px"
 						viewBox="288.64 337.535 18 18"
 						enable-background="new 288.64 337.535 18 18" xml:space="preserve">
 				<path fill="#C9C8C8"

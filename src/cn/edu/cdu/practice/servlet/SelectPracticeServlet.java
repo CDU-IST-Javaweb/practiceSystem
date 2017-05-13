@@ -39,7 +39,11 @@ public class SelectPracticeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String company_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-		if (role.equals("1") || role.equals("9")) {
+		// role=9+"";
+		if (role == null) {
+			System.out.println("role 为空");
+			request.getRequestDispatcher("/404.html").forward(request, response);
+		} else if (role.equals("1") || role.equals("9")) {
 			// session 里保存用户查询方式
 			// 键：selectProjectType 值 ： 1:无条件查 2:按年份、审核状态查
 			// 通过不同方式查询的首次请求来修改该值
@@ -87,9 +91,9 @@ public class SelectPracticeServlet extends HttpServlet {
 
 			request.setAttribute("selectProjects", projects);
 			request.setAttribute("selectProjectsRole", role);
-			request.getRequestDispatcher("/PracticeManagement/programManagement.jsp").forward(request, response);
-		}else{
-			//学生无法看到
+			request.getRequestDispatcher("programManagement.jsp").forward(request, response);
+		} else {
+			// 学生无法看到
 			request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 

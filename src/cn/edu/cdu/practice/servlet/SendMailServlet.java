@@ -34,7 +34,7 @@ public class SendMailServlet extends HttpServlet {
 			String pwd = "yuxiytx912";
 			String identifyCode = IdentifyCodeUtils.getCode();
 			System.out.println("验证码是:"+identifyCode);
-			EmailUtils.sendMail(emailFrom, pwd, mbemail, 1,identifyCode);
+			EmailUtils.sendMail(mbemail, 1, identifyCode);
 			MailboxVerification mailboxVerification = new MailboxVerification(mbemail, 1, identifyCode);
 			if (companyService.setMail_verification(mailboxVerification)) {
 				out.write(identifyCode);

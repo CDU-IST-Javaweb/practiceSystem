@@ -91,9 +91,9 @@
 					</div>
 			</a>
 				<ul class="dropdown-menu">
-
-					<li><a href="../EnterpriseManagement/ShowCompanyssServlet">企业信息管理</a></li>
-
+					<c:if test="${role.equals(\"9\") }">
+						<li><a href="../EnterpriseManagement/ShowCompanyssServlet">企业信息管理</a></li>
+					</c:if>
 					<c:if test="${role.equals(\"1\") }">
 						<li><a href="../EnterpriseManagement/ShowsCompanyServlet">企业信息维护</a></li>
 					</c:if>
@@ -133,7 +133,7 @@
 				<ul class="dropdown-menu">
 					<li><a href="../SystemsManagement/ShowNoticeListServlet">发布通知公告</a></li>
 					<c:if test="${role.equals(\"9\") }">
-					<li><a href="../SystemsManagement/ShowAdminNotices">学院通知公告</a></li>
+						<li><a href="../SystemsManagement/ShowAdminNotices">学院通知公告</a></li>
 						<li><a href="../SystemsManagement/AdminLookNoticesServlet">审核通知公告</a></li>
 					</c:if>
 				</ul></li>

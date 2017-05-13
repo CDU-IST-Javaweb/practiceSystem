@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService{
 			Log4jUtils.info("用户验证码输入错误");
 			return false;
 		}
+		
 		//如果用户角色没有选中，则直接返回false
 		if(role == null){
 			Log4jUtils.info("没有选中用户角色");
@@ -59,8 +60,9 @@ public class UserServiceImpl implements UserService{
 		try {
 			ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.setString(1, account);
-			ps.setString(2, password);
+			ps.setString(2, MdPwdUtil.MD5Password(password));
 			rs = ps.executeQuery();
+//			System.out.println(ps.toString());
 			if(rs.next()){
 				Log4jUtils.info(account_type+ "用户" + account + "登录成功");
 				DbUtils.closeConnection(con, ps, rs);
@@ -74,24 +76,55 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
-	//用户输入密保邮箱后，将生成的验证码插入到mailbox_verification表中
+	//用户输入密保邮箱后，将生成的验证码插入到mailbox_verification表中，如果mailbox_verification表中已经有这个邮箱了，
+	//就不要进行插入操作，而是将新生成的验证码更新到指定的记录。
+	@SuppressWarnings("resource")
 	@Override
 	public Boolean getPassBack(String mailbox,int type, String identifyCode) {
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
 		int num = 0;
 		PreparedStatement ps;
-		sql = "insert into mailbox_verification values(?,?,?)";
-		try {
+		ResultSet rs = null;
+		try{
+			sql = "select * from mailbox_verification where mailbox = ?";
 			ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.setString(1, mailbox);
-			ps.setInt(2, type);
-			ps.setString(3, identifyCode);
+			rs = ps.executeQuery();
+			//如果没有密保邮箱的记录，就进行插入
+			if(!rs.next()){
+				sql = "insert into mailbox_verification values(?,?,?)";
+				ps = (PreparedStatement) con.prepareStatement(sql);
+				ps.setString(1, mailbox);
+				ps.setInt(2, type);
+				ps.setString(3, identifyCode);
+				num = ps.executeUpdate();
+				if(num == 1){
+					Log4jUtils.info(mailbox + "验证码设置成功");
+					DbUtils.closeConnection(con, ps);
+					return true;
+				}else{
+					Log4jUtils.info(mailbox + "验证码设置不成功");
+					DbUtils.closeConnection(con, ps);
+					return false;
+				}
+			}
+//			DbUtils.closeConnection(con, ps,rs);
+			//如果有，就更新验证码
+			sql = "update mailbox_verification set verification_code = ? where mailbox = ?";
+			ps = (PreparedStatement) con.prepareStatement(sql);
+			ps.setString(1, identifyCode);
+			ps.setString(2, mailbox);
+			System.out.println(ps.toString());
 			num = ps.executeUpdate();
 			if(num == 1){
-				Log4jUtils.info(mailbox + "验证码设置成功");
+				Log4jUtils.info(mailbox + "验证码修改成功");
 				DbUtils.closeConnection(con, ps);
 				return true;
+			}else{
+				Log4jUtils.info(mailbox + "验证码修改不成功");
+				DbUtils.closeConnection(con, ps);
+				return false;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

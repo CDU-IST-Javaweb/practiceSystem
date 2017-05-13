@@ -36,11 +36,15 @@ public class ShowNoticeListServlet extends HttpServlet {
 		int pageNow = Integer.parseInt(pageNows);
 		int pageSize = 5;
 		HttpSession session = request.getSession();
+		String account = (String) session.getAttribute("account");
+		if (account == null) {
+			account = "sayHello";
+		}
 		try {
-			int totalSize = noticeService.queryAllByName("sayHello");
+			int totalSize = noticeService.queryAllByName(account);
 			PageUtils pager = new PageUtils(pageNow, totalSize);
 			pager.setPageSize(pageSize);
-			List<NoticeCompany> list = noticeService.queryNoticeByCompanyName("sayHello",pageNow,pageSize);
+			List<NoticeCompany> list = noticeService.queryNoticeByCompanyName(account,pageNow,pageSize);
 			session.setAttribute("notices", list);
 			session.setAttribute("pager", pager);
 			System.out.println(list.size());

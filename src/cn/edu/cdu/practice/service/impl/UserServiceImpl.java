@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService{
 		ResultSet rs;
 		PreparedStatement ps;
 		String account_type = "";
+		System.out.println(Verification_Code + " "+ vchidden.toLowerCase());
 		//如果验证码不正确或没有得到验证码，返回false
 		if(Verification_Code == null || !Verification_Code.equals(vchidden.toLowerCase())){
 			Log4jUtils.info("用户验证码输入错误");

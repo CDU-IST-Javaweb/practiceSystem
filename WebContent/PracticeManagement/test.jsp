@@ -132,8 +132,8 @@
 			</a>
 				<ul class="dropdown-menu">
 					<li><a href="../SystemsManagement/ShowNoticeListServlet">发布通知公告</a></li>
-					<li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
 					<c:if test="${role.equals(\"9\") }">
+					<li><a href="../SystemsManagement/ShowAdminNotices">学院通知公告</a></li>
 						<li><a href="../SystemsManagement/AdminLookNoticesServlet">审核通知公告</a></li>
 					</c:if>
 				</ul></li>

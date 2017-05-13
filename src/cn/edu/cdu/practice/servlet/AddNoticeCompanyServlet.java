@@ -38,7 +38,7 @@ public class AddNoticeCompanyServlet extends HttpServlet {
 		NoticeService noticeService = new NoticeServiceImpl();
 		NoticeCompany noticeCompany = new NoticeCompany();
 		HttpSession session = request.getSession();
-		String userName = (String) session.getAttribute("user");
+		String userName = (String) session.getAttribute("account");
 		if (userName == null) {
 			userName = "sayHello";
 		}

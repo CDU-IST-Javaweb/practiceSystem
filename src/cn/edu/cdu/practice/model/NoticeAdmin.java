@@ -15,7 +15,7 @@ import java.sql.Date;
 public class NoticeAdmin implements java.io.Serializable {
 
 	// Fields
-
+	private String title;
 	private Integer id;
 	private Date releaseDate;
 	private String content;
@@ -57,5 +57,11 @@ public class NoticeAdmin implements java.io.Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getTitle() {
+		return title;
+	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }

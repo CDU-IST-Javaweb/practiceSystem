@@ -1,18 +1,24 @@
 package cn.edu.cdu.practice.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import cn.edu.cdu.practice.model.MailboxVerification;
+import cn.edu.cdu.practice.service.CompanyService;
+import cn.edu.cdu.practice.service.impl.CompanyServiceImpl;
 import cn.edu.cdu.practice.utils.EmailUtils;
+import cn.edu.cdu.practice.utils.IdentifyCodeUtils;
 
 /**
  * Servlet implementation class SendMailServlet
  */
-@WebServlet("/SendMailServlet")
+@WebServlet("/Login/SendMailServlet")
 public class SendMailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,11 +27,20 @@ public class SendMailServlet extends HttpServlet {
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		//获取页面传来的邮箱
-		String mail = request.getParameter("mail");
-		System.out.println("mail是"+mail);
-		EmailUtils.sendMail("18482003417@163.com", "Nimei025", mail, 1,"9863");
-	}
+		String mbemail = request.getParameter("mbemail");
+		CompanyService companyService = new CompanyServiceImpl();
+		PrintWriter out = response.getWriter();
+			String emailFrom = "oliveryx@163.com";
+			String pwd = "yuxiytx912";
+			String identifyCode = IdentifyCodeUtils.getCode();
+			System.out.println("验证码是:"+identifyCode);
+			EmailUtils.sendMail(emailFrom, pwd, mbemail, 1,identifyCode);
+			MailboxVerification mailboxVerification = new MailboxVerification(mbemail, 1, identifyCode);
+			if (companyService.setMail_verification(mailboxVerification)) {
+				out.write(identifyCode);
+			}
+			else 
+				out.write("error");
+		}
 
 }

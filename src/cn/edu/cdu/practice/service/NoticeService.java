@@ -3,6 +3,7 @@ package cn.edu.cdu.practice.service;
 import java.sql.Date;
 import java.util.List;
 
+import cn.edu.cdu.practice.model.NoticeAdmin;
 import cn.edu.cdu.practice.model.NoticeCompany;
 
 /**
@@ -85,4 +86,46 @@ public interface NoticeService {
 	 * @return 数量
 	 */
 	int countNoAuditTimeNotice();
+	NoticeAdmin queryNoticeAdminById(int adminNoticeId);
+	
+	
+	/**
+	 * <p>Title: countNoAuditTimeNotice</p>
+	 * <p>Description: 统计学院通知公告数量</p>
+	 * @return 数量
+	 */
+	int countAdminNotice();
+	
+	/**
+	 * <p>Title: queryNoticeByAuditTime</p>
+	 * <p>Description: 分页查询学院通知公告</p>
+	 * @param pageNow 当前页码
+	 * @param pageSize 每页数量
+	 * @return List集合
+	 */
+	List<NoticeAdmin> queryAdminNotice(int pageNow,int pageSize);
+	
+	/**
+	 * <p>Title: updateCompanyNotice</p>
+	 * <p>Description: 修改企业发布的通知公告</p>
+	 * @param companyNotice 企业通知公告实体类的引用
+	 * @return 更新成功返回true，更新失败返回false
+	 */
+	boolean updateAdminNotic(NoticeAdmin noticeAdmin);
+	
+	/**
+	 * <p>Title: deleteCompanyNotice</p>
+	 * <p>Description: 根据公告Id删除企业发布的公告</p>
+	 * @param companyNoticeId 企业公告Id
+	 * @return 删除成功返回true，删除失败返回false
+	 */
+	boolean deleteAdminNotic(int adminNoticeId);
+	
+	/**
+	 * <p>Title: provideAnnouncement</p>
+	 * <p>Description:发布企业公告 </p>
+	 * @param companyNotice 企业通知公告实体类的引用
+	 */
+	void provideAdminAnnouncement(NoticeAdmin noticeAdmin);
+	
 }

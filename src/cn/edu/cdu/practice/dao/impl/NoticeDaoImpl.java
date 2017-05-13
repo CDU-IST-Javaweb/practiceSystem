@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.cdu.practice.dao.NoticeDao;
+import cn.edu.cdu.practice.model.NoticeAdmin;
 import cn.edu.cdu.practice.model.NoticeCompany;
 import cn.edu.cdu.practice.utils.DbUtils;
 
@@ -323,6 +324,186 @@ public class NoticeDaoImpl implements NoticeDao {
 		} finally {
 			//每次操作之后必须关闭连接
 			DbUtils.closeConnection(connection, statement,resultSet);
+		}
+	}
+
+	@Override
+	public NoticeAdmin queryNoticeAdminById(int adminNoticeId) {
+		//获取数据库连接
+				Connection connection = DbUtils.getConnection();
+				String registSql = "select * from notice_admin  where ID = ?";
+				NoticeAdmin noticeAdmin = null;
+				PreparedStatement ps = null ;
+				ResultSet resultSet = null ;
+				try {
+					 //动态参数赋值
+					 ps = connection.prepareStatement(registSql);
+					 ps.setInt(1, adminNoticeId);
+					 resultSet = ps.executeQuery();
+					 while (resultSet.next()) {
+						 noticeAdmin = new NoticeAdmin();
+						 noticeAdmin.setId(resultSet.getInt("ID"));
+						 noticeAdmin.setReleaseDate(resultSet.getDate("release_date"));
+						 noticeAdmin.setTitle(resultSet.getString("title"));
+						 noticeAdmin.setContent(resultSet.getString("content"));
+					}
+					 return noticeAdmin ;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				} finally {
+					//每次操作之后必须关闭连接
+					DbUtils.closeConnection(connection, ps);
+				}
+	}
+
+	@Override
+	public int countAdminNotice() {
+		//获取数据库连接
+				Connection connection = DbUtils.getConnection();
+				String registSql = "select count(*) from notice_admin";
+				Statement statement = null ;
+				ResultSet resultSet = null ;
+				int count = 0;
+				try {
+					statement = connection.createStatement();
+					resultSet = statement.executeQuery(registSql);
+					 //只要resultSet指向的下一个元素有内容，那么就一直执行查询与赋值操作
+					if (resultSet.next()) {
+						count = resultSet.getInt(1);
+					}
+					 return count;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return 0;
+				} finally {
+					//每次操作之后必须关闭连接
+					DbUtils.closeConnection(connection, statement,resultSet);
+				}
+	}
+
+	@Override
+	public List<NoticeAdmin> queryAdminNotice(int pageNow, int pageSize) {
+		//获取数据库连接
+		Connection connection = DbUtils.getConnection();
+		String registSql = "select * from notice_admin limit ?,?";
+		PreparedStatement ps = null ;
+		ResultSet resultSet = null ;
+		List<NoticeAdmin> list = new ArrayList<NoticeAdmin>();
+		NoticeAdmin noticeAdmin = null ;
+		try {
+			 ps = connection.prepareStatement(registSql);
+			 ps.setInt(1, (pageNow-1)*pageSize);
+			 ps.setInt(2, pageSize);
+			 //执行查询语句
+			 resultSet = ps.executeQuery();
+			 //只要resultSet指向的下一个元素有内容，那么就一直执行查询与赋值操作
+			 while (resultSet.next()) {
+				 noticeAdmin = new NoticeAdmin();
+				 noticeAdmin.setId(resultSet.getInt("ID"));
+				 noticeAdmin.setReleaseDate(resultSet.getDate("release_date"));
+				 noticeAdmin.setTitle(resultSet.getString("title"));
+				 noticeAdmin.setContent(resultSet.getString("content"));
+				 //添加进List中
+				 list.add(noticeAdmin);
+			}
+			 return list ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			//每次操作之后必须关闭连接
+			DbUtils.closeConnection(connection, ps,resultSet);
+		}
+	}
+
+	@Override
+	public boolean updateAdminNotic(NoticeAdmin noticeAdmin) {
+		//获取数据库连接
+				Connection connection = DbUtils.getConnection();
+				String registSql = "update notice_admin set content = ? ,title = ?where ID = ?";
+				PreparedStatement ps = null ;
+				try {
+					 connection.setAutoCommit(false);//设置手动提交事务
+					 ps = connection.prepareStatement(registSql);
+					 ps.setString(1,noticeAdmin.getContent());
+					 ps.setString(2,noticeAdmin.getTitle());
+					 ps.setInt(3, noticeAdmin.getId());
+					 ps.execute();
+					 connection.commit();//提交事务
+					 return true ;
+				} catch (Exception e) {
+					e.printStackTrace();
+					if (connection != null) {
+						try {
+							connection.rollback();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					return false;
+				} finally {
+					//每次操作之后必须关闭连接
+					DbUtils.closeConnection(connection, ps);
+				}
+	}
+
+	@Override
+	public boolean deleteAdminNotic(int adminNoticeId) {
+		//获取数据库连接
+		Connection connection = DbUtils.getConnection();
+		String registSql = "delete from notice_admin  where ID = ?";
+		PreparedStatement ps = null ;
+		try {
+			 connection.setAutoCommit(false);//设置手动提交事务
+			 ps = connection.prepareStatement(registSql);
+			 ps.setInt(1, adminNoticeId);
+			 ps.execute();
+			 connection.commit();//提交事务
+			 return true ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			return false;
+		} finally {
+			//每次操作之后必须关闭连接
+			DbUtils.closeConnection(connection, ps);
+		}
+	}
+
+	@Override
+	public void provideAdminAnnouncement(NoticeAdmin noticeAdmin) {
+		Connection connection = DbUtils.getConnection();
+		String registSql = "insert into notice_admin(release_date,"
+				+ "title,content)"
+				+ " values(?,?,?)";
+		PreparedStatement ps = null ;
+		try {
+			 connection.setAutoCommit(false);//设置手动提交事务
+			 ps = connection.prepareStatement(registSql);
+			 ps.setDate(1, noticeAdmin.getReleaseDate());
+			 ps.setString(2, noticeAdmin.getTitle());
+			 ps.setString(3,noticeAdmin.getContent());
+			 ps.execute();
+			 connection.commit();//提交事务
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (connection != null) {
+				try {
+					connection.rollback();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		} finally {
+			//每次操作之后必须关闭连接
+			DbUtils.closeConnection(connection, ps);
 		}
 	}
 

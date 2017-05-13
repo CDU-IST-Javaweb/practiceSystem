@@ -156,7 +156,7 @@ response.setDateHeader("Expires",0);
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
                             <label for="inputError1" class="control-label pmd-input-group-label">注册邀请码</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">code</i></div>
+                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm"></i></div>
                                 <input type="text" class="form-control" name="rscode" id="exampleInputAmount">
                             </div>
                         </div>
@@ -164,14 +164,14 @@ response.setDateHeader("Expires",0);
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
                             <label for="inputError1" class="control-label pmd-input-group-label">企业名称</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">domain</i></div>
+                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm"></i></div>
                                 <input type="text" class="form-control" name="qyname" id="exampleInputAmount">
                             </div>
                         </div>
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
                             <label for="inputError1" class="control-label pmd-input-group-label">企业帐号</label>
                             <div class="input-group">
-                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>
+                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm"></i></div>
                                 <input type="text" class="form-control" name="qyusername" id="exampleInputAmount">
                             </div>
                         </div>

@@ -354,7 +354,6 @@
 														<td><a href="${pageContext.request.contextPath }/SystemsManagement/DeleteNoticeServlet?Id=${notice.id}">删除</a></td>
                                             		</tr>
                                             	</c:forEach>
-                                            	
                                             </tbody>
                                             <tr>
 				  		<td colspan="8" align="right">

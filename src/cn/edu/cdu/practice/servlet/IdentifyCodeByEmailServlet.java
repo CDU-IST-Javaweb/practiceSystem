@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cn.edu.cdu.practice.service.impl.UserServiceImpl;
 import cn.edu.cdu.practice.utils.DbUtils;
@@ -43,16 +44,19 @@ public class IdentifyCodeByEmailServlet extends HttpServlet {
     }
 
 	/**
-	 * 先检查保密邮箱是否在学生和企业表里存在，如果有，则向保密邮箱发送验证码，同时把保密邮箱、验证码、用户类型保存到mailbox_verification表中
+	 * 先检查保密邮箱是否在学生和企业表里存在，从而得到用户的角色，并放入到session中。如果有，则向保密邮箱发送验证码，同时把保密邮箱、验证码、用户类型保存到mailbox_verification表中
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获得保密邮箱
 		String mbemail = request.getParameter("mbemail");
 		UserServiceImpl usi = new UserServiceImpl();
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
 		List<String> userinfo = usi.searchbyEmail(mbemail);
 		//如果字符串为空，是否转换为0？
 		int role = Integer.parseInt(userinfo.get(1));
+		System.out.println("role ==="+role);
+		session.setAttribute("role", userinfo.get(1));
 		//如果没有找到该保密邮箱，则提示用户输入错误；如果找到，则发送验证码，同时把信息存入mailbox_verification表
 		if(userinfo.get(1).equals("")) {
 			out.println("用户表中没有该邮箱，请重新输入！");

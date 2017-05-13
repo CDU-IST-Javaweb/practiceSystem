@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="">
 <head>
     <meta charset="utf-8">
@@ -22,12 +23,13 @@
 
     <!-- Propeller theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-theme.css" />
-    <link rel="stylesheet" type="text/css" href="../assets/css/jquery.datetimepicker.css">
 
     <!-- Propeller admin theme css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/propeller-admin.css">
     <!--my style css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!--wangeditor-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/wangEditor.min.css">
     <!-- Styles Ends -->
 </head>
 
@@ -55,73 +57,7 @@
                                 <h3 class="pmd-card-title-text">提醒事项</h3>
                             </div>
                         </div>
-
-                        <!-- Notifications list -->
-                        <!--<ul class="list-group pmd-list-avatar pmd-card-list">
-                            <li class="list-group-item" style="display:none">
-                                <p class="notification-blank">
-                                    <span class="dic dic-notifications-none"></span>
-                                    <span>You don´t have any notifications</span>
-                                </p>
-                            </li>
-                            <li class="list-group-item unread">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-1.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>Prathit</span> posted a new challanegs</span>
-                                        <span class="list-group-item-text">5 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-2.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>Keel</span> Cloned 2 challenges.</span>
-                                        <span class="list-group-item-text">15 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="list-group-item unread">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-3.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>John</span> posted new collection.</span>
-                                        <span class="list-group-item-text">25 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="list-group-item unread">
-                                <a href="javascript:void(0)">
-                                    <div class="media-left">
-                                        <span class="avatar-list-img40x40">
-										<img alt="40x40" data-src="holder.js/40x40" class="img-responsive" src="../assets/images/profile-4.png" data-holder-rendered="true">
-									</span>
-                                    </div>
-                                    <div class="media-body">
-                                        <span class="list-group-item-heading"><span>Valerii</span> Shared 5 collection.</span>
-                                        <span class="list-group-item-text">30 Minutes ago</span>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>-->
-                        <!-- End notifications list -->
-
                     </div>
-
 
                 </div>
                 <!-- End notifications -->
@@ -190,8 +126,8 @@
                     <div class="media-right media-bottom"><i class="dic-more-vert dic"></i></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="${pageContext.request.contextPath }/EnterpriseManagement/ShowCompanyssServlet">企业信息管理</a></li>
-                    <li><a href="${pageContext.request.contextPath }/EnterpriseManagement/ShowsCompanyServlet">企业信息维护</a></li>
+                    <li><a href="../EnterpriseManagement/enterprise-information-management.html">企业信息管理</a></li>
+                    <li><a href="../EnterpriseManagement/enterprise-information-maintenance.html">企业信息维护</a></li>
                 </ul>
             </li>
             <!--学生管理-->
@@ -215,8 +151,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath }/SystemsManagement/ShowNoticeListServlet">发布通知公告</a></li>
-                    <li><a href="${pageContext.request.contextPath }/SystemsManagement/ShowAdminNotices">学院通知公告</a></li>
-                    <li><a href="${pageContext.request.contextPath }/SystemsManagement/AdminLookNoticesServlet">审核通知通告</a></li>
+                    <li><a href="../SystemsManagement/college-news.html">学院通知公告</a></li>
+                    <li><a href="../SystemsManagement/audit-notice.html">审核通知通告</a></li>
                 </ul>
             </li>
             <!--系统配置-->
@@ -263,7 +199,6 @@
     <!-- End Left sidebar -->
     <!-- Sidebar Ends -->
 
-    <!--content area start-->
     <div id="content" class="pmd-content inner-page">
         <!--tab start-->
         <div class="container-fluid full-width-container value-added-detail-page">
@@ -276,78 +211,51 @@
                 </div>
                 <!-- Title -->
                 <h1 class="section-title" id="services">
-                    <span>系统配置</span>
+                    <span>通知公告管理</span>
                 </h1>
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
-                    <li><a href="${pageContext.request.contextPath }/Login/index.jsp">主页</a></li>
-                    <li class="active">系统参数配置</li>
+                    <li><a href="index.html">主页</a></li>
+                    <li class="active">通知公告展示</li>
                 </ol>
                 <!--breadcrum end-->
             </div>
+
             <div class="col-md-12">
                 <div class="component-box">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="pmd-card pmd-z-depth">
+                               <form action="AddNoticeCompanyServlet" name="myform" method="post" onsubmit="return fun()">
                                 <div class="pmd-card-body pmd-card-custom-form">
-                                    <div class="table-responsive">
-                                    <form action="${pageContext.request.contextPath }/SystemsManagement/SystemConfigssssServlet" method="post">
-                                        <table class="table pmd-table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>管理员用户名</th>
-                                                    <td><input type="text" name="account" value="${sys.adminUsername }"></td>
-                                                </tr>
-                                                <tr>
-                                                	<th>管理员密码</th>
-                                                	<td><input type="password" name="pwd" value="${sys.adminPassword }"></td>
-                                                </tr>
-                                                <tr>
-                                                <th>邀请码</th>
-                                                <td><input type="text" name="code" value="${sys.invitationCode }"></td>
-                                                </tr>
-                                                <tr>
-                                                <th>企业发布方案开始日期</th>
-                                                <td><input type="text" name="releaseProjectStartDate" value="${sys.releaseProjectStartDate }"></td>
-                                                </tr>
-                                                <tr>
-                                                <th>企业发布方案截至日期</th>
-                                                 <td><input type="text" name="releaseProjectEndDate" value="${sys.releaseProjectEndDate }"></td>
-                                                </tr>
-                                                <tr>
-                                                <th>学生选择案开始日期</th>
-                                                 <td><input type="text" name="studentSelStartDate" value="${sys.studentSelStartDate }"></td>
-                                                </tr>
-                                                <tr>
-                                                <th>学生选择案截至日期</th>
-                                                 <td><input type="text" name="studentSelEndDate" value="${sys.studentSelEndDate }"></td>
-                                                </tr>
-                                                <tr> 
-                                                <th>学生最多待选方案数量</th>
-                                                 <td><input type="text" name="studentSelMaxnum" value="${sys.adminUsername }"></td>
-                                                </tr>
-                                                <tr>
-                                                	<th>操作选项</th>
-                                                	<td>
-                                                		<input type="submit"  value="提交">
-                                                		<input type="reset"  value="重置">
-                                                	</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        </form>
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">标题：</label></div>
+                                            ${oneAdminNotice.title }
+                                        </div>
                                     </div>
-                              
+                                    <div class="form-group pmd-textfield">
+                                        <div class="input-group col-md-4">
+                                            <div class="input-group-addon"><label class="control-label col-md-2">发布日期：</label></div>
+                                            ${oneAdminNotice.releaseDate}
+                                        </div>
+                                    </div>
+                                    <div class="form-group pmd-textfield">
+                                    <div class="input-group col-md-4">
+                                        <div class="input-group-addon"><label class="control-label col-md-2">内容:</label></div>
+                                        ${oneAdminNotice.content }
+                                        </div>
+                                    </div>
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 
@@ -424,17 +332,85 @@
     </script>
 
     <script src="../assets/js/propeller.min.js"></script>
-  <script src="../assets/js/jquery.datetimepicker.full.js"></script>
-	<script>
-  $('#datetimepicker').datetimepicker({
-      dayOfWeekStart : 1,
-      lang:'en',
-      disabledDates:['1986/01/08','1986/01/09','1986/01/10'],
-      startDate:	'1986/01/05'
-  });
-  $('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
+    <script src="../assets/js/wangEditor.js"></script>
+    <script type="text/javascript">
+        // 阻止输出log
+        wangEditor.config.printLog = false;
 
-  </script>
+        var editor = new wangEditor('editor-trigger');
+
+        // 上传图片
+        editor.config.uploadImgUrl = '/upload';
+        editor.config.uploadParams = {
+            // token1: 'abcde',
+            // token2: '12345'
+        };
+        editor.config.uploadHeaders = {
+                // 'Accept' : 'text/x-json'
+            }
+            // editor.config.uploadImgFileName = 'myFileName';
+
+        // 隐藏网络图片
+        // editor.config.hideLinkImg = true;
+
+        // 表情显示项
+        editor.config.emotionsShow = 'value';
+        editor.config.emotions = {
+            'default': {
+                title: '默认',
+                data: './emotions.data'
+            },
+            'weibo': {
+                title: '微博表情',
+                data: [{
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif',
+                    value: '[草泥马]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/60/horse2_thumb.gif',
+                    value: '[神马]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/bc/fuyun_thumb.gif',
+                    value: '[浮云]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/c9/geili_thumb.gif',
+                    value: '[给力]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/f2/wg_thumb.gif',
+                    value: '[围观]'
+                }, {
+                    icon: 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/70/vw_thumb.gif',
+                    value: '[威武]'
+                }]
+            }
+        };
+
+        // 插入代码时的默认语言
+        // editor.config.codeDefaultLang = 'html'
+
+        // 只粘贴纯文本
+        // editor.config.pasteText = true;
+
+        // 跨域上传
+        // editor.config.uploadImgUrl = 'http://localhost:8012/upload';
+
+        // 第三方上传
+        // editor.config.customUpload = true;
+
+        // onchange 事件
+        editor.onchange = function() {
+            console.log(this.$txt.html());
+        };
+        editor.create();
+    </script>
+ 	<script type="text/javascript">
+    	function fun() {
+    		if(document.myform.ti.value=="") {
+    			alert("标题不能为空");
+    			return false ;
+    		}
+    		return true;
+    	}
+    </script>
 </body>
 
 </html>

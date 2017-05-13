@@ -66,7 +66,7 @@ public class EmailUtils {
 	     }  
 	     	return false;  
 	 }  
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		sendMail("oliveryx@163.com","yuxiytx912","5374664@qq.com",1,"abcd");
-	}
+	}*/
 }

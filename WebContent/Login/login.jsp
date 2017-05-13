@@ -211,10 +211,10 @@ response.setDateHeader("Expires",0);
                         </div>
 
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                            <label for="inputError1" class="control-label pmd-input-group-label">验证码</label>
+                           <!--  <label for="inputError1" class="control-label pmd-input-group-label">验证码</label> -->
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">comment</i></div>
-                                <input type="text" class="form-control" id="exampleInputAmount" name="yzm">
+                                <input type="text" class="form-control" id="MyYzm" name="yzm">
                             </div>
                         </div>
                         <!--数字加法验证-->
@@ -405,6 +405,18 @@ response.setDateHeader("Expires",0);
 				alert(mbemail);
 				 htmlobj=$.ajax({url:"/practiceSystem/Login/IdentifyCodeByEmailServlet?mbemail="+mbemail,async:false});
 				  $("#rvchidden").val(htmlobj.responseText);
+			});
+		});
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".send1").click(function(){
+// 				获取页面输入的email，将其作为参数传递到后台servlet中进行处理，得到的验证码在页面存放起来。
+				var mbemail = $("#regist-email").val();
+				alert(mbemail);
+				 htmlobj=$.ajax({url:"/practiceSystem//Login/SendMailServlet?mbemail="+mbemail,async:false});
+				  $("#MyYzm").val(htmlobj.responseText);
 			});
 		});
 	</script>

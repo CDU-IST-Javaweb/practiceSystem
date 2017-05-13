@@ -31,27 +31,24 @@ public class CompanyServiceImpl implements CompanyService{
 			String invideCode,String yzm) {
 		try {
 			//获取MailboxVerification和SystemParameter，查看验证码以及邀请码是否正确
-			MailboxVerification mailbox1 = this.companyDao.getByMail(mailbox);
+//			MailboxVerification mailbox1 = this.companyDao.getByMail(mailbox);
 			SystemParameter systemParameter = this.companyDao.systemParameter(invideCode);
 			//数据库中没有这两个对象，直接返回false
-			if (mailbox1 == null || systemParameter == null) {
+			if (systemParameter == null) {
+				System.out.println("没有邀请码");
 				return false;
 			}
 			else {
 				//得到的MailboxVerification的验证码和页面验证码不一致，返回false
-				if (!yzm.equals(mailbox1.getVerificationCode())) {
-					return false;
-				}else {
 					String mdPwd = MdPwdUtil.MD5Password(password);
 					Company company = new Company();
 					company.setUsername(username);
 					company.setCompanyName(companyName);
 					company.setMailbox(mailbox);
-					company.setPassword(password);
+					company.setPassword(mdPwd);
 					company.setContacts("");
 					company.setPhone("");
 					return this.companyDao.registerCompanyInfo(company);
-				}
 			}
 		}catch(Exception e) {
 			Log4jUtils.info(e.getMessage());

@@ -294,7 +294,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="pmd-card pmd-z-depth">
-                            <form action="AddNoticeCompanyServlet" name="myform" method="post" onsubmit="return fun()">
+                            <form action="AddNoticeAdminServlet" name="myform" method="post" onsubmit="return fun()">
                                 <div class="pmd-card-body pmd-card-custom-form">
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">

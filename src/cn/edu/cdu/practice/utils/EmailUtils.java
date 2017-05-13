@@ -22,24 +22,25 @@ import cn.edu.cdu.practice.service.impl.CompanyServiceImpl;
  * @Description: 发送邮件工具类
  * @Author 陈天雄
  * @Date： 2017-4-16:下午3:37:43
- * Modification User： 程序修改时由修改人员编写
- * Modification Date： 程序修改时间
+ * Modification User： 于曦
+ * Modification Date： 2017-5-13:上午10:32:43
  */
 public class EmailUtils {
-	public static boolean sendMail(String emailFrom,String pwd,String emailTo,int type,String content) {
+	public static boolean sendMail(String emailTo,int type,String content) {
 		 Properties p = new Properties();  
 		 //smtp服务器信息
-	     p.put("mail.smtp.host", "smtp.163.com");  
-	     p.put("mail.transport.protocol", "smtp");
+	     p.put("mail.smtp.host", "smtp.exmail.qq.com");  
 	     p.put("mail.smtp.auth", "true");  
-	     p.put("mail.smtp.port", "25");  
-	     
+	     p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");  //使用JSSE的SSL socketfactory来取代默认的socketfactory
+	     p.put("mail.smtp.socketFactory.fallback", "false");  // 只处理SSL的连接,对于非SSL的连接不做处理
+	     p.put("mail.smtp.port", "465");  
+	     p.put("mail.smtp.socketFactory.port", "465");
 	     //设置发送邮件的账号和密码
 	     Session session = Session.getDefaultInstance(p, new Authenticator() {
 	         @Override
 	         protected PasswordAuthentication getPasswordAuthentication() {
-	         //两个参数分别是发送邮件的账户和授权码
-	         return new PasswordAuthentication(emailFrom,pwd);
+	         //两个参数分别是发送邮件的账户和密码
+	         return new PasswordAuthentication("computer_sys@cdu.edu.cn","Sie#1234");
 	                 }
 	      });  
 	     //将传入的验证码
@@ -49,7 +50,8 @@ public class EmailUtils {
 	     Message mailMessage = new MimeMessage(session);  
 	     try {  
 	         System.out.println("I'm sending...");  
-	         Address from = new InternetAddress(emailFrom);  
+	         
+	         Address from = new InternetAddress("computer_sys@cdu.edu.cn");  
 	         //设置发出方  
 	         mailMessage.setFrom(from);  
 	         Address to = new InternetAddress(emailTo);
@@ -67,6 +69,7 @@ public class EmailUtils {
 	     	return false;  
 	 }  
 	public static void main(String[] args) {
-		sendMail("oliveryx@163.com","yuxiytx912","5374664@qq.com",1,"abcd");
+//		sendMail("oliveryx@163.com","yuxiytx912","5374664@qq.com",1,"abcd");
+		sendMail("5374664@qq.com",1,"abcd222");
 	}
 }

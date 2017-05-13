@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
     }
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
 		//获取页面传入的各种值
 		HttpSession session = request.getSession();
 		//页面获得的用户输入的账号信息
@@ -35,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String Verification_Code = request.getParameter("verificationCode");
 		String role = request.getParameter("role");
+		System.out.println(account);
 		//页面获得的由后台产生的验证码
 		String vchidden = request.getParameter("vchidden");
 		UserServiceImpl usi = new UserServiceImpl();

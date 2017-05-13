@@ -30,7 +30,7 @@ public class DbUtils {
 		Properties properties = new Properties();
 		ClassLoader loader = DbUtils.class.getClassLoader();
 		try {
-			properties.load(loader.getResourceAsStream("jdbc.properties"));
+			properties.load(loader.getResourceAsStream("jdbc2.properties"));
 			driver = properties.getProperty("driver");
 			url = properties.getProperty("url");
 			user = properties.getProperty("user");

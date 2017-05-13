@@ -113,24 +113,32 @@
 	                                    </div>
 	                                    -->
 	                                    <div class="verification-body">
-				                            <div class="form-group pmd-textfield pmd-textfield-floating-label verification-code-width">
-				                                <label for="inputError1" class="control-label pmd-input-group-label">密保邮箱地址</label>
-				                                <div class="input-group">
-				                                    <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">email</i></div>
-				                                    <input type="text" class="form-control" value="${student.mailbox }" name="mbemail" id="forgot-email">
-				                                </div>
-				                            </div>
-				                            <div class="div-email">
-				                                <a href="javascript:void(0);" class="send2" >发送验证码</a>
-				                            </div>
+	                                    	<table>
+	                                    	<tr>
+	                                    		<td>
+					                            <div class="form-group pmd-textfield pmd-textfield-floating-label verification-code-width">
+					                                <label class="control-label  arer-lable">密保邮箱地址:</label>
+					                                <div class="input-group">
+					                                    <div class="input-group-addon"><!--  <i class="material-icons md-dark pmd-sm">email</i>--></div>
+					                                    <input type="text" class="form-control" value="${student.mailbox }" name="mbemail" id="forgot-email">
+					                                </div>
+					                            </div>
+					                            <td/>
+					                            <td>
+					                            <div class="div-email">
+					                                <a href="javascript:void(0);" class="send2" >发送验证码</a>
+					                            </div>
+					                            </td>
+				                            </tr>
+				                            </table>
 				                        </div>
 				                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
-				                            <label for="inputError1" class="control-label pmd-input-group-label" >验证码</label>
+				                            <label class="control-label  arer-lable" >验证码:</label>
 				                            <!-- 于曦添加 -->
 				                            <input type="hidden" id="rvchidden" name="rvchidden">
 				                            
 				                            <div class="input-group">
-				                                <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">comment</i></div>
+				                                <div class="input-group-addon"><!--  <i class="material-icons md-dark pmd-sm">comment</i>--></div>
 				                                <input type="text" class="form-control" id="exampleInputAmount" name="rvcinAction">
 				                            </div>
 				                        </div>

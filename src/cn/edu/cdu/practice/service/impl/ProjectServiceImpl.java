@@ -24,8 +24,9 @@ public class ProjectServiceImpl implements ProjectService {
 		int m = projectDaoImpl.findMaxProjectNo(Calendar.getInstance().get(Calendar.YEAR));
 		if (m >= 0) {
 			return m + 1 + "";
+		}else{
+			return Calendar.getInstance().get(Calendar.YEAR)+000001+"";
 		}
-		return null;
 	}
 
 	@Override

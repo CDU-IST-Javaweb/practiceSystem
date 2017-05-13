@@ -53,6 +53,7 @@ public class QueryStudentServlet extends HttpServlet {
 			switch(option){
 			case "all": //查询全部
 				list=ss.findAll();
+				conValue="";
 				break;
 			case "sel": //按已选/未选查询
 				index=1;

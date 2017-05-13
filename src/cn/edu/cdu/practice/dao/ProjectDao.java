@@ -146,7 +146,7 @@ public interface ProjectDao {
 	 * @param p_no  方案号
 	 * @return 
 	 */
-	public boolean inputScore(String stu_nos[],int scores[],String p_no);
+	public boolean inputScore(String stu_nos[],String scores[],String p_no);
 	
 	/**
 	 * 按方案号查询学生成绩
@@ -233,5 +233,20 @@ public interface ProjectDao {
 	 * @return 
 	 */
 	public ArrayList<Project> findAllProject(String company_username);
+	
+	/**
+	 * 查询学生成绩，分页工具类pageUtils为空时表示非分页查询
+	 * @param p_no
+	 * @param pageUtils
+	 * @return
+	 */
+	public ArrayList<ProProSelStuView> findStuScoreByPNo(String p_no, PageUtils pageUtils);
+	
+	/**
+	 * 通过方案号统计已选该方案且被企业选择的学生的数量
+	 * @param no
+	 * @return
+	 */
+	public int countAllSelStuByNo(String no);
 }
 

@@ -27,7 +27,7 @@ public class ShowCompanyServlet extends HttpServlet {
 		//post解码
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String account = (String) session.getAttribute("user");
+		String account = (String) session.getAttribute("account");
 		if (account == null) {
 			account = "sayHello";
 		}

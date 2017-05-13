@@ -30,9 +30,9 @@ public class SelectSystemConfigServlet extends HttpServlet {
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
-		String user = (String) session.getAttribute("user");
+		String user = (String) session.getAttribute("account");
 		if (user == null) {
-			user = "3";
+			user = "968";
 		}
 		try {
 			//从数据库中获取SystemParameter对象并存进session

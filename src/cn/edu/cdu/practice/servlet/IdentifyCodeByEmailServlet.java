@@ -61,13 +61,10 @@ public class IdentifyCodeByEmailServlet extends HttpServlet {
 		if(userinfo.get(1).equals("")) {
 			out.println("用户表中没有该邮箱，请重新输入！");
 		}else{
-			//这里先指定，后面改成从配置文件中读
-			String emailFrom = "oliveryx@163.com";
-			String pwd = "yuxiytx912";
 			//这里的type好像没有意义，如果一定要，那在页面也需要修改
 			//发送验证码到保密邮箱
 			String identifyCode = IdentifyCodeUtils.getCode();
-			EmailUtils.sendMail(emailFrom, pwd, mbemail, role,identifyCode);
+			EmailUtils.sendMail(mbemail, role,identifyCode);
 			System.out.println("验证码？"+identifyCode);
 			out.write(identifyCode);
 			//将验证码保存到数据表中

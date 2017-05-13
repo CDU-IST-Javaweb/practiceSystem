@@ -18,41 +18,43 @@ import cn.edu.cdu.practice.model.Project;
 @WebServlet("/PracticeManagement/EndPracticeServlet")
 public class EndPracticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EndPracticeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String r = (String) request.getSession().getAttribute("role");
-		int role;
-		/**
-		 * 用于测试，默认赋值为9
-		 */
-		if (r == null)
-			role = 9;
-		else
-			role=Integer.parseInt(r);
-		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		ArrayList<Project> projects=projectDaoImpl.findAllStartedProject();
-		String[] p_no=new String[projects.size()];
-		for(int i=0;i<projects.size();i++)
-			p_no[i]=projects.get(i).getNo();
-		projectDaoImpl.endProjects(p_no);
-		request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet").forward(request, response);
+	public EndPracticeServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String role = (String) request.getSession().getAttribute("role");
+		if (role.equals("9")) {
+			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+			ArrayList<Project> projects = projectDaoImpl.findAllStartedProject();
+			String[] p_no = new String[projects.size()];
+			for (int i = 0; i < projects.size(); i++)
+				p_no[i] = projects.get(i).getNo();
+			projectDaoImpl.endProjects(p_no);
+			request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet").forward(request, response);
+		}else{
+			//不是管理员，无权访问，跳至404页面
+			request.getRequestDispatcher("/404.html").forward(request, response);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

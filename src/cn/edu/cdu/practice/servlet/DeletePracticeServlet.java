@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
 import cn.edu.cdu.practice.model.Project;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.Log4jUtils;
 
 /**
@@ -36,13 +37,15 @@ public class DeletePracticeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String no = request.getParameter("no");
 		
-		/**
-		 * 未进行身份判断、跳转判断
-		 */
-		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		boolean b = projectDaoImpl.deleteProject(no);
-
-		request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet?role=1").forward(request, response);
+		String company_username = (String) request.getSession().getAttribute("account");
+		String role = (String) request.getSession().getAttribute("role");
+		ProjectServiceImpl projectServiceImpl=new ProjectServiceImpl();
+		if(role.equals("1")&&projectServiceImpl.findProjectBelongToUserByPNo(company_username, no)){
+			//角色为企业并对该方案拥有权限
+			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+			boolean b = projectDaoImpl.deleteProject(no);
+			request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet").forward(request, response);
+		}
 
 	}
 

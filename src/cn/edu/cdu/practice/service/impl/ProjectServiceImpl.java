@@ -3,6 +3,7 @@ package cn.edu.cdu.practice.service.impl;
 import java.util.Calendar;
 
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
+import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.service.ProjectService;
 
 /**
@@ -23,8 +24,9 @@ public class ProjectServiceImpl implements ProjectService {
 		int m = projectDaoImpl.findMaxProjectNo(Calendar.getInstance().get(Calendar.YEAR));
 		if (m >= 0) {
 			return m + 1 + "";
+		}else{
+			return Calendar.getInstance().get(Calendar.YEAR)+000001+"";
 		}
-		return null;
 	}
 
 	@Override
@@ -34,6 +36,15 @@ public class ProjectServiceImpl implements ProjectService {
 			return date.get(Calendar.YEAR) - n + 1;
 		} else
 			return date.get(Calendar.YEAR) - n;
+	}
+
+	@Override
+	public boolean findProjectBelongToUserByPNo(String username, String p_no) {
+		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+		Project project=projectDaoImpl.findProjectByNo(p_no);
+		if(project.getCompanyUsername().equals(username))
+			return true;
+		return false;
 	}
 
 }

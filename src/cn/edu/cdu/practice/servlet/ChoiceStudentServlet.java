@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.PageUtils;
 
 /**
@@ -35,27 +36,35 @@ public class ChoiceStudentServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		String stu_no = request.getParameter("stu_no");
 		String p_no = request.getParameter("p_no");
-		/**
-		 * 身份验证,方案是否属于当前登录的企业用户?
-		 */
-		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+		String company_username = (String) request.getSession().getAttribute("account");
+		String role = (String) request.getSession().getAttribute("role");
+		ProjectServiceImpl projectServiceImpl=new ProjectServiceImpl();
+		if(role.equals("1")&&projectServiceImpl.findProjectBelongToUserByPNo(company_username, p_no)){
+			//角色为企业并对该方案拥有权限
+			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+			
+			PageUtils pageUtils = null;
+			if ((pageUtils = (PageUtils) request.getSession().getAttribute("choiceProjectInfoPageUtils")) == null) {
+				pageUtils = new PageUtils(1, 0);
+				pageUtils.setPageSize(10);
+			}
+			if (type.equals("1")) {
+				// 选择学生
+				boolean b = projectDaoImpl.chooseStudent(stu_no, p_no);
+				//返回之前页面
+				request.getRequestDispatcher("ChoicePracticeInfoServlet?nowPage="+pageUtils.getPageNow()).forward(request, response);
+			} else if (type.equals("2")) {
+				// 退选学生
+				boolean b=projectDaoImpl.unChooseStudent(new String[]{stu_no}, p_no);
+				//返回之前页面
+				request.getRequestDispatcher("ChoicePracticeInfoServlet?nowPage="+pageUtils.getPageNow()).forward(request, response);
+			} else {
+				// 访问无效
+			}
+		}else{
+			//角色身份不匹配
+		}
 		
-		PageUtils pageUtils = null;
-		if ((pageUtils = (PageUtils) request.getSession().getAttribute("choiceProjectInfoPageUtils")) == null) {
-			pageUtils = new PageUtils(1, 0);
-			pageUtils.setPageSize(10);
-		}
-		if (type.equals("1")) {
-			// 选择学生
-			boolean b = projectDaoImpl.chooseStudent(stu_no, p_no);
-			request.getRequestDispatcher("ChoicePracticeInfoServlet?nowPage="+pageUtils.getPageNow()).forward(request, response);
-		} else if (type.equals("2")) {
-			// 退选学生
-			boolean b=projectDaoImpl.unChooseStudent(new String[]{stu_no}, p_no);
-			request.getRequestDispatcher("ChoicePracticeInfoServlet?nowPage="+pageUtils.getPageNow()).forward(request, response);
-		} else {
-			// 访问无效
-		}
 	}
 
 	/**

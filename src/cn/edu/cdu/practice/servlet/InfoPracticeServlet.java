@@ -17,41 +17,45 @@ import cn.edu.cdu.practice.utils.Log4jUtils;
 @WebServlet("/PracticeManagement/InfoPracticeServlet")
 public class InfoPracticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InfoPracticeServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String no=request.getParameter("no");
-		/**
-		 * company_username从session获取，这里测试采用赋值
-		 */
-		String company_username="sayHello";
-		ProjectDaoImpl projectDaoImpl=new ProjectDaoImpl();
+	public InfoPracticeServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String no = request.getParameter("no");
+		String company_username = (String) request.getSession().getAttribute("account");
+		String role = (String) request.getSession().getAttribute("role");
+
+		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 		Project project = projectDaoImpl.findProjectByNo(no);
-		if(project!=null){
-			if(project.getCompanyUsername().equals(company_username))
-				//设置当前用户对info的所有权
+		if (project != null) {
+			if (role.equals("1") && project.getCompanyUsername().equals(company_username))
+				// 设置当前用户对info的所有权
 				request.setAttribute("InfoRole", 1);
 			else
 				request.setAttribute("InfoRole", 0);
 			request.setAttribute("infoProject", project);
 			request.getRequestDispatcher("/PracticeManagement/infoPractice.jsp").forward(request, response);
 		}
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

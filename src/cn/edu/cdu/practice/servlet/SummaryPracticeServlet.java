@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.PageUtils;
 
 /**
@@ -35,26 +36,33 @@ public class SummaryPracticeServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
+	/**总结实训方案
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/**
-		 * 未设置身份判断
-		 */
+
 		request.setCharacterEncoding("utf-8");
 		String no = request.getParameter("no");
 		String summary = request.getParameter("summary");
-		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		boolean b = projectDaoImpl.summaryProject(no, summary);
-		PageUtils pageUtils = null;
-		int pageNow = 1;
-		if ((pageUtils = (PageUtils) request.getSession().getAttribute("selectProjectPageUtils")) != null) {
-			pageNow=pageUtils.getPageNow();
+		String company_username = (String) request.getSession().getAttribute("account");
+		String role = (String) request.getSession().getAttribute("role");
+		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		if (role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no)) {
+			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+			boolean b = projectDaoImpl.summaryProject(no, summary);
+			PageUtils pageUtils = null;
+			int pageNow = 1;
+			if ((pageUtils = (PageUtils) request.getSession().getAttribute("selectProjectPageUtils")) != null) {
+				pageNow = pageUtils.getPageNow();
+			}
+			request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet?pageNow=" + pageNow)
+					.forward(request, response);
+
+		} else {
+			request.getRequestDispatcher("/404.html").forward(request, response);
 		}
-		request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet?pageNow="+pageNow).forward(request, response);
 
 	}
 

@@ -6,6 +6,7 @@ import com.mysql.jdbc.log.LogUtils;
 
 import cn.edu.cdu.practice.dao.NoticeDao;
 import cn.edu.cdu.practice.dao.impl.NoticeDaoImpl;
+import cn.edu.cdu.practice.model.NoticeAdmin;
 import cn.edu.cdu.practice.model.NoticeCompany;
 import cn.edu.cdu.practice.service.NoticeService;
 import cn.edu.cdu.practice.utils.Log4jUtils;
@@ -132,7 +133,6 @@ public class NoticeServiceImpl implements NoticeService {
 			Log4jUtils.info(e.getMessage());
 			return null;
 		}
-		
 	}
 
 	
@@ -144,6 +144,73 @@ public class NoticeServiceImpl implements NoticeService {
 			Log4jUtils.info(e.getMessage());
 			return 0;
 		}
+	}
+
+	@Override
+	public NoticeAdmin queryNoticeAdminById(int adminNoticeId) {
+		if (adminNoticeId == 0) {
+			throw new NullPointerException("传入参数为空");
+		}
+		try {
+			return this.noticeDao.queryNoticeAdminById(adminNoticeId);
+		}catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null ;
+		}
+	}
+
+	@Override
+	public int countAdminNotice() {
+		return this.noticeDao.countAdminNotice();
+	}
+
+	@Override
+	public List<NoticeAdmin> queryAdminNotice(int pageNow, int pageSize) {
+		List<NoticeAdmin> list = null ;
+		try{
+			list = this.noticeDao.queryAdminNotice(pageNow, pageSize);
+			return list;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null;
+		}
+	}
+
+	@Override
+	public boolean updateAdminNotic(NoticeAdmin noticeAdmin) {
+		try {
+			if (noticeAdmin != null ) {
+				return this.noticeDao.updateAdminNotic(noticeAdmin);
+			}
+			return false ;
+			} catch(Exception exception) {
+				Log4jUtils.info(exception.getMessage());
+				return false;
+			}
+	}
+
+	@Override
+	public boolean deleteAdminNotic(int adminNoticeId) {
+		try {
+			if (adminNoticeId != 0 ) {
+				return this.noticeDao.deleteAdminNotic(adminNoticeId);
+			}
+			return false ;
+			} catch(Exception exception) {
+				Log4jUtils.info(exception.getMessage());
+				return false;
+			}
+	}
+
+	@Override
+	public void provideAdminAnnouncement(NoticeAdmin noticeAdmin) {
+		try {
+			if (noticeAdmin != null ) {
+				this.noticeDao.provideAdminAnnouncement(noticeAdmin);
+			}
+			} catch(Exception exception) {
+				Log4jUtils.info(exception.getMessage());
+			}
 	}
 
 }

@@ -52,9 +52,9 @@ public class TestNotice {
 		System.out.println(count);*/
 		/*NoticeAdmin noticeCompany = noticeDao.queryNoticeAdminById(4);
 		System.out.println(noticeCompany.getTitle());*/
-		List<NoticeCompany> list = noticeDao.queryAllCompanyNoticeOrderByDate(1, 10);
+		List<NoticeAdmin> list = noticeDao.queryAllAdminNoticeOrderByDate(1, 10);
 		System.out.println(list.size());
-		for(NoticeCompany no : list) {
+		for(NoticeAdmin no : list) {
 			System.out.println(no.getReleaseDate());
 		}
 	}

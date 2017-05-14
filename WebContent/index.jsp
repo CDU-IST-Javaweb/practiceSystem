@@ -144,6 +144,9 @@
 
     </section>
 
+	<c:if test="${adminyNotices == null} ">
+		<c:redirect url="ShowIndexNoticeListServlet"></c:redirect>
+	</c:if>
     <!--内容区-->
     <section class="index-news">
         <div class="container">
@@ -162,50 +165,11 @@
                         </div>
                         <div>
                             <ul class="list-unstyled ">
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
+                                <c:forEach items="${adminyNotices }" var="list2">
+                                	<li><a href="NoticeInfoService?type=1&id=${list2.id }">${list2.title }</a>
+                                	<span class="pull-right">${list2.releaseDate }</span>
+                                	</li>
+                                </c:forEach>
                             </ul>
 
                         </div>
@@ -227,50 +191,11 @@
                         </div>
                         <div>
                             <ul class="list-unstyled ">
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
-                                <li>
-                                    <a href="new-lists.html">关于游泳重修、辅导课及补考的通知</a><img src="assets/images/ding.gif">
-                                    <span class="pull-right">2016-11-09</span>
-                                </li>
+                                <c:forEach items="${companyNotices }" var="list">
+                                	<li><a href="NoticeInfoService?type=2&id=${list.id }">${list.title }</a>
+                                	<span class="pull-right">${list.releaseDate }</span>
+                                	</li>
+                                </c:forEach>
                             </ul>
 
                         </div>

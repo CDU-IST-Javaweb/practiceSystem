@@ -364,7 +364,7 @@ public class ProjectDaoImpl implements ProjectDao {
 	@Override
 	public boolean chooseProject(String company_name, String p_no, String stu_no, String reason) {
 		// 查询单个学生已选方案数的sql语句
-		String sql1 = "SELECT COUNT(*) m FROM project_select WHERE studentNo=?";
+		String sql1 = "SELECT COUNT(*) m FROM project_select WHERE studentNo=? AND score IS NULL";
 		// 查询系统预设学生可选方案数上限的sql语句
 		String sql2 = "SELECT student_sel_maxnum m FROM system_parameter";
 		// 增加学生选择方案的sql语句
@@ -421,7 +421,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public boolean unChooseProject(String p_no, String stu_no) {
-		String sql = "DELETE FROM project_select WHERE studentNo=? and projectNo=?";
+		String sql = "DELETE FROM project_select WHERE studentNo=? and projectNo=? and company_sel_date IS NOT NULL AND score IS NULL";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		try {
@@ -518,7 +518,7 @@ public class ProjectDaoImpl implements ProjectDao {
 	@Override
 	public boolean chooseStudent(String stu_no, String p_no) {
 		// 查看当前学生是否已有确定方案的sql语句
-		String sql1 = "SELECT company_sel_date FROM project_select WHERE studentNo=? AND company_sel_date IS NOT NULL";
+		String sql1 = "SELECT company_sel_date FROM project_select WHERE studentNo=? AND company_sel_date IS NOT NULL AND score IS NULL";
 		// 选择学生的sql语句
 		String sql2 = "UPDATE project_select SET company_sel_date=?  WHERE studentNo=? AND projectNo=?";
 		Connection connection = DbUtils.getConnection();
@@ -796,7 +796,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public ArrayList<Project> findAllStartedProject() {
-		String sql = "SELECT * FROM project WHERE end_date is NULL and audit_date is not NULL";
+		String sql = "SELECT * FROM project WHERE end_date is NULL and audit_date is not NULL AND end_date IS NULL";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -833,8 +833,8 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public ArrayList<Project> findAllChosenProject(String stu_no) {
-		// 查询单个学生已选方案数的sql语句
-		String sql = "SELECT * FROM view_project_select WHERE studentNo=?";
+		// 查询单个学生已选方案数的sql语句,未结束表明是当前年度
+		String sql = "SELECT * FROM view_project_select WHERE studentNo=? AND project_end_date IS NULL";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -1124,11 +1124,11 @@ public class ProjectDaoImpl implements ProjectDao {
 	public ArrayList<ProProSelStuView> findStuScoreByPNo(String p_no, PageUtils pageUtils) {
 		String sql = "SELECT * FROM view_project_select WHERE company_sel_date IS NOT NULL AND projectNo=?";
 		Connection connection = DbUtils.getConnection();
-		int start=0;
-		int size=0;
+		int start = 0;
+		int size = 0;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
+
 		ArrayList<ProProSelStuView> proProSelStuViews = new ArrayList<>();
 		if (pageUtils != null) {
 			sql += " LIMIT ?,?";
@@ -1186,8 +1186,7 @@ public class ProjectDaoImpl implements ProjectDao {
 				proProSelStuView.getStudent().setSubjectBackground(rs.getString("student_subject_background"));
 
 				proProSelStuViews.add(proProSelStuView);
-				
-				
+
 			}
 			return proProSelStuViews;
 		} catch (Exception e) {
@@ -1219,5 +1218,34 @@ public class ProjectDaoImpl implements ProjectDao {
 			DbUtils.closeConnection(connection, ps, rs);
 		}
 		return -1;
+	}
+
+	@Override
+	public ArrayList<ProjectSelect> findStuProject(String stu_no) {
+		//已被企业选择并成绩为空，当前年度正进行方案
+		String sql = "SELECT * FROM project_select WHERE company_sel_date IS NOT NULL AND studentNo=? AND score IS NULL";
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ProjectSelect> selects = new ArrayList<>();
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, stu_no);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ProjectSelect projectSelect = new ProjectSelect();
+				projectSelect.setCompanyName(rs.getString("company_name"));
+				projectSelect.setCompanySelDate(rs.getDate("company_sel_date"));
+				projectSelect.setId(new ProjectSelectId(rs.getString("studentNo"), rs.getInt("projectNo")));
+				projectSelect.setScore(rs.getString("score"));
+				projectSelect.setSelReason(rs.getString("sel_reason"));
+				selects.add(projectSelect);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return selects;
 	}
 }

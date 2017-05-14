@@ -141,6 +141,7 @@
 								<th>年级</th>
 								<th>发布日期</th>
 								<th>企业名称</th>
+								<th>审核状态</th>
 								<th>选择状态</th>
 								<th>操作</th>
 							</tr>
@@ -162,6 +163,10 @@
 									<td>${selectProject.grade }</td>
 									<td>${selectProject.releaseDate }</td>
 									<td>${selectProject.companyUsername }</td>
+									<td>
+									<button type="button"
+												class="btn pmd-btn-outline pmd-ripple-effect">${stuProjectNo.equals(selectProject.no)?"已审核":"未审核" }</button>
+									</td>
 									<td><c:if test="${choiceState[selectProject.no]==1 }">
 											<button type="button"
 												class="btn pmd-btn-outline pmd-ripple-effect btn-success">已选</button>

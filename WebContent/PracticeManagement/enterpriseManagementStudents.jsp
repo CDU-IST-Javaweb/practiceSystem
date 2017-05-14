@@ -123,7 +123,8 @@
 							</select>
 						</div>
 						<div class="col-md-3">
-							<select class="select-simple form-control pmd-select2" name="selectChoiceByPNo">
+							<select class="select-simple form-control pmd-select2"
+								name="selectChoiceByPNo">
 								<c:forEach items="${cUserAllProject }" var="project">
 									<option value="${project.no }">${project.name }</option>
 								</c:forEach>
@@ -132,8 +133,8 @@
 						<input type="hidden" value="2" name="selectChoiceType">
 						<div class="PM-nav">
 							<button class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
-								type="submit">查询</button> <a
-								class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
+								type="submit">查询</button>
+							<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 								href="recording-results.html">录入成绩</a> <a
 								class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 								href="#">导出成绩</a>
@@ -177,7 +178,7 @@
 											class="btn pmd-btn-raised pmd-ripple-effect btn-info pmd-z-depth"
 											type="button">查看详情</button></td>
 									<td><c:if
-											test="${proProSelStuView.projectSelect.companySelDate==null }">
+											test="${proProSelStuView.projectSelect.companySelDate==null&&stuHasProject.get(proProSelStuView.student.no) }">
 											<a type="button"
 												href="ChoiceStudentServlet?type=1&stu_no=${proProSelStuView.student.no }&p_no=${proProSelStuView.project.no }"
 												class="btn pmd-btn-raised pmd-ripple-effect btn-success pmd-z-depth">

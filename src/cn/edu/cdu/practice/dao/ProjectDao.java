@@ -248,5 +248,12 @@ public interface ProjectDao {
 	 * @return
 	 */
 	public int countAllSelStuByNo(String no);
+	
+	/**
+	 * 查找学生已确定的实训方案
+	 * @param stu_no
+	 * @return
+	 */
+	public ArrayList<ProjectSelect> findStuProject(String stu_no);
 }
 

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
 import cn.edu.cdu.practice.dao.impl.StudentDaoImpl;
 import cn.edu.cdu.practice.model.Project;
+import cn.edu.cdu.practice.model.ProjectSelect;
 import cn.edu.cdu.practice.model.Student;
 
 /**
@@ -69,6 +70,14 @@ public class StudentSelectPracticeServlet extends HttpServlet {
 						}
 					}
 				}
+				ArrayList<ProjectSelect> projectSelects=projectDaoImpl.findStuProject(stu_no);
+				if(projectSelects.size()>0){
+					request.setAttribute("stuProjectNo", projectSelects.get(0).getId().getProjectNo().toString());
+				}else{
+					request.setAttribute("stuProjectNo", "0");
+				}
+				
+				request.setAttribute("selectProjects", projects);
 				request.setAttribute("choiceState", choiceState);
 				request.getRequestDispatcher("/PracticeManagement/studentSelectPractice.jsp").forward(request,
 						response);

@@ -41,12 +41,6 @@ public class UpdateStudentServlet extends HttpServlet {
 		String account=(String)session.getAttribute("account");
 		Boolean hasChange=false;
 		
-		//测试代码begin
-		if(account==null){
-			account="201401";
-		}
-		session.setAttribute("role",2);
-		//测试代码end
 		
 		//获得保密邮箱
 		String mbemail = request.getParameter("mbemail");

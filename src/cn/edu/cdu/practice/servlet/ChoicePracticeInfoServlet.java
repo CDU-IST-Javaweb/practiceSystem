@@ -2,6 +2,7 @@ package cn.edu.cdu.practice.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,7 +85,18 @@ public class ChoicePracticeInfoServlet extends HttpServlet {
 				}
 				proProSelStuViews = projectDaoImpl.findAllStudentChoiceByPNo(p_no, pageUtils);
 			}
-
+			//对学生是否已有确定的实训方案进行标识
+			HashMap< String, Boolean> stuHasProject=new HashMap<>();
+			for(ProProSelStuView proProSelStuView:proProSelStuViews){
+				if(projectDaoImpl.findStuProject(proProSelStuView.getStudent().getNo()).size()==0){
+					//表示没有已被企业确定的学生选择
+					stuHasProject.put(proProSelStuView.getStudent().getNo(), true);
+				}else{
+					stuHasProject.put(proProSelStuView.getStudent().getNo(), false);
+				}
+			}
+			request.setAttribute("stuHasProject", stuHasProject);
+			
 			// 查询企业所有方案，供页面通过方案号查询学生选择信息
 			ArrayList<Project> cUserAllProject = projectDaoImpl.findAllProject(company_username);
 			request.getSession().setAttribute("cUserAllProject", cUserAllProject);

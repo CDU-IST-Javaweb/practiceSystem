@@ -29,6 +29,7 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 
 	/**
 	 * 学生退选实训方案
+	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -39,20 +40,21 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 		String stu_no = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
 
-		if(role.equals("2")){
+		if (role.equals("2")) {
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			Project project = projectDaoImpl.findProjectByNo(p_no);
 			if (project == null) {
 				Log4jUtils.error("退选方案未找到");
 			} else {
 				boolean b = projectDaoImpl.unChooseProject(p_no, stu_no);
-				if(b){
-					request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
-				}
-				else
+				if (b) {
+					// request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request,
+					// response);
+				} else
 					Log4jUtils.error("退选失败");
+				request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
 			}
-		}else{
+		} else {
 			request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 
@@ -71,19 +73,21 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 		String reason = request.getParameter("reason");
 		String stu_no = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-		if(role.equals("2")){
+		if (role.equals("2")) {
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			Project project = projectDaoImpl.findProjectByNo(p_no);
 			if (project == null) {
 				Log4jUtils.error("所选择未找到");
 			} else {
 				boolean b = projectDaoImpl.chooseProject(project.getCompanyUsername(), p_no, stu_no, reason);
-				if (b)
-					request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
-				else
+				if (b) {
+					// request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request,
+					// response);
+				} else
 					Log4jUtils.error("选择失败");
+				request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
 			}
-		}else{
+		} else {
 			request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 	}

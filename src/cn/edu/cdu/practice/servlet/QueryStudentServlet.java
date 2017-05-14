@@ -38,10 +38,6 @@ public class QueryStudentServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8"); //设置POST请求编码
 		response.setContentType("text/html;charset=UTF-8"); //设置响应内容类型
 		
-		//测试代码begin
-		HttpSession session = request.getSession();
-		session.setAttribute("role",2);
-		//测试代码end
 		String option = request.getParameter("op"); //获取条件选项
 		String conValue = request.getParameter("conValue"); //获取条件值
 		if(conValue==null)

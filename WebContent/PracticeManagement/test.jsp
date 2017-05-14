@@ -66,7 +66,7 @@
 				</div>
 		</a>
 			<ul class="dropdown-menu">
-				<c:if test="${!role.equals(\"2\") }">
+				<c:if test="${role.equals(\"1\")||role.equals(\"9\") }">
 					<li><a
 						href="../PracticeManagement/SelectPracticeServlet?selectProjectType=1">方案管理</a></li>
 				</c:if>
@@ -80,7 +80,7 @@
 				</c:if>
 			</ul></li>
 		<!--企业信息管理-->
-		<c:if test="${!role.equals(\"2\") }">
+		<c:if test="${role.equals(\"1\")||role.equals(\"9\") }">
 			<li class="dropdown pmd-dropdown"><a aria-expanded="false"
 				data-toggle="dropdown" class="btn-user dropdown-toggle media"
 				data-sidebar="true" href="javascript:void(0);"> <i
@@ -120,7 +120,7 @@
 				</ul></li>
 		</c:if>
 		<!--通知公告管理-->
-		<c:if test="${!role.equals(\"2\") }">
+		<c:if test="${role.equals(\"1\")||role.equals(\"9\") }">
 			<li class="dropdown pmd-dropdown"><a aria-expanded="false"
 				data-toggle="dropdown" class="btn-user dropdown-toggle media"
 				data-sidebar="true" href="javascript:void(0);"> <i

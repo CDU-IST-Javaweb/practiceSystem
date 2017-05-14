@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="">
 
@@ -27,14 +26,6 @@
 	href="../assets/css/propeller.min.css">
 
 
-<!-- Select2 css-->
-<link rel="stylesheet" type="text/css"
-	href="../components/select2/css/select2.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="../components/select2/css/select2-bootstrap.css" />
-<!-- Propeller select2 css-->
-<link rel="stylesheet" type="text/css"
-	href="../components/select2/css/pmd-select2.css" />
 <!-- Propeller theme css-->
 <link rel="stylesheet" type="text/css"
 	href="../assets/css/propeller-theme.css" />
@@ -77,7 +68,8 @@
 </head>
 
 <body>
-<%@include file="test.jsp" %>
+	<%@include file="test.jsp"%>
+
 	<!--content area start-->
 	<div id="content" class="pmd-content inner-page">
 		<!--tab start-->
@@ -100,153 +92,92 @@
 				<!--breadcrum start-->
 				<ol class="breadcrumb text-left">
 					<li><a href="index.html">主页</a></li>
-					<li class="active">学生选择方案</li>
+					<li class="active">录入成绩</li>
 				</ol>
 				<!--breadcrum end-->
 			</div>
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="component-box">
+					<!-- bordered table example -->
+					<div class="pmd-card pmd-z-depth pmd-card-custom-view">
+						<h2>录入成绩</h2>
+						<div class="table-responsive">
+							<form action="RecordingScoreServlet" method="post">
+								<table id="example"
+									class="table pmd-table table-hover results-table table-striped display responsive nowrap"
+									cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>方案号</th>
+											<th>方案名称</th>
+											<th>学号</th>
+											<th>姓名</th>
+											<th>年级</th>
+											<th>专业</th>
+											<th>成绩</th>
+										</tr>
+									</thead>
 
-			<div class="col-md-12">
-				<!-- responsive table example -->
-				<div class="pmd-card pmd-z-depth pmd-card-custom-view">
-					<h2 style="text-align: center;">学生选实训方案</h2>
-					<!--<form class="col-md-12">
-                  <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-                    <input type="radio" name="program" value="" >
-                    <span>所有方案</span>
-                  </label>
-                  <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-                    <input type="radio" name="program"value="">
-                    <span>我的方案</span>
-                  </label>
-                </form>-->
-					<div class="col-md-3 form-inline">
-						<select class="select-simple form-control pmd-select2">
-							<option>所有方案</option>
-							<option>我的方案</option>
-						</select>
-					</div>
+									<tbody>
+										<c:forEach items="${recordingScoreView }" var="view">
+											<tr>
+												<td>${view.project.no }</td>
+												<td>${view.project.name }</td>
+												<td>${view.student.no }</td>
+												<input type="hidden" value="${view.student.no }"
+													name="stu_no">
+												<td>${view.student.name }</td>
+												<td>${view.student.grade }</td>
+												<td>${view.student.professional }</td>
+												<td>
 
-					<table id="example"
-						class="table pmd-table table-hover table-striped display responsive nowrap"
-						cellspacing="0" width="100%">
-						<thead>
-							<tr>
-								<th>方案号</th>
-								<th>方案名称</th>
-								<th>方案简介</th>
-								<th>学生人数</th>
-								<th>校外指导老师</th>
-								<th>校外指导老师职称</th>
-								<th>类别</th>
-								<th>年级</th>
-								<th>发布日期</th>
-								<th>企业名称</th>
-								<th>审核状态</th>
-								<th>选择状态</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${selectProjects }" var="selectProject">
-								<tr>
-									<td>${selectProject.no }</td>
-									<td>${selectProject.name }</td>
-									<td title="${selectProject.introduction }"><c:if
-											test="${selectProject.introduction.length()>30 }">
-											${selectProject.introduction.substring(0,30) }...
-											</c:if> <c:if test="${selectProject.introduction.length()<=30 }">
-											${selectProject.introduction }</c:if></td>
-									<td>${selectProject.studentsNum }</td>
-									<td>${selectProject.companyTeacher }</td>
-									<td>${selectProject.companyTeacherTitle }</td>
-									<td>${selectProject.category }</td>
-									<td>${selectProject.grade }</td>
-									<td>${selectProject.releaseDate }</td>
-									<td>${selectProject.companyUsername }</td>
-									<td>
-									<button type="button"
-												class="btn pmd-btn-outline pmd-ripple-effect">${stuProjectNo.equals(selectProject.no)?"已审核":"未审核" }</button>
-									</td>
-									<td><c:if test="${choiceState[selectProject.no]==1 }">
-											<button type="button"
-												class="btn pmd-btn-outline pmd-ripple-effect btn-success">已选</button>
-										</c:if> <c:if
-											test="${choiceState[selectProject.no]==0||choiceState[selectProject.no]==null }">
-											<button type="button"
-												class="btn pmd-btn-outline pmd-ripple-effect btn-danger">未选</button>
-										</c:if></td>
-									<td><a
-										class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
-										href="InfoPracticeServlet?no=${selectProject.no }"> 详情</a> <c:if
-											test="${choiceState[selectProject.no]==1 }">
-											<a type="button" href="StudentChoicePracticeServlet?no=${selectProject.no }"
-												class="btn pmd-btn-raised pmd-ripple-effect btn-danger pmd-z-depth">
-												退选 </a>
-										</c:if> <c:if
-											test="${choiceState[selectProject.no]==0||choiceState[selectProject.no]==null }">
-											<div tabindex="-1" class="modal fade"
-												id="form-dialog-${selectProject.no }" style="display: none;"
-												aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header pmd-modal-bordered">
-															<button aria-hidden="true" data-dismiss="modal"
-																class="close" type="button">×</button>
-															<h2 class="pmd-card-title-text">选择方案</h2>
-														</div>
-														<div class="modal-body">
-															<form class="form-horizontal"
-																action="StudentChoicePracticeServlet" method="post">
-																<div
-																	class="form-group pmd-textfield pmd-textfield-floating-label">
-																	<label for="first-name">方案号：</label> <input type="text"
-																		readonly="" class="mat-input form-control"
-																		value="${selectProject.no }" name="no">
-																	<div
-																		class="form-group pmd-textfield pmd-textfield-floating-label">
-																		<label for="first-name">方案名称：</label> <input
-																			type="text" readonly=""
-																			class="mat-input form-control"
-																			value="${selectProject.name }" name="name">
-																	</div>
-																	<div
-																		class="form-group pmd-textfield pmd-textfield-floating-label">
-																		<label class="control-label">选题理由</label>
-																		<textarea required class="form-control" name="reason"></textarea>
-																		<span class="help-text">选题理由不能为空</span>
-																	</div>
-																</div>
-																<div class="pmd-modal-action">
-																	<button class="btn pmd-ripple-effect btn-primary"
-																		type="submit">确定</button>
-																	<a href="javascript:history.back(-1);"
-																		data-dismiss="modal"
-																		class="btn pmd-ripple-effect btn-default"
-																		type="button">返回</a>
-																</div>
-															</form>
+													<div class="form-group pmd-textfield">
+														<div class="input-group">
+															<input class="mat-input form-control" type="text"
+																value="" placeholder="${view.projectSelect.score }"
+																name="score">
 														</div>
 													</div>
-												</div>
-											</div>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 
-											<a type="button"
-												data-target="#form-dialog-${selectProject.no }"
-												data-toggle="modal"
-												class="btn pmd-btn-raised pmd-ripple-effect btn-success pmd-z-depth">
-												选择 </a>
-										</c:if></td>
+								<!-- 分页 -->
+								第 <input type="text" value="${recordingScorePageUtils.pageNow }"
+									size="2"> / ${recordingScorePageUtils.totalPage }页
+								<c:if test="${recordingScorePageUtils.isHasFirst() }">
+									<a href="RecordingScoreServlet?nowPage=1">首页&nbsp;</a>
+								</c:if>
+								<c:if test="${recordingScorePageUtils.isHasPre() }">
+									<a
+										href="RecordingScoreServlet?nowPage=${recordingScorePageUtils.pageNow-1 }">上一页&nbsp;</a>
+								</c:if>
+								<c:if test="${recordingScorePageUtils.isHasNext() }">
+									<a
+										href="RecordingScoreServlet?nowPage=${recordingScorePageUtils.pageNow+1 }">下一页&nbsp;</a>
+								</c:if>
+								<c:if test="${recordingScorePageUtils.isHasLast() }">
+									<a
+										href="RecordingScoreServlet?nowPage=${recordingScorePageUtils.totalPage }">尾页</a>
+								</c:if>
 
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+								<div class="button-group col-md-12">
+									<button type="submit" class="btn pmd-ripple-effect btn-primary">
+										提交</button>
+									<a href="javascript:history.back(-1);" data-dismiss="modal"
+										class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<!-- bordered table example end -->
 
 				</div>
-				<!-- responsive table example end -->
-
 			</div>
-
+			<div class="col-md-3"></div>
 
 		</div>
 	</div>
@@ -445,6 +376,8 @@
 
 						});
 	</script>
+
+
 </body>
 
 </html>

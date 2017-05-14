@@ -578,4 +578,28 @@ public class NoticeDaoImpl implements NoticeDao {
 				}
 	}
 
+	@Override
+	public int countAllAuditCompanyNotice() {
+		Connection connection = DbUtils.getConnection();
+		String registSql = "select count(*) from notice_company where audit_date IS NOT NULL";
+		Statement statement = null ;
+		ResultSet resultSet = null ;
+		int count = 0;
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(registSql);
+			 //只要resultSet指向的下一个元素有内容，那么就一直执行查询与赋值操作
+			if (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+			 return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			//每次操作之后必须关闭连接
+			DbUtils.closeConnection(connection, statement,resultSet);
+		}
+	}
+
 }

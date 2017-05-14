@@ -143,9 +143,8 @@
         </div>
 
     </section>
-
-	<c:if test="${adminyNotices == null} ">
-		<c:redirect url="ShowIndexNoticeListServlet"></c:redirect>
+    <c:if test="${sessionScope.info == null}">
+	<c:redirect url="/ShowIndexNoticeListServlet"></c:redirect>
 	</c:if>
     <!--内容区-->
     <section class="index-news">
@@ -155,11 +154,11 @@
                     <div class="col-links-wrapper">
                         <div class="tit">
                             <span class="more">                                  
-                            <a href="new-lists.html" class="hvr-icon-wobble-horizontal">更多</a>                                       
+                            <a href="MoreIndexNoticesListServlet?tole=1" class="hvr-icon-wobble-horizontal">更多</a>                                       
                             </span>
                             <div class="hd ">
                                 <i class="material-icons media-left media-middle">school</i>
-                                <span><a href="new-lists.html ">学院通知公告</a></span>
+                                <span><a href="MoreIndexNoticesListServlet?tole=1 ">学院通知公告</a></span>
                             </div>
                             <div class="line "></div>
                         </div>
@@ -181,11 +180,11 @@
                     <div class="col-links-wrapper">
                         <div class="tit">
                             <span class="more">                                  
-                            <a href="new-lists.html" class="hvr-icon-wobble-horizontal">更多</a>                                     
+                            <a href="MoreIndexNoticesListServlet?tole=2" class="hvr-icon-wobble-horizontal">更多</a>                                     
                             </span>
                             <div class="hd ">
                                 <i class="material-icons media-left">notifications</i>
-                                <span><a href="new-lists.html ">企业通知公告</a></span>
+                                <span><a href="MoreIndexNoticesListServlet?tole=2">企业通知公告</a></span>
                             </div>
                             <div class="line "></div>
                         </div>

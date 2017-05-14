@@ -52,10 +52,6 @@ public class TestNotice {
 		System.out.println(count);*/
 		/*NoticeAdmin noticeCompany = noticeDao.queryNoticeAdminById(4);
 		System.out.println(noticeCompany.getTitle());*/
-		List<NoticeAdmin> list = noticeDao.queryAllAdminNoticeOrderByDate(1, 10);
-		System.out.println(list.size());
-		for(NoticeAdmin no : list) {
-			System.out.println(no.getReleaseDate());
-		}
+		System.out.println(noticeDao.countAllAuditCompanyNotice());
 	}
 }

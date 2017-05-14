@@ -141,5 +141,10 @@ public interface NoticeService {
 	 * @return
 	 */
 	List<NoticeAdmin> queryAllAdminNoticeOrderByDate(int pageNow,int pageSize);
-	
+	/**
+	 * <p>Title: countAllAuditCompanyNotice</p>
+	 * <p>Description: 统计已经被审核的企业通知公告</p>
+	 * @return
+	 */
+	int countAllAuditCompanyNotice();
 }

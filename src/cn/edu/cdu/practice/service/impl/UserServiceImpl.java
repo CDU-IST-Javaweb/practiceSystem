@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService{
 			ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.setString(1, account);
 			ps.setString(2, MdPwdUtil.MD5Password(password));
+			System.out.println(ps.toString());
 			rs = ps.executeQuery();
 //			System.out.println(ps.toString());
 			if(rs.next()){

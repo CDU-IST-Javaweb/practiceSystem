@@ -136,93 +136,48 @@
                     <!--路径导航-->
                     <ol class="breadcrumb">
                         <li><a href="index.html">主页</a></li>
-                        <li class="active">学院通知公告</li>
+                        <li class="active">${tole.equals("1")?"学院通知公告":"企业通知公告" }</li>
                     </ol>
                     <div class="panel panel-primary">
                         <!--顶部标题-->
                         <div class="panel-heading">
-                            <h3 class="panel-title">学院通知公告</h3>
+                            <h3 class="panel-title">${tole.equals("1")?"学院通知公告":"企业通知公告" }</h3>
                         </div>
                         <!--列表内容-->
                         <div class="panel-body">
                             <!--List with title and linked content -->
                             <div class="list-group pmd-z-depth pmd-card-list">
-                                <a href="news-details.html" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
-                                <a href="javascript:void(0);" class="list-group-item ">
-                                    <h3 class="list-group-item-heading">标题</h3>
-                                    <p class="list-group-item-text">时间：2017-04-03</p>
-                                    <p class="list-group-item-text">简要内容：</p>
-                                </a>
+                                 <c:forEach items="${allList }" var="list2">
+                                	<li><a href="NoticeInfoService?type=1&id=${list2.id }">${list2.title }</a>
+                                	<span class="pull-right">${list2.releaseDate }</span>
+                                	</li>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
                     <!--分页-->
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                            <li>
-                                <a href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                                <a href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
+                       <li> 共${pager.totalSize}条纪录，当前第${pager.pageNow}/${pager.totalPage}页，每页${pager.pageSize}条纪录
+				  		<c:choose>
+				  			<c:when test="${pager.hasPre}">
+				  				<a href="ShowNoticeListsServlet?pageNow=1">首页</a> |
+                				<a href="ShowNoticeListsServlet?pageNow=${pager.pageNow - 1}">上一页</a> |
+				  			</c:when>
+				  			<c:otherwise>
+				  				<c:out value="首页 | 上一页 | "></c:out>
+				  			</c:otherwise>
+				  		</c:choose>
+				  		<c:choose>
+				  			<c:when test="${pager.hasNext }">
+                				<a href="ShowNoticeListsServlet?pageNow=${pager.pageNow + 1}">下一页</a> |
+                			<a href="ShowNoticeListsServlet?pageNow=${pager.totalPage}">尾页</a>
+               				</c:when>
+               				<c:otherwise>
+               					<c:out value="下一页 | 尾页"/>
+               				</c:otherwise>
+				  		</c:choose>
+				  		</li>
                         </ul>
                     </nav>
                     

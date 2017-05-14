@@ -237,4 +237,9 @@ public class NoticeServiceImpl implements NoticeService {
 		}
 	}
 
+	@Override
+	public int countAllAuditCompanyNotice() {
+		return this.noticeDao.countAllAuditCompanyNotice();
+	}
+
 }

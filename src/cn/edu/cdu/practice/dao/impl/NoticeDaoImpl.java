@@ -507,4 +507,75 @@ public class NoticeDaoImpl implements NoticeDao {
 		}
 	}
 
+	@Override
+	public List<NoticeCompany> queryAllCompanyNoticeOrderByDate(int pageNow, int pageSize) {
+		Connection connection = DbUtils.getConnection();
+		String registSql = "select * from notice_company where audit_date IS NOT NULL order by release_date DESC limit ?,?";
+		PreparedStatement ps = null ;
+		ResultSet resultSet = null ;
+		List<NoticeCompany> list = new ArrayList<NoticeCompany>();
+		NoticeCompany noticeCompany = null ;
+		try {
+			 ps = connection.prepareStatement(registSql);
+			 ps.setInt(1, (pageNow-1)*pageSize);
+			 ps.setInt(2, pageSize);
+			 //执行查询语句
+			 resultSet = ps.executeQuery();
+			 //只要resultSet指向的下一个元素有内容，那么就一直执行查询与赋值操作
+			 while (resultSet.next()) {
+				 noticeCompany = new NoticeCompany();
+				 noticeCompany.setCompanyUsername(resultSet.getString("company_username"));
+				 noticeCompany.setId(resultSet.getInt("ID"));
+				 noticeCompany.setReleaseDate(resultSet.getDate("release_date"));
+				 noticeCompany.setAuditDate(resultSet.getDate("audit_date"));
+				 noticeCompany.setTitle(resultSet.getString("title"));
+				 noticeCompany.setContent(resultSet.getString("content"));
+				 //添加进List中
+				 list.add(noticeCompany);
+			}
+			 return list ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			//每次操作之后必须关闭连接
+			DbUtils.closeConnection(connection, ps,resultSet);
+		}
+	}
+
+	@Override
+	public List<NoticeAdmin> queryAllAdminNoticeOrderByDate(int pageNow, int pageSize) {
+		//获取数据库连接
+				Connection connection = DbUtils.getConnection();
+				String registSql = "select * from notice_admin order by release_date DESC limit ?,?";
+				PreparedStatement ps = null ;
+				ResultSet resultSet = null ;
+				List<NoticeAdmin> list = new ArrayList<NoticeAdmin>();
+				NoticeAdmin noticeAdmin = null ;
+				try {
+					 ps = connection.prepareStatement(registSql);
+					 ps.setInt(1, (pageNow-1)*pageSize);
+					 ps.setInt(2, pageSize);
+					 //执行查询语句
+					 resultSet = ps.executeQuery();
+					 //只要resultSet指向的下一个元素有内容，那么就一直执行查询与赋值操作
+					 while (resultSet.next()) {
+						 noticeAdmin = new NoticeAdmin();
+						 noticeAdmin.setId(resultSet.getInt("ID"));
+						 noticeAdmin.setReleaseDate(resultSet.getDate("release_date"));
+						 noticeAdmin.setTitle(resultSet.getString("title"));
+						 noticeAdmin.setContent(resultSet.getString("content"));
+						 //添加进List中
+						 list.add(noticeAdmin);
+					}
+					 return list ;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				} finally {
+					//每次操作之后必须关闭连接
+					DbUtils.closeConnection(connection, ps,resultSet);
+				}
+	}
+
 }

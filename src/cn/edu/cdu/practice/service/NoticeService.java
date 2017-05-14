@@ -128,4 +128,18 @@ public interface NoticeService {
 	 */
 	void provideAdminAnnouncement(NoticeAdmin noticeAdmin);
 	
+	/**
+	 * <p>Title: queryAll</p>
+	 * <p>Description: 查询出最新发布的十条企业信息公告</p>
+	 * @return
+	 */
+	List<NoticeCompany> queryAllCompanyNoticeOrderByDate(int pageNow,int pageSize);
+	
+	/**
+	 * <p>Title: queryAllAdminNoticeOrderByDate</p>
+	 * <p>Description: 查询出最新发布的十条学院通知公告</p>
+	 * @return
+	 */
+	List<NoticeAdmin> queryAllAdminNoticeOrderByDate(int pageNow,int pageSize);
+	
 }

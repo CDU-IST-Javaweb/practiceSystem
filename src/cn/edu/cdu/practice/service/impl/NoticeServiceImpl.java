@@ -213,4 +213,28 @@ public class NoticeServiceImpl implements NoticeService {
 			}
 	}
 
+	@Override
+	public List<NoticeCompany> queryAllCompanyNoticeOrderByDate(int pageNow, int pageSize) {
+		List<NoticeCompany> list = null ;
+		try{
+			list = this.noticeDao.queryAllCompanyNoticeOrderByDate(pageNow, pageSize);
+			return list;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null;
+		}
+	}
+
+	@Override
+	public List<NoticeAdmin> queryAllAdminNoticeOrderByDate(int pageNow, int pageSize) {
+		List<NoticeAdmin> list = null ;
+		try{
+			list = this.noticeDao.queryAllAdminNoticeOrderByDate(pageNow, pageSize);
+			return list;
+		} catch(Exception e) {
+			Log4jUtils.info(e.getMessage());
+			return null;
+		}
+	}
+
 }

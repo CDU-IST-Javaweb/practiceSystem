@@ -39,6 +39,7 @@ public class UpdateStudentServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String account=(String)session.getAttribute("account");
+		Boolean hasChange=false;
 		
 		//测试代码begin
 		if(account==null){
@@ -47,13 +48,34 @@ public class UpdateStudentServlet extends HttpServlet {
 		session.setAttribute("role",2);
 		//测试代码end
 		
+		//获得保密邮箱
+		String mbemail = request.getParameter("mbemail");
+		//获得用户输入的验证码
+		String rvcinAction = request.getParameter("rvcinAction");
+		if(rvcinAction!=null){
+			rvcinAction=rvcinAction.toLowerCase();
+		}
+		//获得隐藏控件中得到的验证码，该验证码是发到保密邮箱的。
+		String rvchidden = request.getParameter("rvchidden");
+		if(rvchidden!=null){
+			rvchidden=rvchidden.toLowerCase();
+		}
+		//获得学科背景
 		String background = request.getParameter("background");
+		//获得学习经历
 		String experience = request.getParameter("experience");
+		//获得研究方向
 		String direction = request.getParameter("direction");
+		//获得输入的旧密码
 		String oldpwd = request.getParameter("oldpwd");
+		//获得输入的新密码
 		String newpwd = request.getParameter("newpwd");
+
 		
 		//测试代码begin
+		System.out.println("mbmail:"+mbemail);
+		System.out.println("rvcinAction:"+rvcinAction);
+		System.out.println("rvchidden:"+rvchidden);
 		System.out.println("background:"+background);
 		System.out.println("experience:"+experience);
 		System.out.println("direction:"+direction);
@@ -63,11 +85,20 @@ public class UpdateStudentServlet extends HttpServlet {
 		Student stu=null;
 		StudentService ss=new StudentServiceImpl();
 		stu=ss.findById(account);
-		if(stu!=null && background!=null){
-			stu.setSubjectBackground(background);
-			stu.setLearningExperience(experience);
-			stu.setResearchDirection(direction);
-			ss.update(stu);
+		
+		if(stu!=null){			
+			if(rvchidden!=null && rvcinAction!=null && rvchidden.equals(rvcinAction)){
+				stu.setMailbox(mbemail);
+				hasChange=true;
+			}
+			if(background!=null){ 
+				stu.setSubjectBackground(background);
+				stu.setLearningExperience(experience);
+				stu.setResearchDirection(direction);
+				hasChange=true;
+			}
+			if(hasChange) //如果有修改，就更新数据库
+				ss.update(stu);
 		}
 		//修改密码
 		if(oldpwd!=null && newpwd!=null){

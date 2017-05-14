@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
 				break;
 			case "2": 
 				account_type = "学生";
-				sql = "select * from student where name=? and password = ?"; 
+				sql = "select * from student where No=? and password = ?"; 
 				break;
 			case "9": 
 				account_type = "管理员";
@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService{
 			ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.setString(1, account);
 			ps.setString(2, MdPwdUtil.MD5Password(password));
+			System.out.println(ps.toString());
 			rs = ps.executeQuery();
 //			System.out.println(ps.toString());
 			if(rs.next()){
@@ -178,7 +179,7 @@ public class UserServiceImpl implements UserService{
 			//如果在student表里找到，就将flag设置为true，同时将type设置为2
 			if(rs.next()){
 				role = "2";
-				account = rs.getString("name");
+				account = rs.getString("No");
 				DbUtils.closeConnection(con, ps, rs);
 			}else{
 				sql = "select * from company where mailbox=?"; 

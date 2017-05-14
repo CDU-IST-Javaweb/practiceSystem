@@ -44,7 +44,8 @@ public class QueryStudentServlet extends HttpServlet {
 		//测试代码end
 		String option = request.getParameter("op"); //获取条件选项
 		String conValue = request.getParameter("conValue"); //获取条件值
-		
+		if(conValue==null)
+			conValue="";		
 		int index=0;
 		List<Student> list=null;
 		//Student stu=null;

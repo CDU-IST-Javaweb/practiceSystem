@@ -40,7 +40,6 @@ public class TestNotice {
 		/*noticeDaoImpl.deleteCompanyNotice(2);*/
 		/*Date date = Date.valueOf("2017-6-12");
 		noticeDaoImpl.reviewCompanyNotice(1, date);*/
-		Date date = Date.valueOf("1998-10-12");
 		NoticeDao noticeDao = new NoticeDaoImpl();
 		/*NoticeAdmin noticeCompany = new NoticeAdmin();
 		noticeCompany.setReleaseDate(date);
@@ -53,6 +52,10 @@ public class TestNotice {
 		System.out.println(count);*/
 		/*NoticeAdmin noticeCompany = noticeDao.queryNoticeAdminById(4);
 		System.out.println(noticeCompany.getTitle());*/
-		noticeDao.deleteAdminNotic(5);
+		List<NoticeCompany> list = noticeDao.queryAllCompanyNoticeOrderByDate(1, 10);
+		System.out.println(list.size());
+		for(NoticeCompany no : list) {
+			System.out.println(no.getReleaseDate());
+		}
 	}
 }

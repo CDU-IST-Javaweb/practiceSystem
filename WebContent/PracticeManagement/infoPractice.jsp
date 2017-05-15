@@ -47,7 +47,7 @@
 </head>
 
 <body>
-<%@include file="test.jsp" %>
+	<%@include file="test.jsp"%>
 	<!--content area start-->
 	<div id="content" class="pmd-content inner-page">
 		<!--tab start-->
@@ -155,159 +155,153 @@
 											</div>
 										</div>
 										<div class="button-group">
-											<c:if test="${InfoRole==1 }">
+											<c:if test="${InfoRole==1&&infoProject.auditDate==null }">
 												<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 													href="UpdatePracticeServlet?no=${infoProject.no }"> 修改</a>
-													<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
+												<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 													href="DeletePracticeServlet?no=${infoProject.no }"> 删除</a>
 											</c:if>
-											
+
 											<a href="javascript:history.back(-1);" data-dismiss="modal"
 												class="btn pmd-ripple-effect btn-default" type="button">返回</a>
 										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
-						<!-- input states example end -->
+
 					</div>
+					<!-- input states example end -->
 				</div>
-
-
 			</div>
+
 		</div>
+	</div>
 
-		<!-- Footer Starts -->
-		<!--footer start-->
-		<footer class="admin-footer">
-			<div class="container-fluid">
-				<ul class="list-unstyled list-inline">
-					<li><span class="pmd-card-subtitle-text">信息科学与工程学院
-							&copy; 2017. 版权所有.</span>
-						<h3 class="pmd-card-subtitle-text">
-							技术支持 BY <a href="http://computer.cdu.edu.cn/" target="_blank">信工学院.</a>
-						</h3></li>
-					<li class="pull-right download-now"><a
-						onClick="downloadPMDadmintemplate()" href="javascript：void(0);">
-							<div>
-								<i class="material-icons media-left pmd-sm">settings</i>
-							</div>
-							<div>
-								<span class="pmd-card-subtitle-text">Version- 1.0.0</span>
-								<h3 class="pmd-card-title-text">By cduyzh</h3>
-							</div>
-					</a></li>
-					<li class="pull-right for-support"><a
-						href="mailto:support@propeller.in">
-							<div>
-								<i class="material-icons media-left pmd-sm">email</i>
-							</div>
-							<div>
-								<span class="pmd-card-subtitle-text">For Support</span>
-								<h3 class="pmd-card-title-text">450311265@qq.com</h3>
-							</div>
-					</a></li>
-				</ul>
-			</div>
-		</footer>
-		<!--footer end-->
-		<!-- Footer Ends -->
+	<!-- Footer Starts -->
+	<!--footer start-->
+	<footer class="admin-footer">
+		<div class="container-fluid">
+			<ul class="list-unstyled list-inline">
+				<li><span class="pmd-card-subtitle-text">信息科学与工程学院
+						&copy; 2017. 版权所有.</span>
+					<h3 class="pmd-card-subtitle-text">
+						技术支持 BY <a href="http://computer.cdu.edu.cn/" target="_blank">信工学院.</a>
+					</h3></li>
+				<li class="pull-right download-now"><a
+					onClick="downloadPMDadmintemplate()" href="javascript：void(0);">
+						<div>
+							<i class="material-icons media-left pmd-sm">settings</i>
+						</div>
+						<div>
+							<span class="pmd-card-subtitle-text">Version- 1.0.0</span>
+							<h3 class="pmd-card-title-text">By cduyzh</h3>
+						</div>
+				</a></li>
+				<li class="pull-right for-support"><a
+					href="mailto:support@propeller.in">
+						<div>
+							<i class="material-icons media-left pmd-sm">email</i>
+						</div>
+						<div>
+							<span class="pmd-card-subtitle-text">For Support</span>
+							<h3 class="pmd-card-title-text">450311265@qq.com</h3>
+						</div>
+				</a></li>
+			</ul>
+		</div>
+	</footer>
+	<!--footer end-->
+	<!-- Footer Ends -->
 
-		<!-- Scripts Starts -->
-		<script src="../assets/js/jquery-1.12.2.min.js"></script>
-		<script src="../assets/js/bootstrap.min.js"></script>
-		<!--控制左侧工具栏选择状态-->
-		<script>
-			$(document)
-					.ready(
+	<!-- Scripts Starts -->
+	<script src="../assets/js/jquery-1.12.2.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<!--控制左侧工具栏选择状态-->
+	<script>
+		$(document).ready(
+				function() {
+					var sPath = window.location.pathname;
+					var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+					$(".pmd-sidebar-nav").each(
 							function() {
-								var sPath = window.location.pathname;
-								var sPage = sPath.substring(sPath
-										.lastIndexOf('/') + 1);
-								$(".pmd-sidebar-nav").each(
-										function() {
-											$(this).find(
-													"a[href='../PracticeManagement/"
-															+ sPage + "']")
-													.parents(".dropdown")
-													.addClass("open");
-											$(this).find(
-													"a[href='../PracticeManagement/"
-															+ sPage + "']")
-													.parents(".dropdown").find(
-															'.dropdown-menu')
-													.css("display", "block");
-											$(this).find(
-													"a[href='../PracticeManagement/"
-															+ sPage + "']")
-													.parents(".dropdown")
-													.find('a.dropdown-toggle')
-													.addClass("active");
-											$(this).find(
-													"a[href='../PracticeManagement/"
-															+ sPage + "']")
-													.addClass("active");
-										});
+								$(this).find(
+										"a[href='../PracticeManagement/"
+												+ sPage + "']").parents(
+										".dropdown").addClass("open");
+								$(this).find(
+										"a[href='../PracticeManagement/"
+												+ sPage + "']").parents(
+										".dropdown").find('.dropdown-menu')
+										.css("display", "block");
+								$(this).find(
+										"a[href='../PracticeManagement/"
+												+ sPage + "']").parents(
+										".dropdown").find('a.dropdown-toggle')
+										.addClass("active");
+								$(this).find(
+										"a[href='../PracticeManagement/"
+												+ sPage + "']").addClass(
+										"active");
 							});
-		</script>
-		<script type="text/javascript">
-			(function() {
-				"use strict";
-				var toggles = document.querySelectorAll(".c-hamburger");
-				for (var i = toggles.length - 1; i >= 0; i--) {
-					var toggle = toggles[i];
-					toggleHandler(toggle);
-				}
-				;
-
-				function toggleHandler(toggle) {
-					toggle
-							.addEventListener(
-									"click",
-									function(e) {
-										e.preventDefault();
-										(this.classList.contains("is-active") === true) ? this.classList
-												.remove("is-active")
-												: this.classList
-														.add("is-active");
-									});
-				}
-
-			})();
-		</script>
-
-		<script src="../assets/js/propeller.min.js"></script>
-		<!-- Select2 js-->
-		<script type="text/javascript"
-			src="../components/select2/js/select2.full.js"></script>
-
-		<!-- Propeller Select2 -->
-		<script type="text/javascript">
-			$(document).ready(function() {
-
-				$(".select-simple").select2({
-					theme : "bootstrap",
-					minimumResultsForSearch : Infinity,
 				});
+	</script>
+	<script type="text/javascript">
+		(function() {
+			"use strict";
+			var toggles = document.querySelectorAll(".c-hamburger");
+			for (var i = toggles.length - 1; i >= 0; i--) {
+				var toggle = toggles[i];
+				toggleHandler(toggle);
+			}
+			;
 
-				$(".select-with-search").select2({
-					theme : "bootstrap"
-				});
+			function toggleHandler(toggle) {
+				toggle
+						.addEventListener(
+								"click",
+								function(e) {
+									e.preventDefault();
+									(this.classList.contains("is-active") === true) ? this.classList
+											.remove("is-active")
+											: this.classList.add("is-active");
+								});
+			}
 
-				$(".select-tags").select2({
-					tags : false,
-					theme : "bootstrap",
-				});
+		})();
+	</script>
 
-				$(".select-add-tags").select2({
-					tags : true,
-					theme : "bootstrap",
-				});
+	<script src="../assets/js/propeller.min.js"></script>
+	<!-- Select2 js-->
+	<script type="text/javascript"
+		src="../components/select2/js/select2.full.js"></script>
+
+	<!-- Propeller Select2 -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$(".select-simple").select2({
+				theme : "bootstrap",
+				minimumResultsForSearch : Infinity,
 			});
-		</script>
-		<script type="text/javascript"
-			src="../components/select2/js/pmd-select2.js"></script>
+
+			$(".select-with-search").select2({
+				theme : "bootstrap"
+			});
+
+			$(".select-tags").select2({
+				tags : false,
+				theme : "bootstrap",
+			});
+
+			$(".select-add-tags").select2({
+				tags : true,
+				theme : "bootstrap",
+			});
+		});
+	</script>
+	<script type="text/javascript"
+		src="../components/select2/js/pmd-select2.js"></script>
 </body>
 
 </html>

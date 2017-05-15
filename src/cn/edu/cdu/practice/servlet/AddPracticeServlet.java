@@ -84,8 +84,10 @@ public class AddPracticeServlet extends HttpServlet {
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			if (projectDaoImpl.addProject(project)){
 				//实训方案添加成功
+				request.getRequestDispatcher("SelectPracticeServlet?selectProjectType=1").forward(request, response);
 			}else{
 				//实训方案添加失败
+				request.getRequestDispatcher("SelectPracticeServlet?selectProjectType=1").forward(request, response);
 			}
 		}
 

@@ -88,7 +88,7 @@
 													<label class="control-label col-md-2">企业用户名</label>
 												</div>
 												<input type="text" class="mat-input form-control"
-													disabled="" value="${sessionScope.company_username }">
+													disabled="" value="${account }">
 											</div>
 										</div>
 

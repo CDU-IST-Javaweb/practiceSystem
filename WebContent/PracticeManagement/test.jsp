@@ -150,7 +150,7 @@
 					</div>
 			</a>
 				<ul class="dropdown-menu">
-					<li><a href="../SystemsManagement/system-parameter.jsp">系统参数配置</a></li>
+					<li><a href="../SystemsManagement/SelectSystemConfigServlet">系统参数配置</a></li>
 				</ul></li>
 		</c:if>
 		<!--登出-->

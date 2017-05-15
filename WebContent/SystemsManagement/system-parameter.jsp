@@ -64,9 +64,8 @@
                             <div class="pmd-card pmd-z-depth">
                                 <div class="pmd-card-body pmd-card-custom-form">
                                     <div class="table-responsive">
-                                    <form action="${pageContext.request.contextPath }/SystemsManagement/SystemConfigssssServlet" method="post">
+                                    <form action = "MyConfigServlet" method="post">
                                         <table class="table pmd-table table-bordered">
-                                            <thead>
                                                 <tr>
                                                     <th>管理员用户名</th>
                                                     <td><input type="text" name="account" value="${sys.adminUsername }"></td>
@@ -97,7 +96,7 @@
                                                 </tr>
                                                 <tr> 
                                                 <th>学生最多待选方案数量</th>
-                                                 <td><input type="text" name="studentSelMaxnum" value="${sys.adminUsername }"></td>
+                                                 <td><input type="text" name="studentSelMaxnum" value="${sys.studentSelMaxnum }"></td>
                                                 </tr>
                                                 <tr>
                                                 	<th>操作选项</th>
@@ -106,13 +105,9 @@
                                                 		<input type="reset"  value="重置">
                                                 	</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
                                         </table>
                                         </form>
                                     </div>
-                              
                                 </div>
                             </div>
                         </div>

@@ -131,8 +131,8 @@
 				  		共${pager.totalSize}条纪录，当前第${pager.pageNow}/${pager.totalPage}页，每页${pager.pageSize}条纪录
 				  		<c:choose>
 				  			<c:when test="${pager.hasPre}">
-				  				<a href="ShowNoticeListsServlet?pageNow=1">首页</a> |
-                				<a href="ShowNoticeListsServlet?pageNow=${pager.pageNow - 1}">上一页</a> |
+				  				<a href="ShowNoticeListServlet?pageNow=1">首页</a> |
+                				<a href="ShowNoticeListServlet?pageNow=${pager.pageNow - 1}">上一页</a> |
 				  			</c:when>
 				  			<c:otherwise>
 				  				<c:out value="首页 | 上一页 | "></c:out>
@@ -140,8 +140,8 @@
 				  		</c:choose>
 				  		<c:choose>
 				  			<c:when test="${pager.hasNext }">
-                				<a href="ShowNoticeListsServlet?pageNow=${pager.pageNow + 1}">下一页</a> |
-                			<a href="ShowNoticeListsServlet?pageNow=${pager.totalPage}">尾页</a>
+                				<a href="ShowNoticeListServlet?pageNow=${pager.pageNow + 1}">下一页</a> |
+                			<a href="ShowNoticeListServlet?pageNow=${pager.totalPage}">尾页</a>
                				</c:when>
                				<c:otherwise>
                					<c:out value="下一页 | 尾页"/>

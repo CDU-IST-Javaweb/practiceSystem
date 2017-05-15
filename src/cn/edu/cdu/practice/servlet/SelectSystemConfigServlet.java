@@ -29,11 +29,9 @@ public class SelectSystemConfigServlet extends HttpServlet {
     }
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("进入查看系统配置的Servlet");
     	HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("account");
-		if (user == null) {
-			user = "968";
-		}
 		try {
 			//从数据库中获取SystemParameter对象并存进session
 			SystemParameterService systemParameterService = new SystemParameterServiceImpl();
@@ -41,6 +39,7 @@ public class SelectSystemConfigServlet extends HttpServlet {
 			session.setAttribute("sys", systemParameter);
 			request.getRequestDispatcher("/SystemsManagement/system-parameter.jsp").forward(request, response);
 		}catch(Exception e) {
+			System.out.println("有错");
 			Log4jUtils.info(e.getMessage());
 			request.getRequestDispatcher("/404.html").forward(request, response);
 			return;

@@ -28,9 +28,6 @@ public class ShowCompanyServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String account = (String) session.getAttribute("account");
-		if (account == null) {
-			account = "sayHello";
-		}
 		CompanyService companyService = new CompanyServiceImpl();
 		Company company = null ;
 		try {

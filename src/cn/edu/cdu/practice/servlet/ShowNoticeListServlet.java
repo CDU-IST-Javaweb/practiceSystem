@@ -37,9 +37,6 @@ public class ShowNoticeListServlet extends HttpServlet {
 		int pageSize = 5;
 		HttpSession session = request.getSession();
 		String account = (String) session.getAttribute("account");
-		if (account == null) {
-			account = "sayHello";
-		}
 		try {
 			int totalSize = noticeService.queryAllByName(account);
 			PageUtils pager = new PageUtils(pageNow, totalSize);

@@ -421,7 +421,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public boolean unChooseProject(String p_no, String stu_no) {
-		String sql = "DELETE FROM project_select WHERE studentNo=? and projectNo=? and company_sel_date IS NOT NULL AND score IS NULL";
+		String sql = "DELETE FROM project_select WHERE studentNo=? and projectNo=? and company_sel_date IS NULL";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		try {

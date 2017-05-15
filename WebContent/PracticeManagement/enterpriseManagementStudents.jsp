@@ -116,10 +116,13 @@
                     <span>我的方案</span>
                   </label>
                 </form>-->
-					<form action="">
+					<form action="ChoicePracticeInfoServlet">
 						<div class="col-md-2 form-inline">
-							<select class="select-simple form-control pmd-select2">
-								<option>我的方案</option>
+							<select class="select-simple form-control pmd-select2"
+							name="selectChoiceByType">
+								<option value="1">已选学生</option>
+								<option value="2">未选学生</option>
+								<option value="3">全部学生</option>
 							</select>
 						</div>
 						<div class="col-md-3">
@@ -135,7 +138,7 @@
 							<button class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 								type="submit">查询</button>
 							<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
-								href="recording-results.html">录入成绩</a> <a
+								href="#">录入成绩</a> <a
 								class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 								href="#">导出成绩</a>
 						</div>
@@ -193,9 +196,9 @@
 								</tr>
 								<div tabindex="-1" class="modal fade"
 									id="form-dialog-${proProSelStuView.project.no }"
-									style="display: none;" aria-hidden="true">
+									style="display: none;" aria-hidden="true" >
 									<div class="modal-dialog">
-										<div class="modal-content">
+										<div class="modal-content" style="height:780px;">
 											<div class="modal-header pmd-modal-bordered">
 												<button aria-hidden="true" data-dismiss="modal"
 													class="close" type="button">×</button>
@@ -203,7 +206,7 @@
 											</div>
 											<div class="modal-body">
 												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-4">
+													<div class="input-group col-md-12">
 														<div class="input-group-addon">
 															<label class="control-label col-md-2">学号：</label>
 														</div>
@@ -213,7 +216,7 @@
 													</div>
 												</div>
 												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-4">
+													<div class="input-group col-md-12">
 														<div class="input-group-addon">
 															<label class="control-label col-md-2">姓名：</label>
 														</div>
@@ -223,7 +226,7 @@
 													</div>
 												</div>
 												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-4">
+													<div class="input-group col-md-12">
 														<div class="input-group-addon">
 															<label class="control-label col-md-2">方案号：</label>
 														</div>
@@ -233,7 +236,7 @@
 													</div>
 												</div>
 												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-4">
+													<div class="input-group col-md-12">
 														<div class="input-group-addon">
 															<label class="control-label col-md-2">方案名：</label>
 														</div>
@@ -242,19 +245,19 @@
 															class="mat-input form-control">
 													</div>
 												</div>
-												<div class="form-group pmd-textfield col-md-8">
+												<div class="form-group pmd-textfield col-md-12">
 													<label class="control-label  arer-lable">学科背景:</label>
 													<textarea required readonly="" class="form-control">${proProSelStuView.student.subjectBackground }</textarea>
 												</div>
-												<div class="form-group pmd-textfield col-md-8">
+												<div class="form-group pmd-textfield col-md-12">
 													<label class="control-label  arer-lable">学习经历:</label>
 													<textarea required readonly="" class="form-control">${proProSelStuView.student.learningExperience }</textarea>
 												</div>
-												<div class="form-group pmd-textfield col-md-8">
+												<div class="form-group pmd-textfield col-md-12">
 													<label class="control-label  arer-lable">研究方向:</label>
 													<textarea required readonly="" class="form-control">${proProSelStuView.student.researchDirection }</textarea>
 												</div>
-												<div class="form-group pmd-textfield col-md-8">
+												<div class="form-group pmd-textfield col-md-12">
 													<label class="control-label  arer-lable">选题理由:</label>
 													<textarea required readonly="" class="form-control">${proProSelStuView.projectSelect.selReason }</textarea>
 												</div>

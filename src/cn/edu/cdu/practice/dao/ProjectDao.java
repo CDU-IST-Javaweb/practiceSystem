@@ -203,9 +203,10 @@ public interface ProjectDao {
 	/**
 	 * 根据企业方案号，统计学生选择的数量
 	 * @param p_no
+	 * @param type: 1-已被企业选择  2-未被企业选择  3-全部
 	 * @return
 	 */
-	public int countAllStudentChoiceByPNo(String p_no);
+	public int countAllStudentChoiceByPNoAndType(String p_no,String type);
 	
 	
 	/**
@@ -255,5 +256,14 @@ public interface ProjectDao {
 	 * @return
 	 */
 	public ArrayList<ProjectSelect> findStuProject(String stu_no);
+	
+	/**
+	 * 企业查询学生选择本企业某方案情况
+	 * @param p_no 企业方案号
+	 * @param type 1-已选择、2-未选择学生
+	 * @param pageUtils 分页工具类
+	 * @return 
+	 */
+	public ArrayList<ProProSelStuView> findAllStudentChoiceByPNoAndType(String p_no,String type,PageUtils pageUtils);
 }
 

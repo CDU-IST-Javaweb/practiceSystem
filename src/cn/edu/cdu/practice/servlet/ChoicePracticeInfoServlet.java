@@ -76,14 +76,21 @@ public class ChoicePracticeInfoServlet extends HttpServlet {
 				proProSelStuViews = projectDaoImpl.findAllStudentChoice(company_username, pageUtils);
 			} else {
 				String p_no = request.getParameter("selectChoiceByPNo");
+				String selectChoiceByType=request.getParameter("selectChoiceByType");
 				if (p_no != null) {
 					// p_no不为空说明是第一次有条件访问，需保存p_no的值，以备用户点击页面下一页时使用
 					request.getSession().setAttribute("selectChoiceByPNo", p_no);
+					request.getSession().setAttribute("selectChoiceByType", selectChoiceByType);
 				} else {
 					// 表示用户在查看其他页,此时页面没有传入p_no的值，从session获取
 					p_no = (String) request.getSession().getAttribute("selectChoiceByPNo");
 				}
-				proProSelStuViews = projectDaoImpl.findAllStudentChoiceByPNo(p_no, pageUtils);
+				proProSelStuViews = projectDaoImpl.findAllStudentChoiceByPNoAndType(p_no,selectChoiceByType, pageUtils);
+			}
+			if(proProSelStuViews==null){
+				request.getRequestDispatcher("/PracticeManagement/enterpriseManagementStudents.jsp").forward(request,
+						response);
+				return;
 			}
 			//对学生是否已有确定的实训方案进行标识
 			HashMap< String, Boolean> stuHasProject=new HashMap<>();

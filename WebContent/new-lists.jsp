@@ -71,7 +71,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li><a class="hvr-rectangle-out pmd-ripple-effect" href="index.html">主页</a></li>
+                        <li><a class="hvr-rectangle-out pmd-ripple-effect" href="index.jsp">主页</a></li>
                         <li><a class="hvr-rectangle-out pmd-ripple-effect" href="javascript:;">关于我们</a></li>
                         <li><a class="hvr-rectangle-out pmd-ripple-effect" href="javascript:;">学院通知</a></li>
                         <li><a class="hvr-rectangle-out pmd-ripple-effect" href="javascript:;">企业公告</a></li>
@@ -80,7 +80,7 @@
 
                         <li>
                             <!--<a style="padding-left: 26px;" href="Login/login.html" class="hvr-icon-forward pmd-ripple-effect">登录|注册</a>-->
-                            <a class="hvr-rectangle-out pmd-ripple-effect" href="Login/login.html"><i  style="padding-right: 14px;" class="fa fa-hand-o-right"></i>登录|注册</a>
+                            <a class="hvr-rectangle-out pmd-ripple-effect" href="Login/login.jsp"><i  style="padding-right: 14px;" class="fa fa-hand-o-right"></i>登录|注册</a>
                         </li>
 
                     </ul>
@@ -203,7 +203,7 @@
                         <li><a target="_blank" class="white-text" href="http://www.cdu.edu.cn/">成都学院（成都大学）首页</a></li>
                         <li><a target="_blank" class="white-text" href="http://jw.cdu.edu.cn/">成都大学教务处信息系统</a></li>
                         <li><a target="_blank" class="white-text" href="http://computer.cdu.edu.cn">信息科学与工程学院</a></li>
-                        <li><a target="_blank" class="white-text" href="Login/login.html">后台管理</a></li>
+                        <li><a target="_blank" class="white-text" href="Login/login.jsp">后台管理</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 fot-right col-md-offset-1 col-xs-12">

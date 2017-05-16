@@ -17,8 +17,8 @@ import java.util.List;
  * @Description: UserService接口的实现
  * @Author 于曦
  * @Date： 2017-4-17:下午21:04:04
- * Modification User： 程序修改时由修改人员编写
- * Modification Date： 程序修改时间
+ * Modification User： 于曦：所有输入的验证码都改成大写再进行比较
+ * Modification Date： 2017-5-16:下午23:03
  */
 public class UserServiceImpl implements UserService{
 
@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService{
 		ResultSet rs;
 		PreparedStatement ps;
 		String account_type = "";
-		System.out.println(Verification_Code + " "+ vchidden.toLowerCase());
+		System.out.println(Verification_Code + " "+ vchidden.toUpperCase());
 		//如果验证码不正确或没有得到验证码，返回false
-		if(Verification_Code == null || !Verification_Code.equals(vchidden.toLowerCase())){
+		if(Verification_Code == null || !Verification_Code.equals(vchidden.toUpperCase())){
 			Log4jUtils.info("用户验证码输入错误");
 			return false;
 		}

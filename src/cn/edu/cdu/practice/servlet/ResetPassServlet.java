@@ -20,8 +20,8 @@ import cn.edu.cdu.practice.utils.EmailUtils;
  * @Description: 重置密码
  * @Author 于曦
  * @Date： 2017-5-1:上午10:04:04
- * Modification User： 程序修改时由修改人员编写
- * Modification Date： 程序修改时间
+ * Modification User： 于曦：所有输入的验证码都改成大写再进行比较
+ * Modification Date： 2017-5-16:下午23:02
  */
 @WebServlet("/Login/ResetPassServlet")
 public class ResetPassServlet extends HttpServlet {
@@ -45,9 +45,9 @@ public class ResetPassServlet extends HttpServlet {
 		//获得保密邮箱
 		String mbemail = request.getParameter("mbemail");
 		//获得用户输入的验证码
-		String rvcinAction = request.getParameter("rvcinAction").toLowerCase();
+		String rvcinAction = request.getParameter("rvcinAction").toUpperCase();
 		//获得隐藏控件中得到的验证码，该验证码是发到保密邮箱的。
-		String rvchidden = request.getParameter("rvchidden").toLowerCase();
+		String rvchidden = request.getParameter("rvchidden").toUpperCase();
 		//获得用户的新密码
 		String newpassword = request.getParameter("newpassword");
 		//获得用户输入的确认密码

@@ -9,8 +9,8 @@ import java.util.Random;
   * @Description: 随机生成验证码工具类
   * @Author 陈天雄
   * @Date： 2017-4-16:下午3:48:53
-  * Modification User： 程序修改时由修改人员编写
-  * Modification Date： 程序修改时间
+  * Modification User： 于曦，将O去掉，避免用户不知道该输入0还是O
+  * Modification Date： 2017-5-16 下午 22:52
   */
 public class IdentifyCodeUtils {
 	/**
@@ -19,7 +19,7 @@ public class IdentifyCodeUtils {
 	 * @return 返回随机生成的验证码
 	 */
 	public static String getCode() {
-		String codes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+		String codes = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
 		char[] codeChar = codes.toCharArray();
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();

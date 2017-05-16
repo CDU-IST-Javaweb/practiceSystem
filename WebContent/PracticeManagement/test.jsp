@@ -40,13 +40,13 @@
 				<div class="media-left">
 					<img src="../assets/images/user-icon.png" alt="New User">
 				</div>
-				<div class="media-body media-middle">${account }(${role })</div>
+				<div class="media-body media-middle">${account }</div>
 				<div class="media-right media-middle">
 					<i class="dic-more-vert dic"></i>
 				</div>
 		</a>
 			<ul class="dropdown-menu">
-				<li><a href="../Login/login.html">注销</a></li>
+				<li><a href="../Login/login.jsp">注销</a></li>
 			</ul>
 		</li>
 		<!-- End user info -->
@@ -167,7 +167,7 @@
 				</svg></i> <span class="media-body">注销登录</span>
 		</a></li>
 		<!--提醒事项-->
-		<li><a class="pmd-ripple-effect"
+		<!-- <li><a class="pmd-ripple-effect"
 			href="../SystemsManagement/notifications.html"> <i
 				class="media-left media-middle"> <svg version="1.1" id="Layer_1"
 						x="0px" y="0px" width="15.3px" height="18px"
@@ -183,7 +183,7 @@
 						</g>
 					</g>
 				</svg></i> <span class="media-body">提醒事项</span>
-		</a></li>
+		</a></li> -->
 
 	</ul>
 </aside>

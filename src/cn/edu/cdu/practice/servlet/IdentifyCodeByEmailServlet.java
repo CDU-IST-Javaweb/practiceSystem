@@ -55,7 +55,6 @@ public class IdentifyCodeByEmailServlet extends HttpServlet {
 		List<String> userinfo = usi.searchbyEmail(mbemail);
 		//如果字符串为空，是否转换为0？
 		int role = Integer.parseInt(userinfo.get(1));
-		System.out.println("role ==="+role);
 		session.setAttribute("role", userinfo.get(1));
 		//如果没有找到该保密邮箱，则提示用户输入错误；如果找到，则发送验证码，同时把信息存入mailbox_verification表
 		if(userinfo.get(1).equals("")) {

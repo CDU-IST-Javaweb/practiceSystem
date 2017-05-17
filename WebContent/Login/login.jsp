@@ -416,7 +416,6 @@ response.setDateHeader("Expires",0);
 				var mbemail = $("#regist-email").val();
 				alert(mbemail);
 				 htmlobj=$.ajax({url:"/practiceSystem/Login/SendMailServlet?mbemail="+mbemail,async:false});
-				  $("#MyYzm").val(htmlobj.responseText);
 			});
 		});
 	</script>

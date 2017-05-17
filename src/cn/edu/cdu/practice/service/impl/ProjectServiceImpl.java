@@ -25,7 +25,7 @@ public class ProjectServiceImpl implements ProjectService {
 		if (m >= 0) {
 			return m + 1 + "";
 		}else{
-			return Calendar.getInstance().get(Calendar.YEAR)+000001+"";
+			return Calendar.getInstance().get(Calendar.YEAR)+""+000001;
 		}
 	}
 

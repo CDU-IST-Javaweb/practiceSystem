@@ -211,11 +211,18 @@
 									<td>${selectProject.category }</td>
 									<td>${selectProject.grade }</td>
 									<td>${selectProject.releaseDate }</td>
-									<td>${selectProject.companyUsername }</td>
-									<td>
-										<button type="button"
-											class="btn pmd-btn-outline pmd-ripple-effect">${stuProjectNo.equals(selectProject.no)?"已审核":"未审核" }</button>
-									</td>
+									<!--  <td>${selectProject.companyUsername }</td>-->
+									<td>${companyInfo[selectProject.no].companyName }</td>
+									<td><c:if test="${stuProjectNo.equals(selectProject.no) }">
+											<button type="button"
+												class="btn pmd-btn-outline pmd-ripple-effect">已审核</button>
+										</c:if> <c:if test="${!stuProjectNo.equals(selectProject.no)&&choiceState[selectProject.no]==1 }">
+											<button type="button"
+												class="btn pmd-btn-outline pmd-ripple-effect btn-danger">未审核</button>
+										</c:if> <c:if
+											test="${choiceState[selectProject.no]==0||choiceState[selectProject.no]==null }">
+											-
+										</c:if></td>
 									<td><c:if test="${choiceState[selectProject.no]==1 }">
 											<button type="button"
 												class="btn pmd-btn-outline pmd-ripple-effect btn-success">已选</button>

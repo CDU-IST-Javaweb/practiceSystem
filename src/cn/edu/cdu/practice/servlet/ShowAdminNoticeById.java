@@ -32,7 +32,8 @@ public class ShowAdminNoticeById extends HttpServlet {
 		HttpSession session = request.getSession();
 		//参数校验，如果有非法字符，那么就跳转到404
 		if (ValidateUtils.validate(Id) || Id == null) {
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 			return ;
 		}
 		try {
@@ -43,7 +44,8 @@ public class ShowAdminNoticeById extends HttpServlet {
 			request.getRequestDispatcher("/SystemsManagement/adminAnnuncement-modify.jsp").forward(request, response);
 		}catch(Exception e) {
 			Log4jUtils.info(e.getMessage());
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 		
 	}

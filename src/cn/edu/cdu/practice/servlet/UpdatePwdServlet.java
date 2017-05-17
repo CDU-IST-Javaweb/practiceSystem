@@ -36,12 +36,14 @@ public class UpdatePwdServlet extends HttpServlet {
 		if (ValidateUtils.validate(oldPwd) || ValidateUtils.validate(newPwd1)
 				|| ValidateUtils.validate(newPwd2)) {
 			System.out.println("有可疑参数");
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 			return ;
 		}
 		//如果两次密码不一致
 		if (!newPwd1.equals(newPwd2)) {
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 			return ;
 		}
 		else {
@@ -61,12 +63,14 @@ public class UpdatePwdServlet extends HttpServlet {
 					request.getRequestDispatcher("/SystemsManagement/ShowNoticeListServlet").forward(request, response);
 				}
 				else {
-					request.getRequestDispatcher("/404.html").forward(request, response);
+					response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+					//request.getRequestDispatcher("/404.html").forward(request, response);
 					return ;
 				}
 			}catch(Exception e) {
 				Log4jUtils.info(e.getMessage());
-				request.getRequestDispatcher("/404.html").forward(request, response);
+				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+				//request.getRequestDispatcher("/404.html").forward(request, response);
 				return ;
 			}
 		}

@@ -33,7 +33,8 @@ public class AddNoticeAdminServlet extends HttpServlet {
 		System.out.println(title+" "+content);
 		if (ValidateUtils.validate(title) || ValidateUtils.validate(content)) {
 			System.out.println("有可疑参数");
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 			return ;
 		}
 		NoticeService noticeService = new NoticeServiceImpl();
@@ -49,7 +50,8 @@ public class AddNoticeAdminServlet extends HttpServlet {
 			request.getRequestDispatcher("/SystemsManagement/ShowAdminNotices").forward(request, response);
 		} catch(Exception e) {
 			Log4jUtils.info(e.getMessage());
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 	}
 

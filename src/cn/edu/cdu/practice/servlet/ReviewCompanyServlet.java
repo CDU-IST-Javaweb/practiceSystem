@@ -43,7 +43,8 @@ public class ReviewCompanyServlet extends HttpServlet {
 			//根据用户名取出的Company对象为空
 			if (company == null) {
 				System.out.println("对象为空");
-				request.getRequestDispatcher("/404.html").forward(request, response);
+				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+				//request.getRequestDispatcher("/404.html").forward(request, response);
 				return;
 			}
 			else {
@@ -53,7 +54,8 @@ public class ReviewCompanyServlet extends HttpServlet {
 					if (companyService.backReview(company)) {
 						request.getRequestDispatcher("/EnterpriseManagement/ShowCompanyssServlet").forward(request, response);
 					}else {
-						request.getRequestDispatcher("/404.html").forward(request, response);
+						response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+						//request.getRequestDispatcher("/404.html").forward(request, response);
 						return ;
 					}
 				}
@@ -68,14 +70,16 @@ public class ReviewCompanyServlet extends HttpServlet {
 						request.getRequestDispatcher("/EnterpriseManagement/ShowCompanyssServlet").forward(request, response);
 					}
 					else {
-						request.getRequestDispatcher("/404.html").forward(request, response);
+						response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+						//request.getRequestDispatcher("/404.html").forward(request, response);
 						return ;
 					}
 				}
 			}
 		}catch(Exception e) {
 			Log4jUtils.info(e.getMessage());
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 	}
 

@@ -55,7 +55,8 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 				request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
 			}
 		} else {
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 
 	}
@@ -88,7 +89,8 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 				request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
 			}
 		} else {
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 	}
 

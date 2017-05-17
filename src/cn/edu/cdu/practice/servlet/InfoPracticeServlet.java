@@ -46,6 +46,8 @@ public class InfoPracticeServlet extends HttpServlet {
 				request.setAttribute("InfoRole", 0);
 			request.setAttribute("infoProject", project);
 			request.getRequestDispatcher("/PracticeManagement/infoPractice.jsp").forward(request, response);
+		}else{
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
 		}
 
 	}

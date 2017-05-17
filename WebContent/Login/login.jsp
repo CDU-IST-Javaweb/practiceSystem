@@ -55,7 +55,7 @@ response.setDateHeader("Expires",0);
             <!--左侧滑-->
             <div class="navbar-header">
                
-                <a href="../index.jsp" class="navbar-brand">
+                <a href="../index.jsp" class="navbar-brand" style="line-height: 5rem;">
 		   	成都大学信工学院|实训实习系统
 		  </a>
             </div>

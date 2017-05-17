@@ -658,6 +658,7 @@ h5 {
 
 .grey-text.text-lighten-4 {
     color: #f5f5f5 !important;
+    letter-spacing: 1px;
 }
 
 .grey-text {
@@ -755,7 +756,7 @@ ul:not(.browser-default) li {
     display: block;
     margin: 23px auto;
     height: 35px;
-    width: 33.33333333%;
+    width: 56.333333%;
 }
 
 

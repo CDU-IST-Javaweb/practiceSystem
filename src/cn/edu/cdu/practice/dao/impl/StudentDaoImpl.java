@@ -440,9 +440,41 @@ public class StudentDaoImpl implements StudentDao {
 	}
 
 	@Override
-	public boolean importStudent(String fileName) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean importStudent(List<Student> list) {
+		Connection conn = DbUtils.getConnection();
+		PreparedStatement pstmt = null;
+		String sql="insert into student values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		try{
+			//关闭自动提交
+			conn.setAutoCommit(false);
+			pstmt=conn.prepareStatement(sql);
+			for(Student student : list) {
+				pstmt.setString(1, student.getNo());
+				pstmt.setString(2, student.getName());
+				pstmt.setInt(3, student.getGrade());
+				pstmt.setString(4, student.getLevel());
+				pstmt.setString(5, student.getProfessional());
+				pstmt.setString(6, student.getGender());
+				pstmt.setString(7, student.getClass_());
+				pstmt.setString(8, student.getPassword());
+				pstmt.setString(9, student.getMailbox());
+				pstmt.setString(10, student.getSubjectBackground());
+				pstmt.setString(11, student.getLearningExperience());
+				pstmt.setString(12, student.getResearchDirection());
+				pstmt.addBatch();
+			}
+			pstmt.executeBatch();
+			//事务提交
+			conn.commit();
+			System.out.println("成功");
+					
+		} catch(SQLException e){
+			e.printStackTrace();
+			return false;
+		} finally{
+			DbUtils.closeConnection(conn, pstmt, null);
+		}		
+		return true;
 	}
 
 	@Override

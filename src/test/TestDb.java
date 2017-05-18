@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import cn.edu.cdu.practice.dao.StudentDao;
+import cn.edu.cdu.practice.dao.impl.StudentDaoImpl;
 import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.NoticeCompany;
 import cn.edu.cdu.practice.model.Student;
@@ -45,7 +47,7 @@ public class TestDb {
 	 */
 	@Test
 	public void test() throws Exception {
-		InputStream in = new FileInputStream("src/123.xlsx");
+		/*InputStream in = new FileInputStream("src/123.xlsx");
 		List<Student> list = ExcelInUtil.importStudentExcel("src/123.xlsx");
 		System.out.println(list.size());
 		for(Student student : list) {
@@ -53,5 +55,15 @@ public class TestDb {
 					+student.getMailbox()+" "+student.getLevel() +" "+student.getClass_()+" "+student.getProfessional()+
 					student.getGrade());
 		}
+	}*/
+		Connection connection = DbUtils.getConnection();
+		StudentDao studentDao = new StudentDaoImpl();
+		List<Student> list = ExcelInUtil.importStudentExcel("123.xlsx");
+//		for(Student student : list) {
+//			System.out.println(student.getName() + " "+student.getGender() + " "+student.getNo() + " "
+//					+student.getMailbox()+" "+student.getLevel() +" "+student.getClass_()+" "+student.getProfessional()+
+//					student.getGrade());
+//		}
+		studentDao.importStudent(list);
 	}
 }

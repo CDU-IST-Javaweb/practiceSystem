@@ -32,7 +32,8 @@ import cn.edu.cdu.practice.model.Student;
   * Modification Date： 程序修改时间
   */
 public class ExcelInUtil {
-	 public static String formatCell3(XSSFCell xssfCell) {  
+	 static ClassLoader loader = ExcelInUtil.class.getClassLoader();
+	 public static String formatCell3(XSSFCell xssfCell) {
 	        if (xssfCell == null) {  
 	            return "";  
 	        }  
@@ -74,7 +75,7 @@ public class ExcelInUtil {
 	  * 针对excel 2007
 	 */
 	public static List<Student> importStudentExcel(String file) throws Exception {
-		 XSSFWorkbook wb=new XSSFWorkbook(file);  
+		 XSSFWorkbook wb=new XSSFWorkbook(new FileInputStream(file));  
 	     XSSFSheet hssfSheet=wb.getSheetAt(0);  
 	     List<Student> list = new ArrayList<Student>();
 	     Student student = null;
@@ -102,19 +103,17 @@ public class ExcelInUtil {
 			return null ;
 		}
 	     
-	     /*
-	      * 使用示例
-	      * @Test
-		public void test() throws Exception {
-		InputStream in = new FileInputStream("src/123.xlsx");
-		List<Student> list = ExcelInUtil.importStudentExcel("src/123.xlsx");
-		System.out.println(list.size());
-		for(Student student : list) {
-			System.out.println(student.getName() + " "+student.getGender() + " "+student.getNo() + " "
-					+student.getMailbox()+" "+student.getLevel() +" "+student.getClass_()+" "+student.getProfessional()+
-					student.getGrade());
-		}
+	   
 	}
-	     */
+	 
+   /* @Test
+    public void test() throws Exception {
+	List<Student> list = ExcelInUtil.importStudentExcel("123.xlsx");
+	System.out.println(list.size());
+	for(Student student : list) {
+		System.out.println(student.getName() + " "+student.getGender() + " "+student.getNo() + " "
+				+student.getMailbox()+" "+student.getLevel() +" "+student.getClass_()+" "+student.getProfessional()+
+				student.getGrade());
 	}
+    }*/
 }

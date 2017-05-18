@@ -7,9 +7,6 @@
 <title>测试文件上传</title>
 </head>
 <body>
-	<form action="" method="post" enctype="multipart/form-data">
-		<input type="file" name="file" value="导入">
-		<input type="submit" value="确定">
-	</form>
+	${message },点击<a href="/practiceSystem/StudentManagement/student-management.jsp">返回</a>
 </body>
 </html>

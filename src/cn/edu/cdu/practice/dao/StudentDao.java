@@ -110,7 +110,7 @@ public interface StudentDao {
 	 * @param fileName 文件名
 	 * @return true 成功；false 失败
 	 */
-	public boolean importStudent(String fileName);
+	public boolean importStudent(List<Student> list);
 	
 	/**
 	 * 导出学生信息（导出到Excel文件中）

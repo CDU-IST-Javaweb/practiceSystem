@@ -101,16 +101,12 @@
                         <!--  <input type="submit" value="查询">-->
                         <a class="btn pmd-ripple-effect btn-primary" href="#" id="query" >查询</a>
                         <!--  </form>-->
+                        <form name="form1" method="post" enctype="multipart/form-data" action="/practiceSystem/StudentManagement/StudentInfoImport" >
+						<input type="file" name="file" /> 
+						<input type="submit" value="导入">
+						</form>
                     </div>
-
                     <div class="PM-nav">
-                    <form name="form1" method="post" enctype="multipart/form-data" action="StudentInfoImport" >
-                    <!-- <input type="file" id="file" name="file" onchange="upFile()"
-						style="filter:alpha(opacity=0);opacity:0;width: 0;height: 0;"/>  -->
-					<input type="file" name="file" /> 
-					<input type="file" name="file" /> 
-					<input type="submit" value="导入">
-					</form>
                         <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">导出</a>
 <!--                    <button data-target="#form-dialog" data-toggle="modal" class="btn pmd-btn-raised pmd-ripple-effect btn-warning pmd-z-depth" type="button">重置密码</button>
                         <div tabindex="-1" class="modal fade" id="form-dialog" style="display: none;" aria-hidden="true">

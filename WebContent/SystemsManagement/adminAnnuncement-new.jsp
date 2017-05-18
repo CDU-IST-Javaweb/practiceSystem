@@ -54,7 +54,7 @@
                 <!-- End Title -->
                 <!--breadcrum start-->
                 <ol class="breadcrumb text-left">
-                    <li><a href="index.html">主页</a></li>
+                    <li><a href="../Login/index.jsp">主页</a></li>
                     <li class="active">发布通知公告</li>
                 </ol>
                 <!--breadcrum end-->

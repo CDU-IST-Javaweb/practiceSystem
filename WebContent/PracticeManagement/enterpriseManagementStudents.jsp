@@ -172,7 +172,7 @@
 				<!-- End Title -->
 				<!--breadcrum start-->
 				<ol class="breadcrumb text-left">
-					<li><a href="index.html">主页</a></li>
+					<li><a href="../Login/index.jsp">主页</a></li>
 					<li class="active">企业管理学生</li>
 				</ol>
 				<!--breadcrum end-->
@@ -276,8 +276,7 @@
 						</tbody>
 					</table>
 					<!-- 分页 -->
-					第 <input type="text" value="${choiceProjectInfoPageUtils.pageNow }"
-						size="2"> / ${choiceProjectInfoPageUtils.totalPage }页
+					第 ${choiceProjectInfoPageUtils.pageNow } / ${choiceProjectInfoPageUtils.totalPage }页
 					<c:if test="${choiceProjectInfoPageUtils.isHasFirst() }">
 						<a href="ChoicePracticeInfoServlet?nowPage=1">首页&nbsp;</a>
 					</c:if>
@@ -465,7 +464,7 @@
 												bFilter : true,
 												bLengthChange : true,
 												pagingType : "simple",
-												"paging" : true,
+												"paging" : false,
 												"searching" : true,
 												"language" : {
 													"info" : " _START_ - _END_ of _TOTAL_ ",

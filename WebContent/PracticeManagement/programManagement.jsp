@@ -218,7 +218,8 @@
 											<td>${selectProject.grade }</td>
 											<td>${selectProject.releaseDate }</td>
 											<td>${selectProject.auditDate!=null?"已审核":"未审核" }</td>
-											<td>${selectProject.companyUsername }</td>
+											<!-- <td>${selectProject.companyUsername }</td> -->
+											<td>${companyInfo[selectProject.no].companyName }</td>
 											<td title="${selectProject.introduction }"><c:if
 													test="${selectProject.introduction.length()>30 }">
 											${selectProject.introduction.substring(0,30) }...

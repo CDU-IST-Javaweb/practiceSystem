@@ -2,6 +2,7 @@ package cn.edu.cdu.practice.servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.edu.cdu.practice.dao.impl.CompanyDaoImpl;
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
+import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.utils.Log4jUtils;
 import cn.edu.cdu.practice.utils.PageUtils;
@@ -87,6 +90,18 @@ public class SelectPracticeServlet extends HttpServlet {
 				projects = projectDaoImpl.findAllProject(Integer.parseInt(role), company_username, pageUtils,
 						checkState, year);
 			}
+
+			// 通过方案号保存方案所属企业对象
+			HashMap<String, Company> companyInfo = new HashMap<>();
+			CompanyDaoImpl companyDaoImpl = new CompanyDaoImpl();
+			if (projects != null) {
+				for (int i = 0; i < projects.size(); i++) {
+					Company company = companyDaoImpl.queryByUserName(projects.get(i).getCompanyUsername());
+					companyInfo.put(projects.get(i).getNo(), company);
+				}
+			}
+			request.setAttribute("companyInfo", companyInfo);
+
 			request.getSession().setAttribute("selectProjectPageUtils", pageUtils);
 
 			request.setAttribute("selectProjects", projects);
@@ -95,7 +110,8 @@ public class SelectPracticeServlet extends HttpServlet {
 		} else {
 			// 学生无法看到
 			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			// request.getRequestDispatcher("/404.html").forward(request,
+			// response);
 		}
 
 	}

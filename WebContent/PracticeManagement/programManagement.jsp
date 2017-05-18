@@ -74,6 +74,51 @@
 
 <body>
 	<%@include file="test.jsp"%>
+
+	<c:forEach items="${selectProjects }" var="selectProject">
+		<div tabindex="-1" class="modal fade"
+			id="form-dialog-${selectProject.no }" style="display: none;"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header pmd-modal-bordered">
+						<button aria-hidden="true" data-dismiss="modal" class="close"
+							type="button">×</button>
+						<h2 class="pmd-card-title-text">方案总结</h2>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" action="SummaryPracticeServlet"
+							method="post">
+							<div
+								class="form-group pmd-textfield pmd-textfield-floating-label">
+								<label for="first-name">方案号：</label> <input type="text"
+									readonly="" class="mat-input form-control"
+									value="${selectProject.no }" name="no">
+								<div
+									class="form-group pmd-textfield pmd-textfield-floating-label">
+									<label for="first-name">方案名称：</label> <input type="text"
+										readonly="" class="mat-input form-control"
+										value="${selectProject.name }" name="name">
+								</div>
+								<div
+									class="form-group pmd-textfield pmd-textfield-floating-label">
+									<label class="control-label">方案总结</label>
+									<textarea required class="form-control" name="summary">${selectProject.summary }</textarea>
+									<span class="help-text">方案总结不能为空</span>
+								</div>
+							</div>
+							<div class="pmd-modal-action">
+								<button class="btn pmd-ripple-effect btn-primary" type="submit">确定</button>
+								<a href="javascript:history.back(-1);" data-dismiss="modal"
+									class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+
 	<!--content area start-->
 	<div id="content" class="pmd-content inner-page">
 		<!--tab start-->
@@ -95,7 +140,7 @@
 				<!-- End Title -->
 				<!--breadcrum start-->
 				<ol class="breadcrumb text-left">
-					<li><a href="index.html">主页</a></li>
+					<li><a href="../Login/index.jsp">主页</a></li>
 					<li class="active">方案管理</li>
 				</ol>
 				<!--breadcrum end-->
@@ -107,23 +152,25 @@
 					<h2 style="text-align: center;">实训方案管理</h2>
 					<form action="SelectPracticeServlet" method="get">
 						<div class="col-md-2 form-inline">
-							<select class="select-simple form-control pmd-select2" name="selectByState">
+							<select class="select-simple form-control pmd-select2"
+								name="selectByState">
 								<option value="1">已审核</option>
 								<option value="0">未审核</option>
 							</select>
 						</div>
 						<div class="col-md-3 form-inline">
 							<label class="control-label">发布年度&nbsp;&nbsp;&nbsp;</label> <select
-								class="select-simple form-control pmd-select2" name="selectByYear">
+								class="select-simple form-control pmd-select2"
+								name="selectByYear">
 								<option value="2017">2017</option>
 								<option value="2016">2016</option>
 							</select>
 						</div>
-						<input type="hidden" value="2" name="selectProjectType"> 
+						<input type="hidden" value="2" name="selectProjectType">
 						<div class="PM-nav">
 							<button class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
-								type="submit">查询</button> <a
-								class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
+								type="submit">查询</button>
+							<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 								href="#">导出</a>
 
 							<c:if test="${selectProjectsRole==1 }">
@@ -204,56 +251,13 @@
 														type="button">方案总结</button>
 												</c:if></td>
 										</tr>
-										<div tabindex="-1" class="modal fade"
-											id="form-dialog-${selectProject.no }" style="display: none;"
-											aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header pmd-modal-bordered">
-														<button aria-hidden="true" data-dismiss="modal"
-															class="close" type="button">×</button>
-														<h2 class="pmd-card-title-text">方案总结</h2>
-													</div>
-													<div class="modal-body">
-														<form class="form-horizontal"
-															action="SummaryPracticeServlet" method="post">
-															<div
-																class="form-group pmd-textfield pmd-textfield-floating-label">
-																<label for="first-name">方案号：</label> <input type="text"
-																	readonly="" class="mat-input form-control"
-																	value="${selectProject.no }" name="no">
-																<div
-																	class="form-group pmd-textfield pmd-textfield-floating-label">
-																	<label for="first-name">方案名称：</label> <input
-																		type="text" readonly="" class="mat-input form-control"
-																		value="${selectProject.name }" name="name">
-																</div>
-																<div
-																	class="form-group pmd-textfield pmd-textfield-floating-label">
-																	<label class="control-label">方案总结</label>
-																	<textarea required class="form-control" name="summary">${selectProject.summary }</textarea>
-																	<span class="help-text">方案总结不能为空</span>
-																</div>
-															</div>
-															<div class="pmd-modal-action">
-																<button class="btn pmd-ripple-effect btn-primary"
-																	type="submit">确定</button>
-																<a href="javascript:history.back(-1);"
-																	data-dismiss="modal"
-																	class="btn pmd-ripple-effect btn-default" type="button">返回</a>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-										</div>
 									</c:forEach>
 								</tbody>
 							</table>
 
 							<!-- 分页 -->
-							第 <input type="text" value="${selectProjectPageUtils.pageNow }"
-								size="2"> / ${selectProjectPageUtils.totalPage }页
+							第 ${selectProjectPageUtils.pageNow } /
+							${selectProjectPageUtils.totalPage }页
 							<c:if test="${selectProjectPageUtils.isHasFirst() }">
 								<a href="SelectPracticeServlet?nowPage=1">首页&nbsp;</a>
 							</c:if>
@@ -448,7 +452,7 @@
 												bFilter : true,
 												bLengthChange : true,
 												pagingType : "simple",
-												"paging" : true,
+												"paging" : false,
 												"searching" : true,
 												"language" : {
 													"info" : " _START_ - _END_ of _TOTAL_ ",

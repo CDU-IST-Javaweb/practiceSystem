@@ -68,7 +68,7 @@
 				<!-- End Title -->
 				<!--breadcrum start-->
 				<ol class="breadcrumb text-left">
-					<li><a href="index.html">主页</a></li>
+					<li><a href="../Login/index.jsp">主页</a></li>
 					<li class="active">方案管理</li>
 				</ol>
 				<!--breadcrum end-->
@@ -97,16 +97,16 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">方案名称</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
+												<input type="text" value="" required="required" class="mat-input form-control "
 													name="name">
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
 											<label class="control-label col-md-2 arer-lable">方案简介</label>
-											<textarea required class="form-control" name="introduction"></textarea>
+											<textarea required="required" class="form-control" name="introduction" ></textarea>
 										</div>
 										<div class="form-group pmd-textfield">
-											<label class="control-label col-md-2">适合专业</label> <label
+											<label class="control-label col-md-1">适合专业</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
 												<input type="checkbox" value="信息与计算科学(本)" name="major">
 												<span> 信息与计算科学(本)</span>
@@ -150,7 +150,7 @@
 													<label class="control-label col-md-2">学生人数</label>
 												</div>
 												<input type="text" value="" class="mat-input form-control "
-													name="students_num">
+													name="students_num" required="required">
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
@@ -168,7 +168,7 @@
 										</div>
 										<!--Simple Select with Search-->
 										<div class="form-group pmd-textfield">
-											<div class="input-group col-md-6">
+											<div class="input-group col-md-4">
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">年级</label>
 												</div>
@@ -179,6 +179,7 @@
 													<option value="3">大三</option>
 													<option value="4">大四</option>
 												</select>
+												<label>提示：此选项为目标年级、高年级可选低年级方案。</label>
 											</div>
 										</div>
 										<div class="form-group pmd-textfield ">

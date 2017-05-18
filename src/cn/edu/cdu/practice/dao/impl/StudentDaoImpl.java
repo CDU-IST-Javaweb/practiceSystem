@@ -11,6 +11,8 @@ import java.util.List;
 import cn.edu.cdu.practice.dao.StudentDao;
 import cn.edu.cdu.practice.model.Student;
 import cn.edu.cdu.practice.utils.DbUtils;
+import cn.edu.cdu.practice.utils.EmailUtils;
+import cn.edu.cdu.practice.utils.IdentifyCodeUtils;
 
 /** 
 * @author  作者 E-mail: lyh_ht@163.com
@@ -410,6 +412,64 @@ public class StudentDaoImpl implements StudentDao {
 		return true;
 	}
 
+	/**
+	 * 更新学生的邮箱
+	 * 
+	 * 于曦
+	 */
+	public String updateEmail(String role, String account, String mbemail) {
+		Connection con = (Connection) DbUtils.getConnection();
+		String sql = "";
+		ResultSet rs;
+		int resultNum = 0;
+		PreparedStatement ps;
+		System.out.println("updateemail:"+role + account);
+		try {
+			//检查学生表里该登录用户是否有密保邮箱
+			sql = "select * from student where No=?"; 
+			ps = (PreparedStatement) con.prepareStatement(sql);
+			ps.setString(1, account);
+			System.out.println(ps.toString());
+			rs = ps.executeQuery();
+			String mailbox = "";
+			//获取该用户的密保邮箱
+			while(rs.next()){
+				mailbox = rs.getString("mailbox");
+			}
+			//如果该用户的密保邮箱为空或与输入的密保邮箱不同，则向用户输入的密保邮箱发送验证码
+			if(mailbox.equals("") || !mailbox.equals(mbemail)){
+				String identifyCode = IdentifyCodeUtils.getCode();
+				Boolean emailSuccess = EmailUtils.sendMail(mbemail, Integer.parseInt(role),identifyCode);
+				//如果验证码发送成功，则更新该记录的密保邮箱
+				if(emailSuccess){
+					sql = "update student set mailbox = ? where No = ?";
+					ps = (PreparedStatement) con.prepareStatement(sql);
+					ps.setString(1, mbemail);
+					ps.setString(2, account);
+					resultNum = ps.executeUpdate();
+					DbUtils.closeConnection(con, ps, rs);
+					//如果更新成功，则向页面输出验证码，否则，提示用户更新失败
+					if(resultNum == 1){
+						return identifyCode;
+					}else {
+						return "密保邮箱更新失败！";
+					}
+				//如果验证码发送失败，则提示用户输入邮箱有问题。
+				}else{
+					return "您输入的邮箱无法接受邮件，请检查您的输入！";
+				}	
+			//如果该用户的密保邮箱不为空且输入的密保邮箱与用户自身的邮箱一样，就直接向该用户的密保邮箱发送验证码
+			}else{
+				String identifyCode = IdentifyCodeUtils.getCode();
+				EmailUtils.sendMail(mbemail, Integer.parseInt(role),identifyCode);
+				return identifyCode;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
 	/**
 	 * 删除指定学生
      * @param id 学号

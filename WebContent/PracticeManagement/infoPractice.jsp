@@ -69,7 +69,7 @@
 				<!-- End Title -->
 				<!--breadcrum start-->
 				<ol class="breadcrumb text-left">
-					<li><a href="index.html">主页</a></li>
+					<li><a href="../Login/index.jsp">主页</a></li>
 					<li class="active">方案管理</li>
 				</ol>
 				<!--breadcrum end-->
@@ -114,11 +114,11 @@
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
-											<label class="control-label col-md-2 arer-lable">方案简介</label>
+											<label class="control-label col-md-2 arer-lable" style="margin-left: 15px;">方案简介</label>
 											<textarea class="form-control" disabled="">${infoProject.introduction }</textarea>
 										</div>
 										<div class="form-group pmd-textfield">
-											<label class="control-label col-md-2">适合专业</label>
+											<label class="control-label col-md-1" style="margin-left: 15px;">适合专业</label>
 											${infoProject.major }
 										</div>
 										<div class="form-group pmd-textfield ">

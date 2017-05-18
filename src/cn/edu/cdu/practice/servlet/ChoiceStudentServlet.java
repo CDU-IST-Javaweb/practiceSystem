@@ -60,9 +60,11 @@ public class ChoiceStudentServlet extends HttpServlet {
 				request.getRequestDispatcher("ChoicePracticeInfoServlet?nowPage="+pageUtils.getPageNow()).forward(request, response);
 			} else {
 				// 访问无效
+				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
 			}
 		}else{
 			//角色身份不匹配
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
 		}
 		
 	}

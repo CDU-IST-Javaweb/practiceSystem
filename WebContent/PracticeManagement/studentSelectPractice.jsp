@@ -77,7 +77,56 @@
 </head>
 
 <body>
-<%@include file="test.jsp" %>
+	<%@include file="test.jsp"%>
+	<c:forEach items="${selectProjects }" var="selectProject">
+		<div tabindex="-1" class="modal fade"
+			id="form-dialog-${selectProject.no }" style="display: none;"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header pmd-modal-bordered">
+						<button aria-hidden="true" data-dismiss="modal" class="close"
+							type="button">×</button>
+						<h2 class="pmd-card-title-text">选择方案</h2>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal"
+							action="StudentChoicePracticeServlet" method="post">
+							<div
+								class="form-group pmd-textfield pmd-textfield-floating-label">
+								<label for="first-name">方案号：</label> <input type="text"
+									readonly="" class="mat-input form-control"
+									value="${selectProject.no }" name="no">
+								<div
+									class="form-group pmd-textfield pmd-textfield-floating-label">
+									<label for="first-name">方案名称：</label> <input type="text"
+										readonly="" class="mat-input form-control"
+										value="${selectProject.name }" name="name">
+								</div>
+								<div
+									class="form-group pmd-textfield pmd-textfield-floating-label">
+									<label class="control-label">选题理由</label>
+									<textarea required class="form-control" name="reason"></textarea>
+									<span class="help-text">选题理由不能为空</span>
+								</div>
+							</div>
+							<div class="pmd-modal-action">
+								<button class="btn pmd-ripple-effect btn-primary" type="submit">确定</button>
+								<a href="javascript:history.back(-1);" data-dismiss="modal"
+									class="btn pmd-ripple-effect btn-default" type="button">返回</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+
+
+
+
+
+
 	<!--content area start-->
 	<div id="content" class="pmd-content inner-page">
 		<!--tab start-->
@@ -162,11 +211,18 @@
 									<td>${selectProject.category }</td>
 									<td>${selectProject.grade }</td>
 									<td>${selectProject.releaseDate }</td>
-									<td>${selectProject.companyUsername }</td>
-									<td>
-									<button type="button"
-												class="btn pmd-btn-outline pmd-ripple-effect">${stuProjectNo.equals(selectProject.no)?"已审核":"未审核" }</button>
-									</td>
+									<!--  <td>${selectProject.companyUsername }</td>-->
+									<td>${companyInfo[selectProject.no].companyName }</td>
+									<td><c:if test="${stuProjectNo.equals(selectProject.no) }">
+											<button type="button"
+												class="btn pmd-btn-outline pmd-ripple-effect">已审核</button>
+										</c:if> <c:if test="${!stuProjectNo.equals(selectProject.no)&&choiceState[selectProject.no]==1 }">
+											<button type="button"
+												class="btn pmd-btn-outline pmd-ripple-effect btn-danger">未审核</button>
+										</c:if> <c:if
+											test="${choiceState[selectProject.no]==0||choiceState[selectProject.no]==null }">
+											-
+										</c:if></td>
 									<td><c:if test="${choiceState[selectProject.no]==1 }">
 											<button type="button"
 												class="btn pmd-btn-outline pmd-ripple-effect btn-success">已选</button>
@@ -179,57 +235,12 @@
 										class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 										href="InfoPracticeServlet?no=${selectProject.no }"> 详情</a> <c:if
 											test="${choiceState[selectProject.no]==1 }">
-											<a type="button" href="StudentChoicePracticeServlet?no=${selectProject.no }"
+											<a type="button"
+												href="StudentChoicePracticeServlet?no=${selectProject.no }"
 												class="btn pmd-btn-raised pmd-ripple-effect btn-danger pmd-z-depth">
 												退选 </a>
 										</c:if> <c:if
 											test="${choiceState[selectProject.no]==0||choiceState[selectProject.no]==null }">
-											<div tabindex="-1" class="modal fade"
-												id="form-dialog-${selectProject.no }" style="display: none;"
-												aria-hidden="true">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header pmd-modal-bordered">
-															<button aria-hidden="true" data-dismiss="modal"
-																class="close" type="button">×</button>
-															<h2 class="pmd-card-title-text">选择方案</h2>
-														</div>
-														<div class="modal-body">
-															<form class="form-horizontal"
-																action="StudentChoicePracticeServlet" method="post">
-																<div
-																	class="form-group pmd-textfield pmd-textfield-floating-label">
-																	<label for="first-name">方案号：</label> <input type="text"
-																		readonly="" class="mat-input form-control"
-																		value="${selectProject.no }" name="no">
-																	<div
-																		class="form-group pmd-textfield pmd-textfield-floating-label">
-																		<label for="first-name">方案名称：</label> <input
-																			type="text" readonly=""
-																			class="mat-input form-control"
-																			value="${selectProject.name }" name="name">
-																	</div>
-																	<div
-																		class="form-group pmd-textfield pmd-textfield-floating-label">
-																		<label class="control-label">选题理由</label>
-																		<textarea required class="form-control" name="reason"></textarea>
-																		<span class="help-text">选题理由不能为空</span>
-																	</div>
-																</div>
-																<div class="pmd-modal-action">
-																	<button class="btn pmd-ripple-effect btn-primary"
-																		type="submit">确定</button>
-																	<a href="javascript:history.back(-1);"
-																		data-dismiss="modal"
-																		class="btn pmd-ripple-effect btn-default"
-																		type="button">返回</a>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
-
 											<a type="button"
 												data-target="#form-dialog-${selectProject.no }"
 												data-toggle="modal"

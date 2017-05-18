@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.edu.cdu.practice.dao.impl.CompanyDaoImpl;
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
 import cn.edu.cdu.practice.dao.impl.StudentDaoImpl;
+import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.model.ProjectSelect;
 import cn.edu.cdu.practice.model.Student;
@@ -57,10 +59,18 @@ public class StudentSelectPracticeServlet extends HttpServlet {
 			ArrayList<Project> chosenProject = projectDaoImpl.findAllChosenProject(student.getNo());
 			if (chosenProject == null) {
 				// 查询学生已选方案失败，无法继续
-
+				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
 			} else {
+				//通过方案号保存学生是否选择该方案  1-已选  0-未选
 				HashMap<String, Integer> choiceState = new HashMap<>();
+				//通过方案号保存方案所属企业对象
+				HashMap<String, Company> companyInfo = new HashMap<>();
+				CompanyDaoImpl companyDaoImpl=new CompanyDaoImpl();
 				for (int i = 0; i < projects.size(); i++) {
+					
+					Company company=companyDaoImpl.queryByUserName(projects.get(i).getCompanyUsername());
+					companyInfo.put(projects.get(i).getNo(), company);
+					
 					for (int j = 0; j < chosenProject.size(); j++) {
 						if (projects.get(i).getNo().equals(chosenProject.get(j).getNo())) {
 							choiceState.put(projects.get(i).getNo(), 1);
@@ -79,12 +89,14 @@ public class StudentSelectPracticeServlet extends HttpServlet {
 				
 				request.setAttribute("selectProjects", projects);
 				request.setAttribute("choiceState", choiceState);
+				request.setAttribute("companyInfo", companyInfo);
 				request.getRequestDispatcher("/PracticeManagement/studentSelectPractice.jsp").forward(request,
 						response);
 			}
 		} else {
 			// 角色不匹配
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 
 	}

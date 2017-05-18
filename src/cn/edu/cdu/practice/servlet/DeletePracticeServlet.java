@@ -45,6 +45,8 @@ public class DeletePracticeServlet extends HttpServlet {
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			boolean b = projectDaoImpl.deleteProject(no);
 			request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet").forward(request, response);
+		}else{
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
 		}
 
 	}

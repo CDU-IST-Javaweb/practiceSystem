@@ -38,9 +38,10 @@ public class ProjectDaoImpl implements ProjectDao {
 		// 通过projectServiceImpl得到no
 		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
 		String no = projectServiceImpl.getProjectNo();
+		if(no==null){
+			return false;
+		}
 		try {
-			if (no == null)
-				return false;
 			connection.setAutoCommit(false);
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, no);
@@ -784,8 +785,12 @@ public class ProjectDaoImpl implements ProjectDao {
 			String m = "";
 			if (rs.next()) {
 				m = rs.getString("m");
+				if(m==null){
+					return 0;
+				}
 				return Integer.parseInt(m);
 			}
+			return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
 		String account_type = "";
 		System.out.println(Verification_Code + " "+ vchidden.toUpperCase());
 		//如果验证码不正确或没有得到验证码，返回false
-		if(Verification_Code == null || !Verification_Code.equals(vchidden.toUpperCase())){
+		if(Verification_Code == null || !vchidden.equals(Verification_Code.toUpperCase())){
 			Log4jUtils.info("用户验证码输入错误");
 			return false;
 		}

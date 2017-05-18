@@ -51,7 +51,8 @@ public class CheckPracticeServlet extends HttpServlet {
 			request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet?role=9").forward(request, response);
 		} else {
 			//用户访问无效
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 
 	}

@@ -75,6 +75,82 @@
 
 <body>
 	<%@include file="test.jsp"%>
+
+	<c:forEach items="${proProSelStuViews }" var="proProSelStuView">
+		<div tabindex="-1" class="modal fade"
+			id="form-dialog-${proProSelStuView.project.no }"
+			style="display: none;" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content" style="height: 780px;">
+					<div class="modal-header pmd-modal-bordered">
+						<button aria-hidden="true" data-dismiss="modal" class="close"
+							type="button">×</button>
+						<h2 class="pmd-card-title-text">选题理由</h2>
+					</div>
+					<div class="modal-body">
+						<div class="form-group pmd-textfield">
+							<div class="input-group col-md-12">
+								<div class="input-group-addon">
+									<label class="control-label col-md-2">学号：</label>
+								</div>
+								<input type="text" disabled=""
+									value="${proProSelStuView.student.no }"
+									class="mat-input form-control">
+							</div>
+						</div>
+						<div class="form-group pmd-textfield">
+							<div class="input-group col-md-12">
+								<div class="input-group-addon">
+									<label class="control-label col-md-2">姓名：</label>
+								</div>
+								<input type="text" disabled=""
+									value="${proProSelStuView.student.name }"
+									class="mat-input form-control">
+							</div>
+						</div>
+						<div class="form-group pmd-textfield">
+							<div class="input-group col-md-12">
+								<div class="input-group-addon">
+									<label class="control-label col-md-2">方案号：</label>
+								</div>
+								<input type="text" disabled=""
+									value="${proProSelStuView.project.no }"
+									class="mat-input form-control">
+							</div>
+						</div>
+						<div class="form-group pmd-textfield">
+							<div class="input-group col-md-12">
+								<div class="input-group-addon">
+									<label class="control-label col-md-2">方案名：</label>
+								</div>
+								<input type="text" disabled=""
+									value="${proProSelStuView.project.name }"
+									class="mat-input form-control">
+							</div>
+						</div>
+						<div class="form-group pmd-textfield col-md-12">
+							<label class="control-label  arer-lable">学科背景:</label>
+							<textarea required readonly="" class="form-control">${proProSelStuView.student.subjectBackground }</textarea>
+						</div>
+						<div class="form-group pmd-textfield col-md-12">
+							<label class="control-label  arer-lable">学习经历:</label>
+							<textarea required readonly="" class="form-control">${proProSelStuView.student.learningExperience }</textarea>
+						</div>
+						<div class="form-group pmd-textfield col-md-12">
+							<label class="control-label  arer-lable">研究方向:</label>
+							<textarea required readonly="" class="form-control">${proProSelStuView.student.researchDirection }</textarea>
+						</div>
+						<div class="form-group pmd-textfield col-md-12">
+							<label class="control-label  arer-lable">选题理由:</label>
+							<textarea required readonly="" class="form-control">${proProSelStuView.projectSelect.selReason }</textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+
+
 	<!--content area start-->
 	<div id="content" class="pmd-content inner-page">
 		<!--tab start-->
@@ -119,7 +195,7 @@
 					<form action="ChoicePracticeInfoServlet">
 						<div class="col-md-2 form-inline">
 							<select class="select-simple form-control pmd-select2"
-							name="selectChoiceByType">
+								name="selectChoiceByType">
 								<option value="1">已选学生</option>
 								<option value="2">未选学生</option>
 								<option value="3">全部学生</option>
@@ -194,77 +270,7 @@
 												退选 </a>
 										</c:if></td>
 								</tr>
-								<div tabindex="-1" class="modal fade"
-									id="form-dialog-${proProSelStuView.project.no }"
-									style="display: none;" aria-hidden="true" >
-									<div class="modal-dialog">
-										<div class="modal-content" style="height:780px;">
-											<div class="modal-header pmd-modal-bordered">
-												<button aria-hidden="true" data-dismiss="modal"
-													class="close" type="button">×</button>
-												<h2 class="pmd-card-title-text">选题理由</h2>
-											</div>
-											<div class="modal-body">
-												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-12">
-														<div class="input-group-addon">
-															<label class="control-label col-md-2">学号：</label>
-														</div>
-														<input type="text" disabled=""
-															value="${proProSelStuView.student.no }"
-															class="mat-input form-control">
-													</div>
-												</div>
-												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-12">
-														<div class="input-group-addon">
-															<label class="control-label col-md-2">姓名：</label>
-														</div>
-														<input type="text" disabled=""
-															value="${proProSelStuView.student.name }"
-															class="mat-input form-control">
-													</div>
-												</div>
-												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-12">
-														<div class="input-group-addon">
-															<label class="control-label col-md-2">方案号：</label>
-														</div>
-														<input type="text" disabled=""
-															value="${proProSelStuView.project.no }"
-															class="mat-input form-control">
-													</div>
-												</div>
-												<div class="form-group pmd-textfield">
-													<div class="input-group col-md-12">
-														<div class="input-group-addon">
-															<label class="control-label col-md-2">方案名：</label>
-														</div>
-														<input type="text" disabled=""
-															value="${proProSelStuView.project.name }"
-															class="mat-input form-control">
-													</div>
-												</div>
-												<div class="form-group pmd-textfield col-md-12">
-													<label class="control-label  arer-lable">学科背景:</label>
-													<textarea required readonly="" class="form-control">${proProSelStuView.student.subjectBackground }</textarea>
-												</div>
-												<div class="form-group pmd-textfield col-md-12">
-													<label class="control-label  arer-lable">学习经历:</label>
-													<textarea required readonly="" class="form-control">${proProSelStuView.student.learningExperience }</textarea>
-												</div>
-												<div class="form-group pmd-textfield col-md-12">
-													<label class="control-label  arer-lable">研究方向:</label>
-													<textarea required readonly="" class="form-control">${proProSelStuView.student.researchDirection }</textarea>
-												</div>
-												<div class="form-group pmd-textfield col-md-12">
-													<label class="control-label  arer-lable">选题理由:</label>
-													<textarea required readonly="" class="form-control">${proProSelStuView.projectSelect.selReason }</textarea>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+
 							</c:forEach>
 
 						</tbody>

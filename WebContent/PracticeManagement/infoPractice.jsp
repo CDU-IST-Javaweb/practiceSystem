@@ -82,12 +82,20 @@
 							<div class="pmd-card pmd-z-depth pmd-card-custom-form">
 								<div class="pmd-card-body">
 									<h2>实训方案详细信息</h2>
-									<div class="form-group pmd-textfield">
+									<!-- <div class="form-group pmd-textfield">
 										<div class="input-group col-md-6">
 											<div class="input-group-addon">
 												<label class="control-label col-md-2">企业用户名</label>
 											</div>
-											${infoProject.companyUsername }
+											${infoProject.companyUsername }infoCompany
+										</div>
+									</div> -->
+									<div class="form-group pmd-textfield">
+										<div class="input-group col-md-6">
+											<div class="input-group-addon">
+												<label class="control-label col-md-2">企业名称</label>
+											</div>
+											${infoCompany.companyName }
 										</div>
 									</div>
 									<div class="form-group pmd-textfield">

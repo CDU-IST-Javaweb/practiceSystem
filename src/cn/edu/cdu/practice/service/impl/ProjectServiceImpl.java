@@ -22,10 +22,13 @@ public class ProjectServiceImpl implements ProjectService {
 	public String getProjectNo() {
 		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 		int m = projectDaoImpl.findMaxProjectNo(Calendar.getInstance().get(Calendar.YEAR));
-		if (m >= 0) {
+		System.out.println("---------M:"+m);
+		if (m > 0) {
 			return m + 1 + "";
+		}else if(m==0){
+			return Calendar.getInstance().get(Calendar.YEAR)+"000001";
 		}else{
-			return Calendar.getInstance().get(Calendar.YEAR)+000001+"";
+			return null;
 		}
 	}
 

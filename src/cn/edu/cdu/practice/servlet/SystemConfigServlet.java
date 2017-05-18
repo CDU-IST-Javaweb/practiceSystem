@@ -55,13 +55,15 @@ public class SystemConfigServlet extends HttpServlet {
 			} 
 			else {
 				System.out.println("无效1");
-				request.getRequestDispatcher("../404.jsp").forward(request, response);
+				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+				//request.getRequestDispatcher("../404.jsp").forward(request, response);
 				return ;
 			}
 		} catch(Exception e) {
 			System.out.println("无效2");
 			Log4jUtils.info(e.getMessage());
-			request.getRequestDispatcher("../404.jsp").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("../404.jsp").forward(request, response);
 			return ;
 		}
 	}

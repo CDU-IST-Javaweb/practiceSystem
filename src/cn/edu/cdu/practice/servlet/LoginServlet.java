@@ -49,7 +49,8 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("/Login/index.jsp").forward(request, response);
 		}else{
 			//如果登录不成功，跳转到404页面
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("http://202.115.82.8:8080/404.html").forward(request, response);
 		}
 
 	}

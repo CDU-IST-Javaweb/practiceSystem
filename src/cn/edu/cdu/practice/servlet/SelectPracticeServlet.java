@@ -45,7 +45,8 @@ public class SelectPracticeServlet extends HttpServlet {
 		// role=9+"";
 		if (role == null) {
 			System.out.println("role 为空");
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		} else if (role.equals("1") || role.equals("9")) {
 			// session 里保存用户查询方式
 			// 键：selectProjectType 值 ： 1:无条件查 2:按年份、审核状态查

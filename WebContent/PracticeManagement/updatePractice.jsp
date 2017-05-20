@@ -47,7 +47,7 @@
 </head>
 
 <body>
-<%@include file="test.jsp" %>
+	<%@include file="test.jsp"%>
 	<!--content area start-->
 	<div id="content" class="pmd-content inner-page">
 		<!--tab start-->
@@ -89,8 +89,7 @@
 													<label class="control-label col-md-2">企业用户名</label>
 												</div>
 												<input type="text" class="mat-input form-control"
-													disabled="" value="sayHello"> <input type="hidden"
-													value="sayHello" name="company_username">
+													disabled="" value="${account }">
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
@@ -110,51 +109,87 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">方案名称</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
-													name="name">
+												<input type="text" value="${updateProjectInfo.name }"
+													class="mat-input form-control " name="name">
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
 											<label class="control-label col-md-2 arer-lable">方案简介</label>
-											<textarea required class="form-control" name="introduction"></textarea>
+											<textarea required class="form-control" name="introduction">${updateProjectInfo.introduction }</textarea>
 										</div>
 										<div class="form-group pmd-textfield">
-											<label class="control-label col-md-2">适合专业</label> <label
+											<label class="control-label col-md-1">适合专业</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="信息与计算科学(本)" name="major">
-												<span> 信息与计算科学(本)</span>
+												<c:if test="${majorInfo.get(\"信息与计算科学(本)\")==1 }">
+													<input type="checkbox" value="信息与计算科学(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"信息与计算科学(本)\")!=1 }">
+													<input type="checkbox" value="信息与计算科学(本)" name="major">
+												</c:if> <span> 信息与计算科学(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="数字媒体技术(本)" name="major">
-												<span> 数字媒体技术(本)</span>
+												<c:if test="${majorInfo.get(\"数字媒体技术(本)\")==1 }">
+													<input type="checkbox" value="数字媒体技术(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"数字媒体技术(本)\")!=1 }">
+													<input type="checkbox" value="数字媒体技术(本)" name="major">
+												</c:if> <span> 数字媒体技术(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="电子信息工程(本)" name="major">
-												<span> 电子信息工程(本)</span>
+												<c:if test="${majorInfo.get(\"电子信息工程(本)\")==1 }">
+													<input type="checkbox" value="电子信息工程(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"电子信息工程(本)\")!=1 }">
+													<input type="checkbox" value="电子信息工程(本)" name="major">
+												</c:if> <span> 电子信息工程(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="电气工程及其自动化(本)" name="major">
-												<span> 电气工程及其自动化(本)</span>
+												<c:if test="${majorInfo.get(\"电气工程及其自动化(本)\")==1 }">
+													<input type="checkbox" value="电气工程及其自动化(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"电气工程及其自动化(本)\")!=1 }">
+													<input type="checkbox" value="电气工程及其自动化(本)" name="major">
+												</c:if> <span> 电气工程及其自动化(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="网络工程(本)" name="major">
-												<span> 网络工程(本)</span>
+												<c:if test="${majorInfo.get(\"网络工程(本)\")==1 }">
+													<input type="checkbox" value="网络工程(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"网络工程(本)\")!=1 }">
+													<input type="checkbox" value="网络工程(本)" name="major">
+												</c:if> 网络工程(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="自动化(本)" name="major">
-												<span> 自动化(本)</span>
+												<c:if test="${majorInfo.get(\"自动化(本)\")==1 }">
+													<input type="checkbox" value="自动化(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"自动化(本)\")!=1 }">
+													<input type="checkbox" value="自动化(本)" name="major">
+												</c:if><span> 自动化(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="计算机科学与技术(本)" name="major">
-												<span> 计算机科学与技术(本)</span>
+												<c:if test="${majorInfo.get(\"计算机科学与技术(本)\")==1 }">
+													<input type="checkbox" value="计算机科学与技术(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"计算机科学与技术(本)\")!=1 }">
+													<input type="checkbox" value="计算机科学与技术(本)" name="major">
+												</c:if> <span> 计算机科学与技术(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="软件工程(本)" name="major">
-												<span> 软件工程(本)</span>
+												<c:if test="${majorInfo.get(\"软件工程(本)\")==1 }">
+													<input type="checkbox" value="软件工程(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"软件工程(本)\")!=1 }">
+													<input type="checkbox" value="软件工程(本)" name="major">
+												</c:if> <span> 软件工程(本)</span>
 											</label> <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="通信工程(本)" name="major">
-												<span> 通信工程(本)</span>
+												<c:if test="${majorInfo.get(\"通信工程(本)\")==1 }">
+													<input type="checkbox" value="通信工程(本)" name="major"
+														checked="checked">
+												</c:if> <c:if test="${majorInfo.get(\"通信工程(本)\")!=1 }">
+													<input type="checkbox" value="通信工程(本)" name="major">
+												</c:if><span> 通信工程(本)</span>
 											</label>
 										</div>
 										<div class="form-group pmd-textfield ">
@@ -162,8 +197,8 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">学生人数</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
-													name="students_num">
+												<input type="text" value="${updateProjectInfo.studentsNum }"
+													class="mat-input form-control " name="students_num">
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
@@ -173,24 +208,63 @@
 												</div>
 												<select class="select-with-search form-control pmd-select2"
 													name="category">
-													<option value="技能实训">技能实训</option>
-													<option value="概念实训">概念实训</option>
-													<option value="综合实训">综合实训</option>
+													<c:if
+														test="${updateProjectInfo.category.equals(\"技能实训\") }">
+														<option value="技能实训" selected="selected">技能实训</option>
+														<option value="概念实训">概念实训</option>
+														<option value="综合实训">综合实训</option>
+													</c:if>
+													<c:if
+														test="${updateProjectInfo.category.equals(\"概念实训\") }">
+														<option value="技能实训">技能实训</option>
+														<option value="概念实训" selected="selected">概念实训</option>
+														<option value="综合实训">综合实训</option>
+													</c:if>
+													<c:if
+														test="${updateProjectInfo.category.equals(\"综合实训\") }">
+														<option value="技能实训">技能实训</option>
+														<option value="概念实训">概念实训</option>
+														<option value="综合实训" selected="selected">综合实训</option>
+													</c:if>
 												</select>
 											</div>
 										</div>
 										<!--Simple Select with Search-->
 										<div class="form-group pmd-textfield">
-											<div class="input-group col-md-6">
+											<div class="input-group col-md-4">
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">年级</label>
 												</div>
 												<select class="select-with-search form-control pmd-select2"
 													name="grade">
-													<option value="1">大一</option>
-													<option value="2">大二</option>
-													<option value="3">大三</option>
-													<option value="4">大四</option>
+													<c:if test="${gradeFlag==1}">
+														<option value="1" selected="selected">大一</option>
+														<option value="2">大二</option>
+														<option value="3">大三</option>
+														<option value="4">大四</option>
+													</c:if>
+
+													<c:if test="${gradeFlag==2}">
+														<option value="1">大一</option>
+														<option value="2" selected="selected">大二</option>
+														<option value="3">大三</option>
+														<option value="4">大四</option>
+													</c:if>
+
+													<c:if test="${gradeFlag==3}">
+														<option value="1">大一</option>
+														<option value="2">大二</option>
+														<option value="3" selected="selected">大三</option>
+														<option value="4">大四</option>
+													</c:if>
+
+													<c:if test="${gradeFlag==4}">
+														<option value="1">大一</option>
+														<option value="2">大二</option>
+														<option value="3">大三</option>
+														<option value="4" selected="selected">大四</option>
+													</c:if>
+
 												</select>
 											</div>
 										</div>
@@ -199,8 +273,9 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">校外指导老师</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
-													name="company_teacher">
+												<input type="text"
+													value="${updateProjectInfo.companyTeacher }"
+													class="mat-input form-control " name="company_teacher">
 											</div>
 										</div>
 										<div class="form-group pmd-textfield">
@@ -208,7 +283,9 @@
 												<div class="input-group-addon">
 													<label class="control-label col-md-2">校外指导老师 职称</label>
 												</div>
-												<input type="text" value="" class="mat-input form-control "
+												<input type="text"
+													value="${updateProjectInfo.companyTeacherTitle }"
+													class="mat-input form-control "
 													name="company_teacher_title">
 											</div>
 										</div>

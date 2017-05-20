@@ -1,6 +1,9 @@
 package cn.edu.cdu.practice.servlet;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,12 +42,28 @@ public class UpdatePracticeServlet extends HttpServlet {
 		String company_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
 		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 		if (role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no)) {
+			Project project = projectDaoImpl.findProjectByNo(no);
+			//传个数字到页面，方便计算出年级
+		    int year=Calendar.getInstance().get(Calendar.YEAR);
+			int flag=Calendar.getInstance().get(Calendar.MONTH)>8?1:0;
+			int gradeFlag=flag+year-project.getGrade();
+			String[] majors=project.getMajor().split(" ");
+			HashMap<String, Integer> majorInfo=new HashMap<>();
+			for(String marjor:majors){
+				majorInfo.put(marjor, 1);
+			}
+			System.out.println(majorInfo.get("网络工程(本)"));
+			request.setAttribute("majorInfo", majorInfo);
+			request.setAttribute("gradeFlag", gradeFlag);
+			request.setAttribute("updateProjectInfo", project);
 			request.setAttribute("updateProjectNo", no);
 			request.getRequestDispatcher("/PracticeManagement/updatePractice.jsp").forward(request, response);
 		} else {
 			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			// request.getRequestDispatcher("/404.html").forward(request,
+			// response);
 		}
 	}
 
@@ -94,11 +113,13 @@ public class UpdatePracticeServlet extends HttpServlet {
 
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			if (projectDaoImpl.updateProject(project))
-				request.getRequestDispatcher("/PracticeManagement/programManagement.jsp").forward(request, response);
+				request.getRequestDispatcher("SelectPracticeServlet").forward(request, response);
 			else
-				request.getRequestDispatcher("/404.html").forward(request, response);
+				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		} else {
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//request.getRequestDispatcher("/404.html").forward(request, response);
 		}
 	}
 

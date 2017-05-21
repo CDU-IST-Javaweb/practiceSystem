@@ -265,5 +265,11 @@ public interface ProjectDao {
 	 * @return 
 	 */
 	public ArrayList<ProProSelStuView> findAllStudentChoiceByPNoAndType(String p_no,String type,PageUtils pageUtils);
+
+	/**
+	 * 得到所有专业
+	 * @return
+	 */
+	public ArrayList<String> findAllProfessional();
 }
 

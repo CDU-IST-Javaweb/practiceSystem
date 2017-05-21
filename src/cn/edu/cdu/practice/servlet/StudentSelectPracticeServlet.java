@@ -17,6 +17,7 @@ import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.model.ProjectSelect;
 import cn.edu.cdu.practice.model.Student;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 
 /**
  * Servlet implementation class StudentSelectPracticeServlet
@@ -45,6 +46,10 @@ public class StudentSelectPracticeServlet extends HttpServlet {
 		String role = (String) request.getSession().getAttribute("role");
 
 		if (role.equals("2")) {
+			//学生选择方案是否开启
+			ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+			request.setAttribute("PracticeIsUnderWay", projectServiceImpl.findPracticeIsUnderWay());
+			
 			StudentDaoImpl studentDaoImpl = new StudentDaoImpl();
 			Student student = studentDaoImpl.findById(stu_no);
 

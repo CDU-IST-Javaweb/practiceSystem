@@ -14,6 +14,7 @@ import cn.edu.cdu.practice.dao.impl.CompanyDaoImpl;
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
 import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.Project;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.Log4jUtils;
 import cn.edu.cdu.practice.utils.PageUtils;
 
@@ -101,8 +102,12 @@ public class SelectPracticeServlet extends HttpServlet {
 					companyInfo.put(projects.get(i).getNo(), company);
 				}
 			}
+			
+			//管理员是否开启企业添加方案
+			ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+			request.setAttribute("AddPracticeIsUnderWay", projectServiceImpl.findAddPracticeIsUnderWay());
+			
 			request.setAttribute("companyInfo", companyInfo);
-
 			request.getSession().setAttribute("selectProjectPageUtils", pageUtils);
 
 			request.setAttribute("selectProjects", projects);

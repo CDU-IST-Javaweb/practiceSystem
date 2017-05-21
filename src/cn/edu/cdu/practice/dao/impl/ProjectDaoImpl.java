@@ -1337,4 +1337,26 @@ public class ProjectDaoImpl implements ProjectDao {
 		}
 		return proProSelStuViews;
 	}
+
+	@Override
+	public ArrayList<String> findAllProfessional() {
+		String sql = "SELECT professional FROM professional";
+		Connection connection = DbUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<String> professionals=new ArrayList<>();
+		try {
+			// 查询方案总数
+			ps = connection.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while (rs.next())
+				professionals.add(rs.getString("professional"));
+			return professionals;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.closeConnection(connection, ps, rs);
+		}
+		return professionals;
+	}
 }

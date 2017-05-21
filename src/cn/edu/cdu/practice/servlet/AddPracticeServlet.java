@@ -44,6 +44,13 @@ public class AddPracticeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//管理员是否开启企业添加方案
+		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		if(!projectServiceImpl.findAddPracticeIsUnderWay()){
+			request.getRequestDispatcher("SelectPracticeServlet?selectProjectType=1").forward(request, response);
+			return;
+		}
+		
 		request.setCharacterEncoding("utf-8");
 		// 企业用户名从登录时保存在session里的account获取
 		String company_username = (String) request.getSession().getAttribute("account");
@@ -63,7 +70,6 @@ public class AddPracticeServlet extends HttpServlet {
 			String major = "";
 			for (int i = 0; i < majors.length; i++)
 				major += majors[i] + " ";
-			ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
 			grade = projectServiceImpl.getStuGrade(grade);
 
 			Log4jUtils.info(

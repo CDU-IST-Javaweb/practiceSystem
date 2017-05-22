@@ -15,6 +15,7 @@ import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.Student;
 import cn.edu.cdu.practice.service.StudentService;
 import cn.edu.cdu.practice.utils.DbUtils;
+import cn.edu.cdu.practice.utils.ExcelInUtil;
 import cn.edu.cdu.practice.utils.Log4jUtils;
 
 /** 
@@ -201,8 +202,25 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public boolean importStudent(String fileName) {
-		// TODO Auto-generated method stub
-		return false;
+		if (fileName == null || "".equals(fileName)) {
+			return false;
+		}
+		else {
+			List<Student> list;
+			try {
+				list = ExcelInUtil.importStudentExcel(fileName);
+				if (list == null) {
+					return false;
+				}else {
+					return this.studentDao.importStudent(list);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log4jUtils.info(e.getMessage());
+				return false;
+			}
+
+		}
 	}
 
 	@Override

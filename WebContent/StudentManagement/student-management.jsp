@@ -101,10 +101,12 @@
                         <!--  <input type="submit" value="查询">-->
                         <a class="btn pmd-ripple-effect btn-primary" href="#" id="query" >查询</a>
                         <!--  </form>-->
+                        <form name="form1" method="post" enctype="multipart/form-data" action="/practiceSystem/StudentManagement/StudentInfoImport" >
+						<input type="file" name="file" /> 
+						<input type="submit" value="导入">
+						</form>
                     </div>
-
                     <div class="PM-nav">
-                        <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">导入</a>
                         <a class="btn pmd-btn-raised pmd-ripple-effect btn-primary" href="#">导出</a>
 <!--                    <button data-target="#form-dialog" data-toggle="modal" class="btn pmd-btn-raised pmd-ripple-effect btn-warning pmd-z-depth" type="button">重置密码</button>
                         <div tabindex="-1" class="modal fade" id="form-dialog" style="display: none;" aria-hidden="true">
@@ -307,6 +309,7 @@
         });
     </script>
     <script type="text/javascript" src="../components/select2/js/pmd-select2.js"></script>
+    <script type="text/javascript" src="../assets/js/ajaxfileupload.js"></script>
     <script>
         //Propeller  Customised Javascript code 
         $(document).ready(function() {
@@ -381,7 +384,33 @@
     		objValue.value=reValue;
     	}
     </script>
-
+	<script type="text/javascript">
+		function upload() {
+				//触发 文件选择的click事件 
+				$("#file").trigger("click"); 
+		}
+		//利用ajax的文件上传插件
+		function upFile(){ 
+			
+		/* 	$.ajaxFileUpload({
+				url:'/StudentInfoImport?name=11',
+				secureuri:'false',
+				method:'post',
+				fileElementId:'file',
+				dataType:'json',
+				succdee: function(data,status) {
+					alert("success");
+				},
+				error:function(data,status,e) {
+					alert(e);
+				}
+			}); 
+			alert("ok2") */
+			alert("ok")
+			document.form1.action="/practiceSystem/StudentManagement/StudentInfoImport"
+			document.form1.submit();
+			} 
+	</script>
 </body>
 
 </html>

@@ -147,7 +147,7 @@
 												<div class="input-group-addon">
 													<!--  <i class="material-icons md-dark pmd-sm">email</i>-->
 												</div>
-												<input class="form-control" value="" name="mbemail"
+												<input class="form-control" value="${student.mailbox }" name="mbemail"
 													id="forgot-email" type="text"><span
 													class="pmd-textfield-focused"></span>
 

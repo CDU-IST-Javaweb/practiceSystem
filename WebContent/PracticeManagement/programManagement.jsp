@@ -1,3 +1,4 @@
+<%@page import="cn.edu.cdu.practice.service.impl.ProjectServiceImpl"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -162,8 +163,14 @@
 							<label class="control-label">发布年度&nbsp;&nbsp;&nbsp;</label> <select
 								class="select-simple form-control pmd-select2"
 								name="selectByYear">
+								<%ProjectServiceImpl projectServiceImpl=new ProjectServiceImpl();
+								int[] years=projectServiceImpl.findAllAddProjectYear();%>
+								<c:forEach items="<%=years %>" var="year">
+								<option value="${year }">${year }</option>
+								</c:forEach>
+								<!--  由后台动态生成，弃用静态
 								<option value="2017">2017</option>
-								<option value="2016">2016</option>
+								<option value="2016">2016</option>-->
 							</select>
 						</div>
 						<input type="hidden" value="2" name="selectProjectType">
@@ -173,7 +180,7 @@
 							<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 								href="#">导出</a>
 
-							<c:if test="${selectProjectsRole==1 }">
+							<c:if test="${selectProjectsRole==1&&AddPracticeIsUnderWay }">
 								<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 									href="../PracticeManagement/addPractice.jsp">添加</a>
 							</c:if>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.model.Student;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.Log4jUtils;
 
 /**
@@ -35,6 +36,13 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 判断是否在可选时间内
+		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		if (!projectServiceImpl.findPracticeIsUnderWay()) {
+			request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
+			return;
+		}
+
 		String p_no = request.getParameter("no");
 
 		String stu_no = (String) request.getSession().getAttribute("account");
@@ -56,7 +64,8 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 			}
 		} else {
 			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			// request.getRequestDispatcher("/404.html").forward(request,
+			// response);
 		}
 
 	}
@@ -69,6 +78,13 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 判断是否在可选时间内
+		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		if (!projectServiceImpl.findPracticeIsUnderWay()) {
+			request.getRequestDispatcher("StudentSelectPracticeServlet").forward(request, response);
+			return;
+		}
+
 		request.setCharacterEncoding("utf-8");
 		String p_no = request.getParameter("no");
 		String reason = request.getParameter("reason");
@@ -90,7 +106,8 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 			}
 		} else {
 			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			// request.getRequestDispatcher("/404.html").forward(request,
+			// response);
 		}
 	}
 

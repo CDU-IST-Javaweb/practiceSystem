@@ -56,7 +56,7 @@ public class SqlFilter implements Filter{
 		}  
 		//调用防sql注入的方法
 		if (ValidateUtils.validate(sql)) {  
-			res.sendRedirect("404.html");   
+			res.sendRedirect("http://202.115.82.8:8080/404.jsp");   
 		}else {  
 			chain.doFilter(req, res);  
 		}  

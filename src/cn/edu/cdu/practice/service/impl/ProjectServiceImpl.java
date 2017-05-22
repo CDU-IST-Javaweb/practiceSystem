@@ -1,9 +1,13 @@
 package cn.edu.cdu.practice.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
+import cn.edu.cdu.practice.dao.impl.SystemParameterDaoImpl;
 import cn.edu.cdu.practice.model.Project;
+import cn.edu.cdu.practice.model.SystemParameter;
 import cn.edu.cdu.practice.service.ProjectService;
 
 /**
@@ -22,12 +26,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public String getProjectNo() {
 		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 		int m = projectDaoImpl.findMaxProjectNo(Calendar.getInstance().get(Calendar.YEAR));
-		System.out.println("---------M:"+m);
 		if (m > 0) {
 			return m + 1 + "";
-		}else if(m==0){
-			return Calendar.getInstance().get(Calendar.YEAR)+"000001";
-		}else{
+		} else if (m == 0) {
+			return Calendar.getInstance().get(Calendar.YEAR) + "000001";
+		} else {
 			return null;
 		}
 	}
@@ -44,10 +47,57 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public boolean findProjectBelongToUserByPNo(String username, String p_no) {
 		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		Project project=projectDaoImpl.findProjectByNo(p_no);
-		if(project.getCompanyUsername().equals(username))
+		Project project = projectDaoImpl.findProjectByNo(p_no);
+		if (project.getCompanyUsername().equals(username))
 			return true;
 		return false;
+	}
+
+	@Override
+	public boolean findPracticeIsUnderWay() {
+		SystemParameterDaoImpl systemParameterDaoImpl = new SystemParameterDaoImpl();
+		SystemParameter systemParameter = systemParameterDaoImpl.queryByAccount("admin");
+		Date data = Calendar.getInstance().getTime();
+		if (systemParameter == null) {
+			return false;
+		} else if (systemParameter.getStudentSelStartDate().before(data)
+				&& systemParameter.getStudentSelEndDate().after(data)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean findAddPracticeIsUnderWay() {
+		SystemParameterDaoImpl systemParameterDaoImpl = new SystemParameterDaoImpl();
+		SystemParameter systemParameter = systemParameterDaoImpl.queryByAccount("admin");
+		Date data = Calendar.getInstance().getTime();
+		if (systemParameter == null) {
+			return false;
+		} else if (systemParameter.getReleaseProjectStartDate().before(data)
+				&& systemParameter.getReleaseProjectEndDate().after(data)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int[] findAllAddProjectYear() {
+		int PRACTICE_SYSTEM_START_YEAR = 2017;
+		int nowYear = Calendar.getInstance().get(Calendar.YEAR);
+		int len = nowYear - PRACTICE_SYSTEM_START_YEAR + 1;
+		int years[] = new int[len];
+		for (int i = 0; i < len; i++) {
+			years[i] = PRACTICE_SYSTEM_START_YEAR + i;
+		}
+		return years;
+	}
+
+	@Override
+	public ArrayList<String> findAllProfessional() {
+		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+		ArrayList<String> professionals = projectDaoImpl.findAllProfessional();
+		return professionals;
 	}
 
 }

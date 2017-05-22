@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="cn.edu.cdu.practice.service.impl.ProjectServiceImpl"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!doctype html>
@@ -106,7 +108,16 @@
 											<textarea required="required" class="form-control" name="introduction" ></textarea>
 										</div>
 										<div class="form-group pmd-textfield">
-											<label class="control-label col-md-1">适合专业</label> <label
+											<label class="control-label col-md-1">适合专业</label>
+											<%ProjectServiceImpl projectServiceImpl=new ProjectServiceImpl();
+											ArrayList<String> professionals=projectServiceImpl.findAllProfessional();%>
+											<c:forEach items="<%=professionals %>" var="professional"><label
+												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+												<input type="checkbox" value="${professional}" name="major">
+												<span>${professional} </span>
+											</label></c:forEach>
+					<!-- 弃用静态，专业由查询数据库获得
+											 <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
 												<input type="checkbox" value="信息与计算科学(本)" name="major">
 												<span> 信息与计算科学(本)</span>
@@ -142,7 +153,7 @@
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
 												<input type="checkbox" value="通信工程(本)" name="major">
 												<span> 通信工程(本)</span>
-											</label>
+											</label> -->
 										</div>
 										<div class="form-group pmd-textfield ">
 											<div class="input-group col-md-4">

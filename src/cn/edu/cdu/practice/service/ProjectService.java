@@ -1,4 +1,7 @@
 package cn.edu.cdu.practice.service;
+
+import java.util.ArrayList;
+
 /** 
 * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
 * @date 创建时间：2017年4月26日 下午6:36:51 
@@ -10,7 +13,6 @@ package cn.edu.cdu.practice.service;
 * @Modification Date:
 */
 
-import java.sql.Date;
 
 public interface ProjectService {
 	/**
@@ -33,5 +35,28 @@ public interface ProjectService {
 	 */
 	public boolean findProjectBelongToUserByPNo(String username,String p_no);
 	
+	/**
+	 * 在实训开始时间之后在实训结束时间之前返回true
+	 * @return
+	 */
+	public boolean findPracticeIsUnderWay();
+	
+	/**
+	 * 在添加实训开始时间之后在添加实训结束时间之前返回true
+	 * @return
+	 */
+	public boolean findAddPracticeIsUnderWay();
+	
+	/**
+	 * 返回从系统开始到现在的年份的数组
+	 * @return
+	 */
+	public int[] findAllAddProjectYear();
+	
+	/**
+	 * 得到所有专业
+	 * @return
+	 */
+	public ArrayList<String> findAllProfessional();
 }
 

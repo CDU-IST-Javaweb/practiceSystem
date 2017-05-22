@@ -216,7 +216,8 @@
 									<td><c:if test="${stuProjectNo.equals(selectProject.no) }">
 											<button type="button"
 												class="btn pmd-btn-outline pmd-ripple-effect">已审核</button>
-										</c:if> <c:if test="${!stuProjectNo.equals(selectProject.no)&&choiceState[selectProject.no]==1 }">
+										</c:if> <c:if
+											test="${!stuProjectNo.equals(selectProject.no)&&choiceState[selectProject.no]==1 }">
 											<button type="button"
 												class="btn pmd-btn-outline pmd-ripple-effect btn-danger">未审核</button>
 										</c:if> <c:if
@@ -234,18 +235,21 @@
 									<td><a
 										class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 										href="InfoPracticeServlet?no=${selectProject.no }"> 详情</a> <c:if
-											test="${choiceState[selectProject.no]==1 }">
-											<a type="button"
-												href="StudentChoicePracticeServlet?no=${selectProject.no }"
-												class="btn pmd-btn-raised pmd-ripple-effect btn-danger pmd-z-depth">
-												退选 </a>
-										</c:if> <c:if
-											test="${choiceState[selectProject.no]==0||choiceState[selectProject.no]==null }">
-											<a type="button"
-												data-target="#form-dialog-${selectProject.no }"
-												data-toggle="modal"
-												class="btn pmd-btn-raised pmd-ripple-effect btn-success pmd-z-depth">
-												选择 </a>
+											test="${PracticeIsUnderWay }">
+											<c:if test="${choiceState[selectProject.no]==1 }">
+												<a type="button"
+													href="StudentChoicePracticeServlet?no=${selectProject.no }"
+													class="btn pmd-btn-raised pmd-ripple-effect btn-danger pmd-z-depth">
+													退选 </a>
+											</c:if>
+											<c:if
+												test="${choiceState[selectProject.no]==0||choiceState[selectProject.no]==null }">
+												<a type="button"
+													data-target="#form-dialog-${selectProject.no }"
+													data-toggle="modal"
+													class="btn pmd-btn-raised pmd-ripple-effect btn-success pmd-z-depth">
+													选择 </a>
+											</c:if>
 										</c:if></td>
 
 								</tr>

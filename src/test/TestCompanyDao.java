@@ -42,5 +42,7 @@ public class TestCompanyDao {
 			/*if (companyDao.deleteCompany("wanwan")) {
 				System.out.println("success");
 			}*/
+			System.out.println(MdPwdUtil.MD5Password("f8ce70d1684ff24a50c7915ace10a0ee"));
 		}
+		
 }

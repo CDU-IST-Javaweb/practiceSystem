@@ -22,14 +22,14 @@ import cn.edu.cdu.practice.utils.PageUtils;
 @WebServlet("/SystemsManagement/AdminLookNoticesServlet")
 public class AdminLookNoticesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public AdminLookNoticesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public AdminLookNoticesServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<NoticeCompany> list = null;
 		NoticeService noticeService = new NoticeServiceImpl();
 		String pageNows = request.getParameter("pageNow");
@@ -40,7 +40,7 @@ public class AdminLookNoticesServlet extends HttpServlet {
 		int pageSize = 5;
 		HttpSession session = request.getSession();
 		try {
-			//查询出所有数量
+			// 查询出所有数量
 			int totalSize = noticeService.countNoAuditTimeNotice();
 			PageUtils pager = new PageUtils(pageNow, totalSize);
 			pager.setPageSize(pageSize);
@@ -48,14 +48,14 @@ public class AdminLookNoticesServlet extends HttpServlet {
 			session.setAttribute("aditNotice", list);
 			session.setAttribute("pager1", pager);
 			request.getRequestDispatcher("/SystemsManagement/audit-notice.jsp").forward(request, response);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			Log4jUtils.info(e.getMessage());
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
-			return ;
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "访问数据库出现异常！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
+			return;
 		}
 	}
-    
-    
 
 }

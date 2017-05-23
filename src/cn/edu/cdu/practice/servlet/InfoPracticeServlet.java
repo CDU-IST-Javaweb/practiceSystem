@@ -43,16 +43,20 @@ public class InfoPracticeServlet extends HttpServlet {
 		Project project = projectDaoImpl.findProjectByNo(no);
 		if (project != null) {
 			Company company=companyDaoImpl.queryByUserName(project.getCompanyUsername());
-			if (role.equals("1") && project.getCompanyUsername().equals(company_username))
+			if ((role.equals("1") && project.getCompanyUsername().equals(company_username))||role.equals("9")){
 				// 设置当前用户对info的所有权
 				request.setAttribute("InfoRole", 1);
+			}
 			else
 				request.setAttribute("InfoRole", 0);
 			request.setAttribute("infoProject", project);
 			request.setAttribute("infoCompany", company);
 			request.getRequestDispatcher("/PracticeManagement/infoPractice.jsp").forward(request, response);
 		}else{
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "访问数据库出现异常！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 
 	}

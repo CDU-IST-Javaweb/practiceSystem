@@ -61,8 +61,10 @@ public class SummaryPracticeServlet extends HttpServlet {
 					.forward(request, response);
 
 		} else {
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 
 	}

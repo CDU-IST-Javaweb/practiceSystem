@@ -57,6 +57,10 @@ public class AddPracticeServlet extends HttpServlet {
 		String role = (String) request.getSession().getAttribute("role");
 		if (company_username == null||!role.equals("1")) {
 			//用户身份不对
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		} else {
 			String majors[] = request.getParameterValues("major");
 			String name = request.getParameter("name");
@@ -93,7 +97,11 @@ public class AddPracticeServlet extends HttpServlet {
 				request.getRequestDispatcher("SelectPracticeServlet?selectProjectType=1").forward(request, response);
 			}else{
 				//实训方案添加失败
-				request.getRequestDispatcher("SelectPracticeServlet?selectProjectType=1").forward(request, response);
+				//跳转到404页面,并打印错误信息
+				String errorMessage = "添加实训方案失败，可能是方案号生成异常！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
+				//request.getRequestDispatcher("SelectPracticeServlet?selectProjectType=1").forward(request, response);
 			}
 		}
 

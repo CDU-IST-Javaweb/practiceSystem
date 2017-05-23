@@ -42,6 +42,10 @@ public class ChoicePracticeInfoServlet extends HttpServlet {
 		String role = (String) request.getSession().getAttribute("role");
 		if (company_username == null || !role.equals("1")) {
 			//未通过身份验证
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "当前用户无权访问！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		} else {
 			// session 里保存用户查询方式
 			// 键：selectChoiceType 值 ： 1:无条件查 2:按方案号查

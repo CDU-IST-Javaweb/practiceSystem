@@ -57,8 +57,10 @@ public class ResetPassServlet extends HttpServlet {
 			if(!rvchidden.equals(rvcinAction)){
 				//如果输入的验证码和发送到邮箱的不一致，跳转到404页面
 				System.out.println("hehe");
-				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-				//request.getRequestDispatcher("/404.html").forward(request, response);
+				//跳转到404页面,并打印错误信息
+				String errorMessage = "验证码输入错误！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
 			}
 			if(newpassword.equals(newconfirmPassword)){
 				System.out.println("hahaha");

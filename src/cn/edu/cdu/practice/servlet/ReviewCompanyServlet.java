@@ -33,7 +33,10 @@ public class ReviewCompanyServlet extends HttpServlet {
 		//校验
 		if (ValidateUtils.validate(userName) || userName == null) {
 			System.out.println("有过滤参数");
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "请求时附带非法字符，拒绝访问！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 			return ;
 		}
 		Company company = null ;
@@ -43,8 +46,10 @@ public class ReviewCompanyServlet extends HttpServlet {
 			//根据用户名取出的Company对象为空
 			if (company == null) {
 				System.out.println("对象为空");
-				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-				//request.getRequestDispatcher("/404.html").forward(request, response);
+				//跳转到404页面,并打印错误信息
+				String errorMessage = "访问数据库出现异常，无法获取指定数据！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
 				return;
 			}
 			else {
@@ -54,8 +59,10 @@ public class ReviewCompanyServlet extends HttpServlet {
 					if (companyService.backReview(company)) {
 						request.getRequestDispatcher("/EnterpriseManagement/ShowCompanyssServlet").forward(request, response);
 					}else {
-						response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-						//request.getRequestDispatcher("/404.html").forward(request, response);
+						//跳转到404页面,并打印错误信息
+						String errorMessage = "访问数据库出现异常，无法完成请求！";
+						request.getSession().setAttribute("ErrorMessage", errorMessage);
+						response.sendRedirect(request.getContextPath() + "/404.jsp");
 						return ;
 					}
 				}
@@ -70,8 +77,10 @@ public class ReviewCompanyServlet extends HttpServlet {
 						request.getRequestDispatcher("/EnterpriseManagement/ShowCompanyssServlet").forward(request, response);
 					}
 					else {
-						response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-						//request.getRequestDispatcher("/404.html").forward(request, response);
+						//跳转到404页面,并打印错误信息
+						String errorMessage = "访问数据库出现异常，审核失败！";
+						request.getSession().setAttribute("ErrorMessage", errorMessage);
+						response.sendRedirect(request.getContextPath() + "/404.jsp");
 						return ;
 					}
 				}

@@ -48,8 +48,10 @@ public class ShowIndexCompanyNoticeListServlet extends HttpServlet {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}catch(Exception e) {
 			Log4jUtils.info(e.getMessage());
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "访问数据库出现异常！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 	}
 

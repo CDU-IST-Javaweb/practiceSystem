@@ -23,35 +23,42 @@ import cn.edu.cdu.practice.utils.ValidateUtils;
 @WebServlet("/SystemsManagement/AddNoticeAdminServlet")
 public class AddNoticeAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    public AddNoticeAdminServlet() {
-        super();
-    }
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	public AddNoticeAdminServlet() {
+		super();
+	}
+
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		System.out.println(title+" "+content);
+		System.out.println(title + " " + content);
 		if (ValidateUtils.validate(title) || ValidateUtils.validate(content)) {
 			System.out.println("有可疑参数");
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
-			return ;
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "请求时附带可疑参数，拒绝访问！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
+			return;
 		}
 		NoticeService noticeService = new NoticeServiceImpl();
 		NoticeAdmin noticeAdmin = new NoticeAdmin();
 		noticeAdmin.setTitle(title);
 		noticeAdmin.setContent(content);
 		java.util.Date date = new java.util.Date();
-		java.sql.Date sqlDate=new java.sql.Date(date.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		System.out.println(sqlDate);
 		noticeAdmin.setReleaseDate(sqlDate);
 		try {
 			noticeService.provideAdminAnnouncement(noticeAdmin);
 			request.getRequestDispatcher("/SystemsManagement/ShowAdminNotices").forward(request, response);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			Log4jUtils.info(e.getMessage());
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "系统错误！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 	}
 

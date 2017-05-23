@@ -43,9 +43,9 @@ public class UpdatePracticeServlet extends HttpServlet {
 		String role = (String) request.getSession().getAttribute("role");
 		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
 		ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
-		if (role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no)) {
+		if ((role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no))||role.equals("9")) {
 			Project project = projectDaoImpl.findProjectByNo(no);
-			//传个数字到页面，方便计算出年级
+			//计算出年级
 		    int year=Calendar.getInstance().get(Calendar.YEAR);
 			int flag=Calendar.getInstance().get(Calendar.MONTH)>8?1:0;
 			int gradeFlag=flag+year-project.getGrade();
@@ -54,16 +54,16 @@ public class UpdatePracticeServlet extends HttpServlet {
 			for(String marjor:majors){
 				majorInfo.put(marjor, 1);
 			}
-			System.out.println(majorInfo.get("网络工程(本)"));
 			request.setAttribute("majorInfo", majorInfo);
 			request.setAttribute("gradeFlag", gradeFlag);
 			request.setAttribute("updateProjectInfo", project);
 			request.setAttribute("updateProjectNo", no);
 			request.getRequestDispatcher("/PracticeManagement/updatePractice.jsp").forward(request, response);
 		} else {
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			// request.getRequestDispatcher("/404.html").forward(request,
-			// response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 	}
 
@@ -93,7 +93,7 @@ public class UpdatePracticeServlet extends HttpServlet {
 		grade = projectServiceImpl.getStuGrade(grade);
 		String company_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-		if (role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no)) {
+		if ((role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no))||role.equals("9")) {
 
 			Log4jUtils.info("修改方案表单数据:" + no + " " + major + " " + company_username + " " + name + " " + introduction
 					+ " " + students_num + " " + category + " " + grade + " " + company_teacher + " "
@@ -114,12 +114,18 @@ public class UpdatePracticeServlet extends HttpServlet {
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			if (projectDaoImpl.updateProject(project))
 				request.getRequestDispatcher("SelectPracticeServlet").forward(request, response);
-			else
-				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			else{
+				//跳转到404页面,并打印错误信息
+				String errorMessage = "访问数据库出现异常,更新失败！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
+			}
+			
 		} else {
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 	}
 

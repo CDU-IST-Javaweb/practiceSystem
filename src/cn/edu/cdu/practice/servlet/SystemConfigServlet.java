@@ -49,7 +49,6 @@ public class SystemConfigServlet extends HttpServlet {
 					 releaseProjectStartDate, releaseProjectEndDate,
 					 studentSelStartDate, studentSelEndDate, studentSelMaxnum,
 					 user)) {
-				session.setAttribute("account", account);
 				request.getRequestDispatcher("/SystemsManagement/SelectSystemConfigServlet").forward(request, response);
 				return;
 			} 

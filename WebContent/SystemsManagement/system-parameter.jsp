@@ -66,13 +66,12 @@
                                     <div class="table-responsive">
                                     <form action = "MyConfigServlet" method="post">
                                         <table class="table pmd-table table-bordered">
-                                                <tr>
-                                                    <th>管理员用户名</th>
-                                                    <td><input type="text" name="account" value="${sys.adminUsername }"></td>
-                                                </tr>
+                                                <%-- <tr>
+                                                    <td><input type="hidden" name="account" value="${sys.adminUsername }"></td>
+                                                </tr> --%>
                                                 <tr>
                                                 	<th>管理员密码</th>
-                                                	<td><input type="password" name="pwd" value="${sys.adminPassword }"></td>
+                                                	<td><input type="password" name="pwd" value=""/></td>
                                                 </tr>
                                                 <tr>
                                                 <th>邀请码</th>

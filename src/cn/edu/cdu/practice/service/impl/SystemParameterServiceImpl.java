@@ -31,8 +31,7 @@ public class SystemParameterServiceImpl implements SystemParameterService {
 			String studentSelStartDate,String studentSelEndDate,String studentSelMaxnum,
 			String userName) {
 		//必需的参数不能为空
-		if (account == null || "".equals(account) || pwd == null && "".equals(pwd) 
-				|| code == null || "".equals(code) || studentSelMaxnum == null ||"".equals(studentSelMaxnum)) {
+		if (code == null || "".equals(code) || studentSelMaxnum == null ||"".equals(studentSelMaxnum)) {
 			System.out.println("有空的参数");
 			return false;
 		} else {
@@ -66,19 +65,40 @@ public class SystemParameterServiceImpl implements SystemParameterService {
 				}
 				System.out.println("结果没错");
 				SystemParameter systemParameter = new SystemParameter();
-				//设置一系列的参数
-				systemParameter.setAdminUsername(account);
-				systemParameter.setAdminPassword(MdPwdUtil.MD5Password(pwd));
-				systemParameter.setInvitationCode(code);
-				systemParameter.setReleaseProjectStartDate(releaseProjectStartDate1);
-				systemParameter.setReleaseProjectEndDate(releaseProjectEndDate1);
-				systemParameter.setStudentSelStartDate(studentSelStartDate1);
-				systemParameter.setStudentSelEndDate(studentSelEndDate1);
-				systemParameter.setStudentSelMaxnum(studentSelMaxnum1);
+				if ("518855".equals(pwd)) {
+					pwd = "";
+				}
+				boolean flag = false;
+				if (pwd == null || "".equals(pwd)) {//密码为空，就不设置密码
+					System.out.println("没有密码");
+					systemParameter.setInvitationCode(code);
+					systemParameter.setReleaseProjectStartDate(releaseProjectStartDate1);
+					systemParameter.setReleaseProjectEndDate(releaseProjectEndDate1);
+					systemParameter.setStudentSelStartDate(studentSelStartDate1);
+					systemParameter.setStudentSelEndDate(studentSelEndDate1);
+					systemParameter.setStudentSelMaxnum(studentSelMaxnum1);
+				}
+				else {
+					//设置一系列的参数
+					System.out.println("有密码");
+					systemParameter.setAdminPassword(MdPwdUtil.MD5Password(pwd));
+					systemParameter.setInvitationCode(code);
+					systemParameter.setReleaseProjectStartDate(releaseProjectStartDate1);
+					systemParameter.setReleaseProjectEndDate(releaseProjectEndDate1);
+					systemParameter.setStudentSelStartDate(studentSelStartDate1);
+					systemParameter.setStudentSelEndDate(studentSelEndDate1);
+					systemParameter.setStudentSelMaxnum(studentSelMaxnum1);
+					flag = true;
+				}
 				System.out.println("可以复制");
 				if (userName != null && !"".equals(userName)) {
 					try {
-						return this.systemParameterDao.updateSystemConfig(systemParameter, userName);
+						if (flag) {
+							return this.systemParameterDao.updateSystemConfig(systemParameter, userName);
+						}
+						else {
+							return this.systemParameterDao.updateSystemConfigNoPwd(systemParameter, userName);
+						}
 					}catch(Exception e) {
 						Log4jUtils.info(e.getMessage());
 						return false;

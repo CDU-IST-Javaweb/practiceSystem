@@ -7,11 +7,11 @@
             <property name="user">root</property>  
             <property name="password">123456</property>  
             <property name="checkoutTimeout">3000</property>
-            <property name="initialPoolSize">100</property>  
+            <property name="initialPoolSize">30</property>  
             <property name="maxIdleTime">30</property>  
-            <property name="maxPoolSize">800</property>  
-            <property name="minPoolSize">100</property>  
-            <property name="maxStatements">800</property>  
+            <property name="maxPoolSize">200</property>  
+            <property name="minPoolSize">5</property>  
+            <property name="maxStatements">700</property>  
         </default-config>  
           
           

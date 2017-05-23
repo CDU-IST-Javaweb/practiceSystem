@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 /** 
 * @Copyright (C), 2017, 成都大学信息科学与工程学院JavaWeb教材编写组.
  * @FileName CompanyDao.java
@@ -18,16 +20,18 @@ import java.util.Properties;
  * Modification Date： 程序修改时间
 */
 public class DbUtils {
-	private static Connection connection ;
+	/*private static Connection connection ;
 	private static String driver ;
 	private static String url ;
 	private static String user ;
-	private static String password ;
+	private static String password ;*/
+	private static Connection connection ;
+	private static ComboPooledDataSource cpds = null;
 	/**
 	 * 静态代码块，读取jdbc配置文件，将数据库连接参数赋值给本类的属性
 	 */
 	static {
-		Properties properties = new Properties();
+		/*Properties properties = new Properties();
 		ClassLoader loader = DbUtils.class.getClassLoader();
 		try {
 			properties.load(loader.getResourceAsStream("jdbc.properties"));
@@ -38,7 +42,8 @@ public class DbUtils {
 			Class.forName(driver);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
+		 cpds = new ComboPooledDataSource();
 	}
 	
 	/**
@@ -49,7 +54,7 @@ public class DbUtils {
 	 */
 	public static Connection getConnection() {
 		try {
-			connection =  DriverManager.getConnection(url,user,password);
+			connection =  cpds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

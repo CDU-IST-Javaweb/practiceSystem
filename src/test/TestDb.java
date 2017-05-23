@@ -47,23 +47,12 @@ public class TestDb {
 	 */
 	@Test
 	public void test() throws Exception {
-		/*InputStream in = new FileInputStream("src/123.xlsx");
-		List<Student> list = ExcelInUtil.importStudentExcel("src/123.xlsx");
-		System.out.println(list.size());
-		for(Student student : list) {
-			System.out.println(student.getName() + " "+student.getGender() + " "+student.getNo() + " "
-					+student.getMailbox()+" "+student.getLevel() +" "+student.getClass_()+" "+student.getProfessional()+
-					student.getGrade());
-		}
-	}*/
 		Connection connection = DbUtils.getConnection();
-		StudentDao studentDao = new StudentDaoImpl();
-		List<Student> list = ExcelInUtil.importStudentExcel("123.xlsx");
+		System.out.println(connection);
 //		for(Student student : list) {
 //			System.out.println(student.getName() + " "+student.getGender() + " "+student.getNo() + " "
 //					+student.getMailbox()+" "+student.getLevel() +" "+student.getClass_()+" "+student.getProfessional()+
 //					student.getGrade());
 //		}
-		studentDao.importStudent(list);
 	}
 }

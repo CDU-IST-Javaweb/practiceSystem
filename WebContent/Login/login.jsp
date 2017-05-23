@@ -394,8 +394,13 @@ response.setDateHeader("Expires",0);
 		$(document).ready(function(){
 			  htmlobj=$.ajax({url:"/practiceSystem/Login/IndetifyCodeServlet",async:false});
 			  $("#vcinAction").html(htmlobj.responseText);
-			  $("#vchidden").val(htmlobj.responseText);
+			  $("#vchidden").val(htmlobj.responseText);			 
 		});
+		$("#vcinAction").click(function(){
+			  htmlobj=$.ajax({url:"/practiceSystem/Login/IndetifyCodeServlet",async:false});
+			  $("#vcinAction").html(htmlobj.responseText);
+			  $("#vchidden").val(htmlobj.responseText);
+		  })
 	</script>
 		<script type="text/javascript">
 		$(document).ready(function(){

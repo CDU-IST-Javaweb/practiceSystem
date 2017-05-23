@@ -35,7 +35,7 @@ public class RegistCompanyServlet extends HttpServlet {
 		try {
 			CompanyService companyService = new CompanyServiceImpl();
 			if (companyService.registerCompanyInfo(qyusername, qyname, email, password, rscode, yzm)) {
-				request.getRequestDispatcher("/Login/login.jsp").forward(request, response);
+				response.sendRedirect("/practiceSystem/Login/login.jsp");
 				return;
 			}else {
 				response.sendRedirect("http://202.115.82.8:8080/404.jsp");

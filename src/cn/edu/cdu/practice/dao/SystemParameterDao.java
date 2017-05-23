@@ -29,6 +29,15 @@ public interface SystemParameterDao {
 	 * @return 设置成功返回true，设置失败返回false
 	 */
 	boolean updateSystemConfig(SystemParameter systemConfig,String username);
+	
+	/**
+	 * <p>Title: updateSystemConfig</p>
+	 * <p>Description: 更新系统参数表</p>
+	 * @param systemConfig 系统设置实体类的引用
+	 * @return 设置成功返回true，设置失败返回false
+	 */
+	boolean updateSystemConfigNoPwd(SystemParameter systemConfig,String username);
+	
 	/**
 	 * <p>Title: queryByAccount</p>
 	 * <p>Description: 根据用户名查询</p>

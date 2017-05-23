@@ -971,11 +971,11 @@ public class ProjectDaoImpl implements ProjectDao {
 			sql_end = " AND audit_date IS NOT NULL";
 		else
 			sql_end = " AND audit_date IS NULL";
-		if (company_username != null) {
+		if (company_username == null) {
 			sql = "SELECT COUNT(*) m FROM project WHERE `No` LIKE '" + year + "%'" + sql_end;
 		} else
 			sql = "SELECT COUNT(*) m FROM project WHERE `No` LIKE '" + year + "%' AND company_username="
-					+ company_username + sql_end;
+					+"'"+ company_username +"'"+ sql_end;
 
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;

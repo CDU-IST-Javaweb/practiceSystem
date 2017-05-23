@@ -36,8 +36,10 @@ public class UpdateCompanyInfo extends HttpServlet {
 		if (ValidateUtils.validate(profile) || ValidateUtils.validate(contacts)
 				|| ValidateUtils.validate(address) || ValidateUtils.validate(phone)) {
 			System.out.println("有可疑参数");
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "请求附带可疑字符，访问被拒绝！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 			return ;
 		}
 		company.setAddress(address);
@@ -51,12 +53,16 @@ public class UpdateCompanyInfo extends HttpServlet {
 				request.getRequestDispatcher("/EnterpriseManagement/ShowsCompanyServlet").forward(request, response);
 				return;
 			}
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "访问数据库出现异常！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}catch(Exception e) {
 			Log4jUtils.info(e.getMessage());
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "访问数据库出现异常！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 			return ;
 		}
 	}

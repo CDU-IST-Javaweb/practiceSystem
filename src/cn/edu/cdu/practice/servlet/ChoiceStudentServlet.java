@@ -60,11 +60,17 @@ public class ChoiceStudentServlet extends HttpServlet {
 				request.getRequestDispatcher("ChoicePracticeInfoServlet?nowPage="+pageUtils.getPageNow()).forward(request, response);
 			} else {
 				// 访问无效
-				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+				//跳转到404页面,并打印错误信息
+				String errorMessage = "访问时附带系统指定参数异常！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
 			}
 		}else{
 			//角色身份不匹配
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "当前用户无权访问！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 		
 	}

@@ -36,17 +36,21 @@ public class DeletePracticeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String no = request.getParameter("no");
-		
+
 		String company_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-		ProjectServiceImpl projectServiceImpl=new ProjectServiceImpl();
-		if(role.equals("1")&&projectServiceImpl.findProjectBelongToUserByPNo(company_username, no)){
-			//角色为企业并对该方案拥有权限
+		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		if ((role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no))
+				|| role.equals("9")) {
+			// 角色为企业并对该方案拥有权限
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			boolean b = projectDaoImpl.deleteProject(no);
 			request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet").forward(request, response);
-		}else{
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+		} else {
+			// 如果登录不成功，跳转到404页面,并打印错误信息
+			String errorMessage = "当前用户无权访问！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 
 	}

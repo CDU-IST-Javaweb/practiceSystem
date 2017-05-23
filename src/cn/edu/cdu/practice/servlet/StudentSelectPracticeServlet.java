@@ -64,7 +64,10 @@ public class StudentSelectPracticeServlet extends HttpServlet {
 			ArrayList<Project> chosenProject = projectDaoImpl.findAllChosenProject(student.getNo());
 			if (chosenProject == null) {
 				// 查询学生已选方案失败，无法继续
-				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+				//跳转到404页面,并打印错误信息
+				String errorMessage = "访问数据库出现异常，无法查询学生已选方案！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
 			} else {
 				//通过方案号保存学生是否选择该方案  1-已选  0-未选
 				HashMap<String, Integer> choiceState = new HashMap<>();
@@ -100,8 +103,10 @@ public class StudentSelectPracticeServlet extends HttpServlet {
 			}
 		} else {
 			// 角色不匹配
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 
 	}

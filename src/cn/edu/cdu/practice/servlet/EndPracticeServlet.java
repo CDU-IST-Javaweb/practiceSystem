@@ -44,8 +44,10 @@ public class EndPracticeServlet extends HttpServlet {
 			request.getRequestDispatcher("/PracticeManagement/SelectPracticeServlet").forward(request, response);
 		}else{
 			//不是管理员，无权访问，跳至404页面
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "当前用户无权访问！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 
 	}

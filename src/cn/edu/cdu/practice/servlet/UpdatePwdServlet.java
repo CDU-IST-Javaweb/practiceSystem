@@ -36,22 +36,24 @@ public class UpdatePwdServlet extends HttpServlet {
 		if (ValidateUtils.validate(oldPwd) || ValidateUtils.validate(newPwd1)
 				|| ValidateUtils.validate(newPwd2)) {
 			System.out.println("有可疑参数");
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "请求时附带可疑字符，访问被拒绝！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 			return ;
 		}
 		//如果两次密码不一致
 		if (!newPwd1.equals(newPwd2)) {
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "输入的两次密码不一致！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 			return ;
 		}
 		else {
 			HttpSession session = request.getSession();
-			String account = (String) session.getAttribute("user");
-			if (account == null) {
-				account = "sayHello";
-			}
+			String account = (String) session.getAttribute("account");
+			
 			Company company = null ;
 			try {
 				CompanyService companyService = new CompanyServiceImpl();
@@ -63,14 +65,18 @@ public class UpdatePwdServlet extends HttpServlet {
 					request.getRequestDispatcher("/SystemsManagement/ShowNoticeListServlet").forward(request, response);
 				}
 				else {
-					response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-					//request.getRequestDispatcher("/404.html").forward(request, response);
+					//跳转到404页面,并打印错误信息
+					String errorMessage = "用户密码错误！";
+					request.getSession().setAttribute("ErrorMessage", errorMessage);
+					response.sendRedirect(request.getContextPath() + "/404.jsp");
 					return ;
 				}
 			}catch(Exception e) {
 				Log4jUtils.info(e.getMessage());
-				response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-				//request.getRequestDispatcher("/404.html").forward(request, response);
+				//跳转到404页面,并打印错误信息
+				String errorMessage = "访问数据库出现异常！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
 				return ;
 			}
 		}

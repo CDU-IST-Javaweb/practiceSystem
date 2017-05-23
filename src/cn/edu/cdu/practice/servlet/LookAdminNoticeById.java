@@ -33,8 +33,10 @@ public class LookAdminNoticeById extends HttpServlet {
 				HttpSession session = request.getSession();
 				//参数校验，如果有非法字符，那么就跳转到404
 				if (ValidateUtils.validate(Id) || Id == null) {
-					response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-					//request.getRequestDispatcher("/404.html").forward(request, response);
+					//跳转到404页面,并打印错误信息
+					String errorMessage = "请求时附带非法字符，或传入空字符！";
+					request.getSession().setAttribute("ErrorMessage", errorMessage);
+					response.sendRedirect(request.getContextPath() + "/404.jsp");
 					return ;
 				}
 				try {
@@ -45,8 +47,10 @@ public class LookAdminNoticeById extends HttpServlet {
 					request.getRequestDispatcher("/SystemsManagement/adminAnnuncement-detail.jsp").forward(request, response);
 				}catch(Exception e) {
 					Log4jUtils.info(e.getMessage());
-					response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-					//request.getRequestDispatcher("/404.html").forward(request, response);
+					//跳转到404页面,并打印错误信息
+					String errorMessage = "访问数据库出现异常！";
+					request.getSession().setAttribute("ErrorMessage", errorMessage);
+					response.sendRedirect(request.getContextPath() + "/404.jsp");
 				}
 				
 	}

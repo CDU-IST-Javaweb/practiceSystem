@@ -47,7 +47,9 @@
 				<div class="content-primary">
 					<h1 class="title">您的输入有误或系统出现未知问题</h1>
 					<p class="description">
-						请检查您的输入、重试或 <br>联系开发人员
+						请检查您的输入、重试或 联系开发人员<br>
+						以下是详细错误信息：<br>
+						<div style="color: red;">${ErrorMessage }</div>
 					</p>
 					<div class="section-footer">
 						<a href="javascript:history.back(-1);" class="btn btn-primary">返回上一页</a> <a

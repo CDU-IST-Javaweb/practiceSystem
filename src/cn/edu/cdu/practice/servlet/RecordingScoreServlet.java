@@ -38,13 +38,7 @@ public class RecordingScoreServlet extends HttpServlet {
 		String p_no = request.getParameter("no");
 		String c_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-		/**
-		 * 测试用数据
-		 */
-		c_username = "sayHello";
-		role = 1 + "";
-		p_no = 2017000009 + "";
-
+		
 		if (role != null) {
 			if (p_no == null) {
 				p_no = (String) request.getSession().getAttribute("recordingScoreByPNo");
@@ -79,8 +73,10 @@ public class RecordingScoreServlet extends HttpServlet {
 				request.getRequestDispatcher("recordingScore.jsp").forward(request, response);
 			}
 		} else {
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
-			//request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 
 	}
@@ -98,16 +94,13 @@ public class RecordingScoreServlet extends HttpServlet {
 		System.out.println(stu_no[0]+"  "+score[0]);
 		String c_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-		/**
-		 * 测试用数据
-		 */
-		c_username = "sayHello";
-		role = 1 + "";
-		p_no = 2017000009 + "";
-
+	
 		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
 		if (role == null){
-			request.getRequestDispatcher("/404.html").forward(request, response);
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 			return;
 		}
 		if (role.equals("1") && c_username != null

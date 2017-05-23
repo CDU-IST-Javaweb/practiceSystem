@@ -114,7 +114,10 @@ public class StudentInfoImport extends HttpServlet {
 			request.getRequestDispatcher("NewFile.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("http://202.115.82.8:8080/404.jsp");
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "访问文件出现异常！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 		
 	}

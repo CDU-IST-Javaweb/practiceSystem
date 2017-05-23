@@ -106,12 +106,16 @@
                                             <h2> <label class="control-label"></label> 基本信息 </h2>
                                         </div>
                                     </div>
-                                    <div class="form-group pmd-textfield">
+                                    <%-- <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-6">
                                             <div class="input-group-addon"><label class="control-label col-md-2">企业简介：</label></div>
-                                            <input type="text"  value="${company.profile }" name="profile" class="mat-input form-control">
+                                            <textarea  name="profile" class="form-control">${company.profile }</textarea>
                                         </div>
-                                    </div>
+                                    </div> --%>
+                                    <div class="form-group pmd-textfield">
+											<label class="control-label col-md-2 arer-lable" >企业简介：</label>
+											<textarea name="profile" class="form-control">${company.profile }</textarea>
+									</div>
                                     <div class="form-group pmd-textfield">
                                         <div class="input-group col-md-4">
                                             <div class="input-group-addon"><label class="control-label col-md-2">联系人：</label></div>

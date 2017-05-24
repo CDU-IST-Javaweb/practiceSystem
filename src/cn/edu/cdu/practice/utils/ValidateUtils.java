@@ -20,7 +20,7 @@ public class ValidateUtils {
 	 */
 	public static boolean validate(String pageParameter) {
 		boolean flag = false ;
-		String inj_str = "|and|insert|select|delete|update|drop|alter|count|"
+		String inj_str = "|insert|select|delete|update|drop|alter|count|"
 				+ "declare|or";
 		String pageParameter2 = pageParameter.toLowerCase();
 		String inj_stra[] = inj_str.split("\\|"); 

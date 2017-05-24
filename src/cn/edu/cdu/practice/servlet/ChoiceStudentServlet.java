@@ -39,6 +39,7 @@ public class ChoiceStudentServlet extends HttpServlet {
 		String company_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
 		ProjectServiceImpl projectServiceImpl=new ProjectServiceImpl();
+		System.out.println("选择、退选     "+role+"    "+company_username +"   "+projectServiceImpl.findProjectBelongToUserByPNo(company_username, p_no));
 		if(role.equals("1")&&projectServiceImpl.findProjectBelongToUserByPNo(company_username, p_no)){
 			//角色为企业并对该方案拥有权限
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();

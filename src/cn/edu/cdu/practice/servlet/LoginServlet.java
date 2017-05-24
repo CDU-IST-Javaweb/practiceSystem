@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("/Login/index.jsp").forward(request, response);
 		} else {
 			// 如果登录不成功，跳转到404页面,并打印错误信息
-			String errorMessage = "登录失败，请检查输入是否正确！";
+			String errorMessage = "登录失败,或服务器异常,请检查输入是否正确!";
 			request.getSession().setAttribute("ErrorMessage", errorMessage);
 			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}

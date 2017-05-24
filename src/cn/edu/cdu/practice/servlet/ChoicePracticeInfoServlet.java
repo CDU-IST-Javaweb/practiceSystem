@@ -81,13 +81,21 @@ public class ChoicePracticeInfoServlet extends HttpServlet {
 			} else {
 				String p_no = request.getParameter("selectChoiceByPNo");
 				String selectChoiceByType=request.getParameter("selectChoiceByType");
-				if (p_no != null) {
-					// p_no不为空说明是第一次有条件访问，需保存p_no的值，以备用户点击页面下一页时使用
+				if (p_no != null&&selectChoiceByType!=null) {
+					// p_no不为空说明是第一次有条件访问，需保存p_no selectChoiceByType的值，以备用户点击页面下一页时使用
 					request.getSession().setAttribute("selectChoiceByPNo", p_no);
 					request.getSession().setAttribute("selectChoiceByType", selectChoiceByType);
 				} else {
-					// 表示用户在查看其他页,此时页面没有传入p_no的值，从session获取
+					// 表示用户在查看其他页,此时页面没有传入p_no selectChoiceByType的值，从session获取
 					p_no = (String) request.getSession().getAttribute("selectChoiceByPNo");
+					selectChoiceByType = (String) request.getSession().getAttribute("selectChoiceByPNo");
+				}
+				if(p_no == null||selectChoiceByType==null){
+					//跳转到404页面,并打印错误信息
+					String errorMessage = "访问参数错误！";
+					request.getSession().setAttribute("ErrorMessage", errorMessage);
+					response.sendRedirect(request.getContextPath() + "/404.jsp");
+					return;
 				}
 				proProSelStuViews = projectDaoImpl.findAllStudentChoiceByPNoAndType(p_no,selectChoiceByType, pageUtils);
 			}

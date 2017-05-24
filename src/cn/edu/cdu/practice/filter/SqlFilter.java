@@ -56,7 +56,10 @@ public class SqlFilter implements Filter{
 		}  
 		//调用防sql注入的方法
 		if (ValidateUtils.validate(sql)) {  
-			res.sendRedirect("http://202.115.82.8:8080/404.jsp");   
+			//跳转到404页面,并打印错误信息
+			String errorMessage = "请求附带非法字符，拒绝访问！";
+			((HttpServletRequest) request).getSession().setAttribute("ErrorMessage", errorMessage);
+			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/404.jsp");
 		}else {  
 			chain.doFilter(req, res);  
 		}  

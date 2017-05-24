@@ -93,6 +93,7 @@ public class StudentChoicePracticeServlet extends HttpServlet {
 			return;
 		}
 
+		System.out.println("----选择实训方案");
 		request.setCharacterEncoding("utf-8");
 		String p_no = request.getParameter("no");
 		String reason = request.getParameter("reason");

@@ -46,7 +46,7 @@
 				</div>
 		</a>
 			<ul class="dropdown-menu">
-				<li><a href="../Login/login.jsp">注销</a></li>
+				<li><a href="../Login/SignOutServlet">注销</a></li>
 			</ul>
 		</li>
 		<!-- End user info -->
@@ -156,7 +156,7 @@
 				</ul></li>
 		</c:if>
 		<!--登出-->
-		<li><a class="pmd-ripple-effect" href="../Login/login.jsp"> <i
+		<li><a class="pmd-ripple-effect" href="../Login/SignOutServlet"> <i
 				class="media-left media-middle"> <svg version="1.1" id="Layer_1"
 						x="0px" y="0px" width="18px" height="18px"
 						viewBox="288.64 337.535 18 18"

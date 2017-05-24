@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="cn.edu.cdu.practice.service.impl.ProjectServiceImpl"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -118,7 +120,25 @@
 											<textarea required class="form-control" name="introduction">${updateProjectInfo.introduction }</textarea>
 										</div>
 										<div class="form-group pmd-textfield">
-											<label class="control-label col-md-1">适合专业</label> <label
+											<label class="control-label col-md-1">适合专业</label>
+											<%
+												ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+												ArrayList<String> professionals = projectServiceImpl.findAllProfessional();
+											%>
+											<c:forEach items="<%=professionals%>" var="professional">
+												<label
+													class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+													<c:if test="${majorInfo.get(professional)==1 }">
+														<input type="checkbox" value="${professional }" name="major"
+															checked="checked">
+													</c:if> <c:if test="${majorInfo.get(professional)!=1 }">
+														<input type="checkbox" value="${professional }" name="major">
+													</c:if> <span>${professional }</span>
+												</label>
+											</c:forEach>
+
+											<!-- 
+											 <label
 												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
 												<c:if test="${majorInfo.get(\"信息与计算科学(本)\")==1 }">
 													<input type="checkbox" value="信息与计算科学(本)" name="major"
@@ -190,7 +210,7 @@
 												</c:if> <c:if test="${majorInfo.get(\"通信工程(本)\")!=1 }">
 													<input type="checkbox" value="通信工程(本)" name="major">
 												</c:if><span> 通信工程(本)</span>
-											</label>
+											</label> -->
 										</div>
 										<div class="form-group pmd-textfield ">
 											<div class="input-group col-md-4">

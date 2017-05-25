@@ -38,7 +38,7 @@ public class ProjectDaoImpl implements ProjectDao {
 		// 通过projectServiceImpl得到no
 		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
 		String no = projectServiceImpl.getProjectNo();
-		if(no==null){
+		if (no == null) {
 			return false;
 		}
 		try {
@@ -299,14 +299,14 @@ public class ProjectDaoImpl implements ProjectDao {
 		PreparedStatement ps = null;
 		try {
 			connection.setAutoCommit(false);
+			ps = connection.prepareStatement(sql);
 			for (int i = 0; i < p_nos.length; i++) {
-				ps = connection.prepareStatement(sql);
 				ps.setDate(1, date);
 				ps.setString(2, p_nos[i]);
-				ps.executeUpdate();
-				connection.commit();
-				ps.close();
+				ps.addBatch();
 			}
+			ps.executeBatch();
+			connection.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -415,7 +415,7 @@ public class ProjectDaoImpl implements ProjectDao {
 				}
 			}
 		} finally {
-			DbUtils.closeConnection(connection, ps, null);
+			DbUtils.closeConnection(connection, ps, rs);
 		}
 		return false;
 	}
@@ -567,9 +567,16 @@ public class ProjectDaoImpl implements ProjectDao {
 			connection.setAutoCommit(false);
 			ps = connection.prepareStatement(sql);
 			ps.setString(2, p_no);
-			for (int i = 0; i < stu_nos.length; i++) {
-				ps.setString(1, stu_nos[i]);
-				ps.executeUpdate();
+			if (stu_nos.length == 1) {
+				ps.setString(1, stu_nos[0]);
+				ps.execute();
+				System.out.println("退选一个学生");
+			} else {
+				for (int i = 0; i < stu_nos.length; i++) {
+					ps.setString(1, stu_nos[i]);
+					ps.addBatch();
+				}
+				ps.executeBatch();
 			}
 			connection.commit();
 			return true;
@@ -637,8 +644,9 @@ public class ProjectDaoImpl implements ProjectDao {
 			for (int i = 0; i < stu_nos.length; i++) {
 				ps.setString(1, scores[i]);
 				ps.setString(2, stu_nos[i]);
-				ps.executeUpdate();
+				ps.addBatch();
 			}
+			ps.executeBatch();
 			connection.commit();
 			return true;
 		} catch (Exception e) {
@@ -785,7 +793,7 @@ public class ProjectDaoImpl implements ProjectDao {
 			String m = "";
 			if (rs.next()) {
 				m = rs.getString("m");
-				if(m==null){
+				if (m == null) {
 					return 0;
 				}
 				return Integer.parseInt(m);
@@ -974,8 +982,8 @@ public class ProjectDaoImpl implements ProjectDao {
 		if (company_username == null) {
 			sql = "SELECT COUNT(*) m FROM project WHERE `No` LIKE '" + year + "%'" + sql_end;
 		} else
-			sql = "SELECT COUNT(*) m FROM project WHERE `No` LIKE '" + year + "%' AND company_username="
-					+"'"+ company_username +"'"+ sql_end;
+			sql = "SELECT COUNT(*) m FROM project WHERE `No` LIKE '" + year + "%' AND company_username=" + "'"
+					+ company_username + "'" + sql_end;
 
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
@@ -1038,7 +1046,7 @@ public class ProjectDaoImpl implements ProjectDao {
 	public ArrayList<ProProSelStuView> findAllStudentChoiceByPNo(String p_no, PageUtils pageUtils) {
 		String sql = "SELECT * FROM view_project_select WHERE projectNo=? LIMIT ?,?";
 		Connection connection = DbUtils.getConnection();
-		int totalSize = countAllStudentChoiceByPNoAndType(p_no,"3");
+		int totalSize = countAllStudentChoiceByPNoAndType(p_no, "3");
 		if (totalSize < 0)
 			return null;
 		pageUtils.setTotalSize(totalSize);
@@ -1103,13 +1111,13 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public int countAllStudentChoiceByPNoAndType(String p_no,String type) {
+	public int countAllStudentChoiceByPNoAndType(String p_no, String type) {
 		String sql = "SELECT COUNT(*) m FROM view_project_select WHERE projectNo=?";
-		if(type.equals("1")){
-			sql+=" AND company_sel_date IS NOT NULL";
+		if (type.equals("1")) {
+			sql += " AND company_sel_date IS NOT NULL";
 		}
-		if(type.equals("2")){
-			sql+=" AND company_sel_date IS NULL";
+		if (type.equals("2")) {
+			sql += " AND company_sel_date IS NULL";
 		}
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
@@ -1233,7 +1241,7 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public ArrayList<ProjectSelect> findStuProject(String stu_no) {
-		//已被企业选择并成绩为空，当前年度正进行方案
+		// 已被企业选择并成绩为空，当前年度正进行方案
 		String sql = "SELECT * FROM project_select WHERE company_sel_date IS NOT NULL AND studentNo=? AND score IS NULL";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
@@ -1262,19 +1270,18 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public ArrayList<ProProSelStuView> findAllStudentChoiceByPNoAndType(String p_no, String type, PageUtils pageUtils) {
-		String sql ="";
-		if(type.equals("1")){
+		String sql = "";
+		if (type.equals("1")) {
 			sql = "SELECT * FROM view_project_select WHERE projectNo=? AND company_sel_date IS NOT NULL LIMIT ?,?";
-		}
-		else if(type.equals("2")){
+		} else if (type.equals("2")) {
 			sql = "SELECT * FROM view_project_select WHERE projectNo=? AND company_sel_date IS NULL LIMIT ?,?";
-		}else if(type.equals("3")){
+		} else if (type.equals("3")) {
 			sql = "SELECT * FROM view_project_select WHERE projectNo=? LIMIT ?,?";
-		}else{
+		} else {
 			return null;
 		}
 		Connection connection = DbUtils.getConnection();
-		int totalSize = countAllStudentChoiceByPNoAndType(p_no,type);
+		int totalSize = countAllStudentChoiceByPNoAndType(p_no, type);
 		if (totalSize < 0)
 			return null;
 		pageUtils.setTotalSize(totalSize);
@@ -1344,7 +1351,7 @@ public class ProjectDaoImpl implements ProjectDao {
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<String> professionals=new ArrayList<>();
+		ArrayList<String> professionals = new ArrayList<>();
 		try {
 			// 查询方案总数
 			ps = connection.prepareStatement(sql);

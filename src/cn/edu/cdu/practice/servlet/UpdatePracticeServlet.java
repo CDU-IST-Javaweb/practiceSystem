@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.edu.cdu.practice.dao.impl.CompanyDaoImpl;
 import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
+import cn.edu.cdu.practice.model.Company;
 import cn.edu.cdu.practice.model.Project;
 import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.utils.Log4jUtils;
@@ -54,6 +56,12 @@ public class UpdatePracticeServlet extends HttpServlet {
 			for(String marjor:majors){
 				majorInfo.put(marjor, 1);
 			}
+			//查询方案所属企业
+			CompanyDaoImpl companyDaoImpl = new CompanyDaoImpl();
+			Company company=companyDaoImpl.queryByUserName(project.getCompanyUsername());
+			
+			request.setAttribute("company", company);
+			
 			request.setAttribute("majorInfo", majorInfo);
 			request.setAttribute("gradeFlag", gradeFlag);
 			request.setAttribute("updateProjectInfo", project);
@@ -95,21 +103,27 @@ public class UpdatePracticeServlet extends HttpServlet {
 		String role = (String) request.getSession().getAttribute("role");
 		if ((role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(company_username, no))||role.equals("9")) {
 
-			Log4jUtils.info("修改方案表单数据:" + no + " " + major + " " + company_username + " " + name + " " + introduction
-					+ " " + students_num + " " + category + " " + grade + " " + company_teacher + " "
-					+ company_teacher_title);
 			// 根据表单数据新建project对象
 			Project project = new Project();
 			project.setNo(no);
 			project.setName(name);
 			project.setMajor(major);
-			project.setCompanyUsername(company_username);
+			
+			//查询方案所属企业
+//			CompanyDaoImpl companyDaoImpl = new CompanyDaoImpl();
+//			Company company=companyDaoImpl.queryByUserName();
+//			
+//			project.setCompanyUsername(company.getUsername());
 			project.setIntroduction(introduction);
 			project.setStudentsNum(students_num);
 			project.setCategory(category);
 			project.setGrade(grade);
 			project.setCompanyTeacher(company_teacher);
 			project.setCompanyTeacherTitle(company_teacher_title);
+			
+			Log4jUtils.info("修改方案表单数据:" + no + " " + major + " " + name + " " + introduction
+					+ " " + students_num + " " + category + " " + grade + " " + company_teacher + " "
+					+ company_teacher_title);
 
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			if (projectDaoImpl.updateProject(project))

@@ -80,8 +80,8 @@ public class ProjectDaoImpl implements ProjectDao {
 	public boolean updateProject(Project p) {
 		// 该sql语句用于查询传入方案是否已审核，审核后不能修改
 		String sql1 = "SELECT audit_date FROM project WHERE No=?";
-		// 修改方案属性sql语句
-		String sql2 = "UPDATE project SET name=?,introduction=?,students_num=?,company_username=?,"
+		// 修改方案属性sql语句   company_username=?,
+		String sql2 = "UPDATE project SET name=?,introduction=?,students_num=?,"
 				+ "grade=?,category=?,major=?,company_teacher=?,company_teacher_title=? " + "WHERE no=?";
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
@@ -103,13 +103,13 @@ public class ProjectDaoImpl implements ProjectDao {
 				ps.setString(1, p.getName());
 				ps.setString(2, p.getIntroduction());
 				ps.setInt(3, p.getStudentsNum());
-				ps.setString(4, p.getCompanyUsername());
-				ps.setInt(5, p.getGrade());
-				ps.setString(6, p.getCategory());
-				ps.setString(7, p.getMajor());
-				ps.setString(8, p.getCompanyTeacher());
-				ps.setString(9, p.getCompanyTeacherTitle());
-				ps.setString(10, p.getNo());
+				//ps.setString(4, p.getCompanyUsername());
+				ps.setInt(4, p.getGrade());
+				ps.setString(5, p.getCategory());
+				ps.setString(6, p.getMajor());
+				ps.setString(7, p.getCompanyTeacher());
+				ps.setString(8, p.getCompanyTeacherTitle());
+				ps.setString(9, p.getNo());
 				ps.executeUpdate();
 				connection.commit();
 				return true;

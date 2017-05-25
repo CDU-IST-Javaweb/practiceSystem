@@ -88,7 +88,7 @@ public class ChoicePracticeInfoServlet extends HttpServlet {
 				} else {
 					// 表示用户在查看其他页,此时页面没有传入p_no selectChoiceByType的值，从session获取
 					p_no = (String) request.getSession().getAttribute("selectChoiceByPNo");
-					selectChoiceByType = (String) request.getSession().getAttribute("selectChoiceByPNo");
+					selectChoiceByType = (String) request.getSession().getAttribute("selectChoiceByType");
 				}
 				if(p_no == null||selectChoiceByType==null){
 					//跳转到404页面,并打印错误信息

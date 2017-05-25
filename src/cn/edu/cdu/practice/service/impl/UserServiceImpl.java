@@ -17,7 +17,7 @@ import java.util.List;
  * @Description: UserService接口的实现
  * @Author 于曦
  * @Date： 2017-4-17:下午21:04:04
- * Modification User： 于曦：所有输入的验证码都改成大写再进行比较
+ * Modification User： 于曦：所有输入的验证码都改成大写再进行比较,将所有的数据库连接通过finally进行关闭
  * Modification Date： 2017-5-16:下午23:03
  */
 public class UserServiceImpl implements UserService{
@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService{
 	public boolean login(String account, String password, String Verification_Code,String role,String vchidden) {
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
-		ResultSet rs;
-		PreparedStatement ps;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
 		String account_type = "";
 		System.out.println(Verification_Code + " "+ vchidden.toUpperCase());
 		//如果验证码不正确或没有得到验证码，返回false
@@ -67,12 +67,13 @@ public class UserServiceImpl implements UserService{
 //			System.out.println(ps.toString());
 			if(rs.next()){
 				Log4jUtils.info(account_type+ "用户" + account + "登录成功");
-				DbUtils.closeConnection(con, ps, rs);
 				return true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			DbUtils.closeConnection(con, ps, rs);
 		}
 		Log4jUtils.info(account_type+ "用户" + account + "登录不成功");
 		return false;
@@ -86,7 +87,7 @@ public class UserServiceImpl implements UserService{
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
 		int num = 0;
-		PreparedStatement ps;
+		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try{
 			sql = "select * from mailbox_verification where mailbox = ?";
@@ -103,11 +104,9 @@ public class UserServiceImpl implements UserService{
 				num = ps.executeUpdate();
 				if(num == 1){
 					Log4jUtils.info(mailbox + "验证码设置成功");
-					DbUtils.closeConnection(con, ps);
 					return true;
 				}else{
 					Log4jUtils.info(mailbox + "验证码设置不成功");
-					DbUtils.closeConnection(con, ps);
 					return false;
 				}
 			}
@@ -121,16 +120,16 @@ public class UserServiceImpl implements UserService{
 			num = ps.executeUpdate();
 			if(num == 1){
 				Log4jUtils.info(mailbox + "验证码修改成功");
-				DbUtils.closeConnection(con, ps);
 				return true;
 			}else{
 				Log4jUtils.info(mailbox + "验证码修改不成功");
-				DbUtils.closeConnection(con, ps);
 				return false;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			DbUtils.closeConnection(con, ps,rs);
 		}
 		Log4jUtils.info(mailbox + "验证码设置不成功");
 		return false;
@@ -141,7 +140,7 @@ public class UserServiceImpl implements UserService{
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
 		int num = 0;
-		PreparedStatement ps;
+		PreparedStatement ps = null;
 		sql = "UPDATE student set password=? where mailbox=?";
 		String MDpass = MdPwdUtil.MD5Password(password);
 		try {
@@ -151,12 +150,13 @@ public class UserServiceImpl implements UserService{
 			num = ps.executeUpdate();
 			if(num == 1){
 				Log4jUtils.info(account + "重设密码成功");
-				DbUtils.closeConnection(con, ps);
 				return true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			DbUtils.closeConnection(con, ps);
 		}
 		Log4jUtils.info(account + "重设密码不成功");
 		return false;
@@ -166,8 +166,8 @@ public class UserServiceImpl implements UserService{
 	public List<String> searchbyEmail(String mailbox) {
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
-		ResultSet rs;
-		PreparedStatement ps;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
 		List<String> list = new ArrayList<String>();
 		String role = "";
 		String account = ""; 
@@ -190,12 +190,13 @@ public class UserServiceImpl implements UserService{
 				if(rs.next()){
 					role = "1";
 					account = rs.getString("company_name");
-					DbUtils.closeConnection(con, ps, rs);
 				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			DbUtils.closeConnection(con, ps, rs);
 		}
 		list.add(account);
 		list.add(role);

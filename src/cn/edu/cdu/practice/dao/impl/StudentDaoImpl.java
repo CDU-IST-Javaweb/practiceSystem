@@ -420,9 +420,9 @@ public class StudentDaoImpl implements StudentDao {
 	public String updateEmail(String role, String account, String mbemail) {
 		Connection con = (Connection) DbUtils.getConnection();
 		String sql = "";
-		ResultSet rs;
+		ResultSet rs = null;
 		int resultNum = 0;
-		PreparedStatement ps;
+		PreparedStatement ps = null;
 		System.out.println("updateemail:"+role + account);
 		try {
 			//检查学生表里该登录用户是否有密保邮箱
@@ -447,7 +447,6 @@ public class StudentDaoImpl implements StudentDao {
 					ps.setString(1, mbemail);
 					ps.setString(2, account);
 					resultNum = ps.executeUpdate();
-					DbUtils.closeConnection(con, ps, rs);
 					//如果更新成功，则向页面输出验证码，否则，提示用户更新失败
 					if(resultNum == 1){
 						return identifyCode;
@@ -467,6 +466,8 @@ public class StudentDaoImpl implements StudentDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			DbUtils.closeConnection(con, ps, rs);
 		}
 		return "";
 	}

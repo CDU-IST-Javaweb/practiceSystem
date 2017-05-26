@@ -180,9 +180,10 @@ public class UserServiceImpl implements UserService{
 			if(rs.next()){
 				role = "2";
 				account = rs.getString("No");
-				DbUtils.closeConnection(con, ps, rs);
 			}else{
 				sql = "select * from company where mailbox=?"; 
+				ps.close();
+				rs.close();
 				ps = (PreparedStatement) con.prepareStatement(sql);
 				ps.setString(1, mailbox);
 				rs = ps.executeQuery();

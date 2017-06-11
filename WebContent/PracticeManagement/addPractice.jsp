@@ -116,44 +116,6 @@
 												<input type="checkbox" value="${professional}" name="major">
 												<span>${professional} </span>
 											</label></c:forEach>
-					<!-- 弃用静态，专业由查询数据库获得
-											 <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="信息与计算科学(本)" name="major">
-												<span> 信息与计算科学(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="数字媒体技术(本)" name="major">
-												<span> 数字媒体技术(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="电子信息工程(本)" name="major">
-												<span> 电子信息工程(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="电气工程及其自动化(本)" name="major">
-												<span> 电气工程及其自动化(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="网络工程(本)" name="major">
-												<span> 网络工程(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="自动化(本)" name="major">
-												<span> 自动化(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="计算机科学与技术(本)" name="major">
-												<span> 计算机科学与技术(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="软件工程(本)" name="major">
-												<span> 软件工程(本)</span>
-											</label> <label
-												class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-												<input type="checkbox" value="通信工程(本)" name="major">
-												<span> 通信工程(本)</span>
-											</label> -->
 										</div>
 										<div class="form-group pmd-textfield ">
 											<div class="input-group col-md-4">

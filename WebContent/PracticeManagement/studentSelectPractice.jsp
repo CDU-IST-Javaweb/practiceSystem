@@ -122,11 +122,6 @@
 		</div>
 	</c:forEach>
 
-
-
-
-
-
 	<!--content area start-->
 	<div id="content" class="pmd-content inner-page">
 		<!--tab start-->

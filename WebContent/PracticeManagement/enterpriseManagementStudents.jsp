@@ -78,7 +78,7 @@
 
 	<c:forEach items="${proProSelStuViews }" var="proProSelStuView">
 		<div tabindex="-1" class="modal fade"
-			id="form-dialog-${proProSelStuView.project.no }"
+			id="form-dialog-${proProSelStuView.project.no }-${proProSelStuView.student.no }"
 			style="display: none;" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content" style="height: 780px;">
@@ -252,7 +252,7 @@
 									<td>${proProSelStuView.project.grade }</td>
 									<td>${proProSelStuView.project.releaseDate }</td>
 									<td><button
-											data-target="#form-dialog-${proProSelStuView.project.no }"
+											data-target="#form-dialog-${proProSelStuView.project.no }-${proProSelStuView.student.no }"
 											data-toggle="modal"
 											class="btn pmd-btn-raised pmd-ripple-effect btn-info pmd-z-depth"
 											type="button">查看详情</button></td>

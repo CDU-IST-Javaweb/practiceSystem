@@ -196,16 +196,46 @@
 						<div class="col-md-2 form-inline">
 							<select class="select-simple form-control pmd-select2"
 								name="selectChoiceByType">
-								<option value="1">已选学生</option>
-								<option value="2">未选学生</option>
-								<option value="3">全部学生</option>
+								<c:choose>
+									<c:when test="${sessionScope.selectChoiceByType!=null }">
+										<c:if test="${sessionScope.selectChoiceByType.equals(\"1\") }">
+											<option value="1" selected="selected">已选学生</option>
+											<option value="2">未选学生</option>
+											<option value="3">全部学生</option>
+										</c:if>
+										<c:if test="${sessionScope.selectChoiceByType.equals(\"2\") }">
+											<option value="1">已选学生</option>
+											<option value="2" selected="selected">未选学生</option>
+											<option value="3">全部学生</option>
+										</c:if>
+										<c:if test="${sessionScope.selectChoiceByType.equals(\"3\") }">
+											<option value="1">已选学生</option>
+											<option value="2">未选学生</option>
+											<option value="3" selected="selected">全部学生</option>
+										</c:if>
+									</c:when>
+									<c:otherwise>
+										<option value="1">已选学生</option>
+										<option value="2">未选学生</option>
+										<option value="3">全部学生</option>
+									</c:otherwise>
+								</c:choose>
 							</select>
 						</div>
 						<div class="col-md-3">
 							<select class="select-simple form-control pmd-select2"
 								name="selectChoiceByPNo">
 								<c:forEach items="${cUserAllProject }" var="project">
-									<option value="${project.no }">${project.name }</option>
+									<c:choose>
+										<c:when
+											test="${sessionScope.selectChoiceByPNo!=null&&sessionScope.selectChoiceByPNo.equals(project.no) }">
+											<option value="${project.no }" selected="selected">${project.name }</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${project.no }">${project.name }
+											</option>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
 							</select>
 						</div>
@@ -214,9 +244,7 @@
 							<button class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
 								type="submit">查询</button>
 							<a class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
-								href="#">录入成绩</a> <a
-								class="btn pmd-btn-raised pmd-ripple-effect btn-primary"
-								href="#">导出成绩</a>
+								href="RecordScoreTypeChoice">实训成绩管理</a>
 						</div>
 					</form>
 					<table id="example"
@@ -276,7 +304,8 @@
 						</tbody>
 					</table>
 					<!-- 分页 -->
-					第 ${choiceProjectInfoPageUtils.pageNow } / ${choiceProjectInfoPageUtils.totalPage }页
+					第 ${choiceProjectInfoPageUtils.pageNow } /
+					${choiceProjectInfoPageUtils.totalPage }页
 					<c:if test="${choiceProjectInfoPageUtils.isHasFirst() }">
 						<a href="ChoicePracticeInfoServlet?nowPage=1">首页&nbsp;</a>
 					</c:if>

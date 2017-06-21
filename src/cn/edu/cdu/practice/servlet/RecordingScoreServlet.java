@@ -51,7 +51,10 @@ public class RecordingScoreServlet extends HttpServlet {
 			ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
 			// 依然没有得到，那么不做处理，要求用户提交数据 或者用户角色不满足
 			if (p_no == null || !role.equals("1")) {
-				request.getRequestDispatcher("/404.html").forward(request, response);
+				// 跳转到404页面,并打印错误信息
+				String errorMessage = "要求提交数据 或者用户角色不满足！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
 			} else if (c_username != null && projectServiceImpl.findProjectBelongToUserByPNo(c_username, p_no)) {
 				// 用户身份正确，对方案拥有权限
 				String nowPage = request.getParameter("nowPage");

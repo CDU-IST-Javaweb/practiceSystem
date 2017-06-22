@@ -101,7 +101,6 @@ public class AddPracticeServlet extends HttpServlet {
 				String errorMessage = "添加实训方案失败，可能是方案号生成异常！";
 				request.getSession().setAttribute("ErrorMessage", errorMessage);
 				response.sendRedirect(request.getContextPath() + "/404.jsp");
-				//request.getRequestDispatcher("SelectPracticeServlet?selectProjectType=1").forward(request, response);
 			}
 		}
 

@@ -36,7 +36,7 @@ public interface ProjectService {
 	public boolean findProjectBelongToUserByPNo(String username,String p_no);
 	
 	/**
-	 * 在实训开始时间之后在实训结束时间之前返回true
+	 * 在选择实训开始时间之后在选择实训结束时间之前返回true
 	 * @return
 	 */
 	public boolean findPracticeIsUnderWay();

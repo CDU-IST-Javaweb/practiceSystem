@@ -143,7 +143,7 @@
 										<div
 											class="form-group pmd-textfield pmd-textfield-floating-label col-md-8">
 											<label class="control-label  arer-lable">密保邮箱地址:</label>
-											<div class="input-group col-md-4">
+											<div class="input-group col-md-8">
 												<div class="input-group-addon">
 													<!--  <i class="material-icons md-dark pmd-sm">email</i>-->
 												</div>

@@ -119,14 +119,19 @@
 					type="submit" value="上传" />
 			</form>
 
+			<h2  style="color: red;">注意事项</h2>
+			a、excel第一行指明各列属性名,其中projectno、studentno、score属性需在第一行的前10个单元格,不区分大小写;<br>
+			b、excel只有第一个工作簿数据有效;<br>
+			c、应保证该表中的projectno一样,处理文件时以第二行的projectno为标准,即第一条数据的projectno认为是所有数据的projectno;<br>
+			d、系统会对操作文件及时间进行备份;<br>
+			e、上传文件后，如果回到该页面,没有跳到错误界面,那么就表示录入成功了,当然,你也可以通过功能1来对单个学生成绩进行修改或查询所有学生成绩是否录入成功.<br>
 
-
-			<h3>3、excel表格下载</h3>
 			<br>
-
-			<h3>4、注意事项</h3>
-			<br>
-
+			<div style="color:blue;">
+				<c:if test="${requestScope.UpFileToRecordScoreResult!=null }">
+			    文件上传、录入成绩结果:${requestScope.UpFileToRecordScoreResult }
+			</c:if>
+			</div>
 		</div>
 
 	</div>

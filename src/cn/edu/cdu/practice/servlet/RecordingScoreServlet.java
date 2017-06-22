@@ -38,8 +38,10 @@ public class RecordingScoreServlet extends HttpServlet {
 		String p_no = request.getParameter("no");
 		String c_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-		
-		if (role != null) {
+
+		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+		if (role.equals("1") || role.equals("9")) {
+
 			if (p_no == null) {
 				p_no = (String) request.getSession().getAttribute("recordingScoreByPNo");
 				if (p_no == null) {
@@ -48,7 +50,6 @@ public class RecordingScoreServlet extends HttpServlet {
 				}
 			}
 			request.getSession().setAttribute("recordingScoreByPNo", p_no);
-			ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
 			// 依然没有得到，那么不做处理，要求用户提交数据 或者用户角色不满足
 			if (p_no == null || !role.equals("1")) {
 				// 跳转到404页面,并打印错误信息
@@ -76,8 +77,8 @@ public class RecordingScoreServlet extends HttpServlet {
 				request.getRequestDispatcher("recordingScore.jsp").forward(request, response);
 			}
 		} else {
-			//跳转到404页面,并打印错误信息
-			String errorMessage = "用户权限不足！";
+			// 如果登录不成功，跳转到404页面,并打印错误信息
+			String errorMessage = "当前用户无权访问！";
 			request.getSession().setAttribute("ErrorMessage", errorMessage);
 			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
@@ -93,14 +94,14 @@ public class RecordingScoreServlet extends HttpServlet {
 		String p_no = (String) request.getSession().getAttribute("recordingScoreByPNo");
 		String[] stu_no = request.getParameterValues("stu_no");
 		String[] score = request.getParameterValues("score");
-		
-		System.out.println(stu_no[0]+"  "+score[0]);
+
+		System.out.println(stu_no[0] + "  " + score[0]);
 		String c_username = (String) request.getSession().getAttribute("account");
 		String role = (String) request.getSession().getAttribute("role");
-	
+
 		ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
-		if (role == null){
-			//跳转到404页面,并打印错误信息
+		if (role == null) {
+			// 跳转到404页面,并打印错误信息
 			String errorMessage = "用户权限不足！";
 			request.getSession().setAttribute("ErrorMessage", errorMessage);
 			response.sendRedirect(request.getContextPath() + "/404.jsp");
@@ -116,12 +117,17 @@ public class RecordingScoreServlet extends HttpServlet {
 			}
 			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
 			projectDaoImpl.inputScore(stu_no, score, p_no);
-			
+
 			ArrayList<ProProSelStuView> recordingScoreView = projectDaoImpl.findStuScoreByPNo(p_no, pageUtils);
 			request.setAttribute("recordingScoreView", recordingScoreView);
 
 			request.getSession().setAttribute("recordingScorePageUtils", pageUtils);
 			request.getRequestDispatcher("recordingScore.jsp").forward(request, response);
+		} else {
+			// 跳转到404页面,并打印错误信息
+			String errorMessage = "用户权限不足！";
+			request.getSession().setAttribute("ErrorMessage", errorMessage);
+			response.sendRedirect(request.getContextPath() + "/404.jsp");
 		}
 	}
 }

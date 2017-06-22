@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,8 +18,11 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 
+import cn.edu.cdu.practice.dao.impl.ProjectDaoImpl;
 import cn.edu.cdu.practice.service.StudentService;
+import cn.edu.cdu.practice.service.impl.ProjectServiceImpl;
 import cn.edu.cdu.practice.service.impl.StudentServiceImpl;
+import cn.edu.cdu.practice.utils.ExcelInUtil;
 
 /**
  * Servlet implementation class UpFileToRecordScore
@@ -86,6 +90,9 @@ public class UpFileToRecordScore extends HttpServlet {
 	private void processUploadField(FileItem item, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		try {
+			String c_username = (String) request.getSession().getAttribute("account");
+			String role = (String) request.getSession().getAttribute("role");
+			
 			System.out.println("进入表单处理字段");
 			InputStream in = item.getInputStream();
 			String fileName = item.getName();// 确定上传文件名
@@ -100,16 +107,32 @@ public class UpFileToRecordScore extends HttpServlet {
 			if (!fileFactory.exists()) {
 				fileFactory.mkdirs();
 			}
+			// 重命名，前缀为时间戳，防止相同文件覆盖
+			fileName = c_username+"_"+Calendar.getInstance().getTime().getTime() + fileName;
 			// 存储
 			item.write(new File(fileFactory, fileName));
 			System.out.println("存储成功" + getServletContext().getRealPath("WEB-INF/files"));
-//			StudentService studentService = new StudentServiceImpl();
-//			if (studentService.importStudent(getServletContext().getRealPath("WEB-INF/files") + "/" + fileName)) {
-//				request.getSession().setAttribute("message", "恭喜您，导入成功");
-//			} else {
-//				request.getSession().setAttribute("message", "对不起，导入失败");
-//			}
-//			request.getRequestDispatcher("NewFile.jsp").forward(request, response);
+			ProjectDaoImpl projectDaoImpl = new ProjectDaoImpl();
+			List<String[]> list = ExcelInUtil
+					.importStudentScoreExcel(getServletContext().getRealPath("WEB-INF/files") + "/" + fileName);
+			String list_pno = list.get(1)[0];
+			
+			ProjectServiceImpl projectServiceImpl = new ProjectServiceImpl();
+			System.out.println("录入成绩的方案号: "+list_pno);
+			if ((role.equals("1") && projectServiceImpl.findProjectBelongToUserByPNo(c_username, list_pno))) {
+
+				if (projectDaoImpl.inputScore(list.get(0), list.get(2), list_pno)) {
+					request.setAttribute("UpFileToRecordScoreResult", "  恭喜您，导入成功");
+				} else {
+					request.setAttribute("UpFileToRecordScoreResult", "  对不起，导入失败");
+				}
+				request.getRequestDispatcher("RecordScoreTypeChoice").forward(request, response);
+			} else {
+				// 跳转到404页面,并打印错误信息
+				String errorMessage = "用户身份异常！";
+				request.getSession().setAttribute("ErrorMessage", errorMessage);
+				response.sendRedirect(request.getContextPath() + "/404.jsp");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			// 跳转到404页面,并打印错误信息

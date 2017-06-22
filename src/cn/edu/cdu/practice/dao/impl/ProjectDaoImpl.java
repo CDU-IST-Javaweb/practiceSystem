@@ -634,7 +634,8 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public boolean inputScore(String[] stu_nos, String[] scores, String p_no) {
-		String sql = "UPDATE project_select SET score=? WHERE studentNo=? AND projectNo=? AND company_sel_date IS NOT NULL";
+		String sql = "UPDATE project_select SET score=? WHERE studentNo=? AND projectNo=?";
+		//根据实际情况取消 AND company_sel_date IS NOT NULL 限制
 		Connection connection = DbUtils.getConnection();
 		PreparedStatement ps = null;
 		try {
@@ -642,6 +643,8 @@ public class ProjectDaoImpl implements ProjectDao {
 			ps = connection.prepareStatement(sql);
 			ps.setString(3, p_no);
 			for (int i = 0; i < stu_nos.length; i++) {
+				if(stu_nos[1]==null)
+					continue;
 				ps.setString(1, scores[i]);
 				ps.setString(2, stu_nos[i]);
 				ps.addBatch();

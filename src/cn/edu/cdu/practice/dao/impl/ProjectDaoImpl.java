@@ -643,7 +643,7 @@ public class ProjectDaoImpl implements ProjectDao {
 			ps = connection.prepareStatement(sql);
 			ps.setString(3, p_no);
 			for (int i = 0; i < stu_nos.length; i++) {
-				if(stu_nos[1]==null)
+				if(stu_nos[i]==null)
 					continue;
 				ps.setString(1, scores[i]);
 				ps.setString(2, stu_nos[i]);

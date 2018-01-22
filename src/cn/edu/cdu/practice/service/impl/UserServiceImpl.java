@@ -1,13 +1,9 @@
 package cn.edu.cdu.practice.service.impl;
-
 import java.io.PrintWriter;
 import java.sql.*;
-
 import javax.servlet.http.HttpSession;
-
 import cn.edu.cdu.practice.service.UserService;
 import cn.edu.cdu.practice.utils.*;
-
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -21,7 +17,6 @@ import java.util.List;
  * Modification Date： 2017-5-16:下午23:03
  */
 public class UserServiceImpl implements UserService{
-
 	@Override
 	//用户登录时，在页面选择角色，然后输入需要的参数，如果验证码和session中的一致，则进行下一步验证
 	//如果role=1，进企业表；如果role=2，进学生表；如果role=9，进系统参数表
@@ -61,16 +56,15 @@ public class UserServiceImpl implements UserService{
 		try {
 			ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.setString(1, account);
+			System.out.println("加密的密码："+MdPwdUtil.MD5Password(password));
 			ps.setString(2, MdPwdUtil.MD5Password(password));
 			System.out.println(ps.toString());
 			rs = ps.executeQuery();
-//			System.out.println(ps.toString());
 			if(rs.next()){
 				Log4jUtils.info(account_type+ "用户" + account + "登录成功");
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			DbUtils.closeConnection(con, ps, rs);
@@ -78,10 +72,8 @@ public class UserServiceImpl implements UserService{
 		Log4jUtils.info(account_type+ "用户" + account + "登录不成功");
 		return false;
 	}
-
 	//用户输入密保邮箱后，将生成的验证码插入到mailbox_verification表中，如果mailbox_verification表中已经有这个邮箱了，
 	//就不要进行插入操作，而是将新生成的验证码更新到指定的记录。
-	@SuppressWarnings("resource")
 	@Override
 	public Boolean getPassBack(String mailbox,int type, String identifyCode) {
 		Connection con = (Connection) DbUtils.getConnection();
@@ -97,6 +89,8 @@ public class UserServiceImpl implements UserService{
 			//如果没有密保邮箱的记录，就进行插入
 			if(!rs.next()){
 				sql = "insert into mailbox_verification values(?,?,?)";
+				ps.close();
+				rs.close();
 				ps = (PreparedStatement) con.prepareStatement(sql);
 				ps.setString(1, mailbox);
 				ps.setInt(2, type);
@@ -110,9 +104,10 @@ public class UserServiceImpl implements UserService{
 					return false;
 				}
 			}
-//			DbUtils.closeConnection(con, ps,rs);
 			//如果有，就更新验证码
 			sql = "update mailbox_verification set verification_code = ? where mailbox = ?";
+			ps.close();
+			rs.close();
 			ps = (PreparedStatement) con.prepareStatement(sql);
 			ps.setString(1, identifyCode);
 			ps.setString(2, mailbox);
@@ -161,7 +156,6 @@ public class UserServiceImpl implements UserService{
 		Log4jUtils.info(account + "重设密码不成功");
 		return false;
 	}
-
 	@Override
 	public List<String> searchbyEmail(String mailbox) {
 		Connection con = (Connection) DbUtils.getConnection();
@@ -203,12 +197,4 @@ public class UserServiceImpl implements UserService{
 		list.add(role);
 		return list;
 	}
-
-	@Override
-	public boolean register(String rscode, String qyname, String qyusername, String password, String confirmPassword,
-			String email, String verificationCode, String captcha) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 }

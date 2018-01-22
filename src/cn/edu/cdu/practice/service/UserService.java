@@ -22,6 +22,4 @@ public interface UserService {
 	public List<String> searchbyEmail(String mailbox);
 	//对指定密码邮箱的用户重设密码,type为用户类型
 	public boolean resetPass(String password,String mailbox,String role,String account);
-	public boolean register(String rscode, String qyname, String qyusername, String password, String confirmPassword,
-			String email, String verificationCode, String captcha);
 }

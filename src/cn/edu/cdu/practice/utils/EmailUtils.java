@@ -49,15 +49,12 @@ public class EmailUtils {
 	     //创建邮件对象
 	     Message mailMessage = new MimeMessage(session);  
 	     try {  
-	         System.out.println("I'm sending...");  
-	         
 	         Address from = new InternetAddress("computer_sys@cdu.edu.cn");  
 	         //设置发出方  
 	         mailMessage.setFrom(from);  
 	         Address to = new InternetAddress(emailTo);
 	         //设置接收人员  
 	         mailMessage.setRecipient(Message.RecipientType.TO, to); 
-	         System.out.println(emailTo);
 	         mailMessage.setSubject("成都大学信工学院实训系统企业验证");//设置邮件标题  
 	         mailMessage.setContent("您的验证码是"+content+"，请确认是本人操作","text/html;charset=utf-8"); //设置邮件内容  
 	         // 发送邮件  
@@ -68,8 +65,4 @@ public class EmailUtils {
 	     }  
 	     	return false;  
 	 }  
-	public static void main(String[] args) {
-//		sendMail("oliveryx@163.com","yuxiytx912","5374664@qq.com",1,"abcd");
-		sendMail("5374664@qq.com",1,"abcd222");
-	}
 }

@@ -31,18 +31,6 @@ public class DbUtils {
 	 * 静态代码块，读取jdbc配置文件，将数据库连接参数赋值给本类的属性
 	 */
 	static {
-		/*Properties properties = new Properties();
-		ClassLoader loader = DbUtils.class.getClassLoader();
-		try {
-			properties.load(loader.getResourceAsStream("jdbc.properties"));
-			driver = properties.getProperty("driver");
-			url = properties.getProperty("url");
-			user = properties.getProperty("user");
-			password = properties.getProperty("password");
-			Class.forName(driver);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
 		 cpds = new ComboPooledDataSource();
 	}
 	

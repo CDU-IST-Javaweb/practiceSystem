@@ -287,10 +287,6 @@
 				<!-- responsive table example end -->
 
 			</div>
-
-
-
-
 		</div>
 	</div>
 

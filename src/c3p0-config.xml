@@ -3,9 +3,9 @@
        
         <default-config>  
             <property name="driverClass">com.mysql.jdbc.Driver</property>  
-            <property name="jdbcUrl">jdbc:mysql://localhost:3306/practice?characterEncoding=utf8</property>  
-            <property name="user">root</property>  
-            <property name="password">123456</property>  
+            <property name="jdbcUrl">jdbc:mysql://202.115.82.8:5502/practice?characterEncoding=utf8&amp;useSSL=false</property>  
+            <property name="user">practice</property>  
+            <property name="password">Cddx123</property>  
             <property name="checkoutTimeout">3000</property>
             <property name="initialPoolSize">30</property>  
             <property name="maxIdleTime">30</property>  

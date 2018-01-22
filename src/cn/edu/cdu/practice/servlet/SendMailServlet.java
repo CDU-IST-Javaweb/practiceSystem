@@ -30,8 +30,6 @@ public class SendMailServlet extends HttpServlet {
 		String mbemail = request.getParameter("mbemail");
 		CompanyService companyService = new CompanyServiceImpl();
 		PrintWriter out = response.getWriter();
-			String emailFrom = "oliveryx@163.com";
-			String pwd = "yuxiytx912";
 			String identifyCode = IdentifyCodeUtils.getCode();
 			System.out.println("验证码是:"+identifyCode);
 			EmailUtils.sendMail(mbemail, 1, identifyCode);

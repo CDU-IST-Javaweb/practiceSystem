@@ -37,9 +37,8 @@ public class ResetPassServlet extends HttpServlet {
 
 	/**
 	 * 重置密码：
-	 * 1.从mialbox_verfication中找到保密邮箱所对应的验证码；
-	 * 2.获得用户输入的保密邮箱中的验证码；
-	 * 3.根据用户类型找到对应的表，修改里面的密码；
+	 * 1.获得用户输入的保密邮箱中的验证码；
+	 * 2.根据用户类型找到对应的表，修改里面的密码；
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获得保密邮箱
@@ -56,14 +55,12 @@ public class ResetPassServlet extends HttpServlet {
 		if(rvcinAction != null && rvchidden != null && newpassword != null && newconfirmPassword != null) {
 			if(!rvchidden.equals(rvcinAction)){
 				//如果输入的验证码和发送到邮箱的不一致，跳转到404页面
-				System.out.println("hehe");
 				//跳转到404页面,并打印错误信息
 				String errorMessage = "验证码输入错误！";
 				request.getSession().setAttribute("ErrorMessage", errorMessage);
 				response.sendRedirect(request.getContextPath() + "/404.jsp");
 			}
 			if(newpassword.equals(newconfirmPassword)){
-				System.out.println("hahaha");
 				UserServiceImpl usi = new UserServiceImpl();
 				List<String> userinfo = usi.searchbyEmail(mbemail);
 				String account = userinfo.get(0);
